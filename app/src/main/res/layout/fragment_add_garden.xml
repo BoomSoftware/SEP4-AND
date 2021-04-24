@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_300"
+    tools:context=".views.mainapp.AddGardenFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65999997"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/add_garden"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:text="Add your garden"
+            android:textColor="@color/green_700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <fragment android:id="@+id/autocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            />
+
+        <TextView
+            android:id="@+id/garden_name"
+            style="@style/input_title"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/garden_name"
+            android:textColor="@color/green_700" />
+
+        <EditText
+            android:id="@+id/input_garden_name"
+            style="@style/input"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/garden_land_area"
+            style="@style/input_title"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/garden_land_area"
+            android:textColor="@color/green_700" />
+
+        <EditText
+            android:id="@+id/input_land_area"
+            style="@style/input"
+            android:inputType="textPersonName" />
+
+
+        <TextView
+            android:id="@+id/garden_city"
+            style="@style/input_title"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/garden_city"
+            android:textColor="@color/green_700" />
+
+        <EditText
+            android:id="@+id/input_city"
+            style="@style/input"
+            android:layout_marginTop="4dp"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/garden_street"
+            style="@style/input_title"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/garden_street"
+            android:textColor="@color/green_700" />
+
+        <EditText
+            android:id="@+id/input_street"
+            style="@style/input"
+            android:layout_marginTop="4dp"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/garden_street_number"
+            style="@style/input_title"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/garden_street_number"
+            android:textColor="@color/green_700" />
+
+        <EditText
+            android:id="@+id/input_street_number"
+            style="@style/input"
+            android:layout_marginTop="4dp"
+            android:inputType="textPersonName" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/green_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:text="@string/add_garden"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

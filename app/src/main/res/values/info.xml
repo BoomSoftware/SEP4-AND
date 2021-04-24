@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="invalid_auth">Invalid data</string>
+    <string name="server_error">Server error - try again later</string>
+</resources>
