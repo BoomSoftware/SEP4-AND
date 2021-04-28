@@ -1,6 +1,7 @@
 package com.example.sep4_android.models;
 
 public class Garden {
+    private String googleUID;
     private int id;
     private String name;
     private double landArea;
@@ -8,15 +9,14 @@ public class Garden {
     private String street;
     private String number;
 
-
-    public Garden(String name, double landArea, String city, String street, String number) {
+    public Garden(String name, double landArea, String city, String street, String number, String googleUID) {
         this.name = name;
         this.landArea = landArea;
         this.city = city;
         this.street = street;
         this.number = number;
+        this.googleUID = googleUID;
     }
-
 
     public int getId() {
         return id;
@@ -64,5 +64,13 @@ public class Garden {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getGoogleUID() {
+        return googleUID;
+    }
+
+    public void setGoogleUID(String googleUID) {
+        this.googleUID = googleUID;
     }
 }

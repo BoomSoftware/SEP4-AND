@@ -7,6 +7,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface GardenApi {
-    @POST("garden/")
+    @POST("/gardens")
     Call<Integer> createNewGarden(@Body Garden garden);
 }

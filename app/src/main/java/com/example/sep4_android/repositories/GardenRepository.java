@@ -38,12 +38,14 @@ public class GardenRepository {
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if(response.isSuccessful()){
                     gardenId.setValue(response.body().intValue());
+                    System.out.println("XXXXXXXXXXXXXXXXXXXXXX success");
                 }
             }
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
                 gardenId.setValue(-1);
+                System.out.println("XXXXXXXXXXXXXXXXXXXXXX error" + t.getMessage());
             }
         });
     }
