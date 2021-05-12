@@ -32,7 +32,7 @@ public class UserRepository {
 
     public void createUser(String uid, boolean isOwner){
         myRef = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
-        myRef.setValue(isOwner);
+        myRef.child("status").setValue(isOwner);
     }
 
     public UserStatusLiveData getStatus(String uid){

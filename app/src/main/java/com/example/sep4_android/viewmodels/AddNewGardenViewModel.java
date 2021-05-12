@@ -24,7 +24,7 @@ public class AddNewGardenViewModel extends AndroidViewModel {
     }
 
     public void addNewGarden(Garden garden){
-        gardenRepository.addNewGarden(garden);
+        gardenRepository.createGarden(garden);
     }
 
     public LiveData<Integer> getGardenId(){

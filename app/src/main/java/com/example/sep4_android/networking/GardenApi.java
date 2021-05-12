@@ -8,5 +8,5 @@ import retrofit2.http.POST;
 
 public interface GardenApi {
     @POST("/gardens")
-    Call<Integer> createNewGarden(@Body Garden garden);
+    Call<Boolean> createNewGarden(@Body Garden garden);
 }

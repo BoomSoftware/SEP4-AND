@@ -1,21 +1,21 @@
 package com.example.sep4_android.models;
 
 public class Garden {
-    private String googleUID;
+    private String owner_google_id;
     private int id;
     private String name;
-    private double landArea;
+    private double land_area;
     private String city;
     private String street;
     private String number;
 
-    public Garden(String name, double landArea, String city, String street, String number, String googleUID) {
+    public Garden(String name, double land_area, String city, String street, String number, String owner_google_id) {
         this.name = name;
-        this.landArea = landArea;
+        this.land_area = land_area;
         this.city = city;
         this.street = street;
         this.number = number;
-        this.googleUID = googleUID;
+        this.owner_google_id = owner_google_id;
     }
 
     public int getId() {
@@ -34,12 +34,12 @@ public class Garden {
         this.name = name;
     }
 
-    public double getLandArea() {
-        return landArea;
+    public double getLand_area() {
+        return land_area;
     }
 
-    public void setLandArea(double landArea) {
-        this.landArea = landArea;
+    public void setLand_area(double land_area) {
+        this.land_area = land_area;
     }
 
     public String getCity() {
@@ -66,11 +66,11 @@ public class Garden {
         this.number = number;
     }
 
-    public String getGoogleUID() {
-        return googleUID;
+    public String getOwner_google_id() {
+        return owner_google_id;
     }
 
-    public void setGoogleUID(String googleUID) {
-        this.googleUID = googleUID;
+    public void setOwner_google_id(String owner_google_id) {
+        this.owner_google_id = owner_google_id;
     }
 }
