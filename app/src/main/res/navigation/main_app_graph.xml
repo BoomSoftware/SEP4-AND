@@ -29,9 +29,18 @@
         android:id="@+id/gardenListFragment"
         android:name="com.example.sep4_android.views.mainapp.GardenListFragment"
         android:label=""
-        tools:layout="@layout/fragment_garden_list" />
+        tools:layout="@layout/fragment_garden_list" >
+        <action
+            android:id="@+id/action_gardenListFragment_to_addPlantFragment"
+            app:destination="@id/addPlantFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.sep4_android.views.mainapp.SettingsFragment"
         android:label="" />
+    <fragment
+        android:id="@+id/addPlantFragment"
+        android:name="com.example.sep4_android.views.mainapp.AddPlantFragment"
+        android:label="fragment_add_plant"
+        tools:layout="@layout/fragment_add_plant" />
 </navigation>
