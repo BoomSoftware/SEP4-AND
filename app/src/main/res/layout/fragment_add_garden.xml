@@ -8,7 +8,7 @@
     tools:context=".views.mainapp.AddGardenFragment">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/image_view_plants"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
@@ -18,14 +18,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/garden_add_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/button_add_garden"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/image_view_plants">
 
         <TextView
             android:id="@+id/add_garden"
@@ -33,13 +33,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="Add your garden"
+            android:text="Add Your Garden"
             android:textColor="@color/green_700"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/garden_name"
+            android:id="@+id/text_garden_name"
             style="@style/input_title"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="30dp"
@@ -52,7 +52,7 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/garden_land_area"
+            android:id="@+id/text_land_area"
             style="@style/input_title"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="30dp"
@@ -66,7 +66,7 @@
 
 
         <TextView
-            android:id="@+id/garden_city"
+            android:id="@+id/text_city"
             style="@style/input_title"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="30dp"
@@ -80,7 +80,7 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/garden_street"
+            android:id="@+id/text_street"
             style="@style/input_title"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
@@ -94,7 +94,7 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/garden_street_number"
+            android:id="@+id/text_street_number"
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
@@ -115,7 +115,7 @@
         style="@style/green_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/add_garden"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
