@@ -1,5 +1,12 @@
 package com.example.sep4_android.networking;
 
-public interface GardenApi {
+import com.example.sep4_android.models.Garden;
 
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+
+public interface GardenApi {
+    @POST("/gardens")
+    Call<Boolean> createNewGarden(@Body Garden garden);
 }
