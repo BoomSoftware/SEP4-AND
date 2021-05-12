@@ -22,6 +22,7 @@
     <string name="settings">Settings</string>
     <string name="view_garden">View Garden</string>
     <string name="add_garden">Add Garden</string>
+    <string name="add_plant">Add Plant</string>
 
     <!-- Sign up -->
     <string name="gardener">Gardener</string>
@@ -33,4 +34,14 @@
     <string name="garden_city">City</string>
     <string name="garden_street">Street</string>
     <string name="garden_street_number">Street Number</string>
+
+    <!-- Add plant form -->
+    <string name="plant_garden_name">Garden Name</string>
+    <string name="plant_height">Plant Height</string>
+    <string name="plant_width">Plant Width</string>
+    <string name="plant_growth_stage">Stage Of Growth</string>
+    <string name="plant_soil_type">Soil Type</string>
+    <string name="plant_soil_volume">Own Soil Volume</string>
+    <string name="plant_common_name">Common Plant Name</string>
+    <string name="plant_category_name">Category Name</string>
 </resources>

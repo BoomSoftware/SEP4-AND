@@ -24,7 +24,7 @@
         android:id="@+id/addGardenFragment"
         android:name="com.example.sep4_android.views.mainapp.AddGardenFragment"
         android:label=""
-        tools:layout="@layout/fragment_add_garden" />
+        tools:layout="@layout/fragment_add_plant" />
     <fragment
         android:id="@+id/gardenListFragment"
         android:name="com.example.sep4_android.views.mainapp.GardenListFragment"
@@ -42,5 +42,5 @@
         android:id="@+id/addPlantFragment"
         android:name="com.example.sep4_android.views.mainapp.AddPlantFragment"
         android:label="fragment_add_plant"
-        tools:layout="@layout/fragment_add_plant" />
+        tools:layout="@layout/fragment_add_garden" />
 </navigation>

@@ -13,22 +13,20 @@ public class Plant {
     private String garden_location;
     private String common_plant_name;
     private String category_name;
-    private LocalDate seeded_at;
-    private LocalDate harvested_at;
+    private String seeded_at;
+    private String harvested_at;
 
-    public Plant(String garden_name, int height, int width, String stage_of_growth, String soil_type, int own_soil_volume, String garden_location, String common_plant_name, String category_name) {
+    public Plant(String garden_name, int height, int width, String stage_of_growth, String soil_type, int own_soil_volume, String common_plant_name, String category_name) {
         this.garden_name = garden_name;
         this.height = height;
         this.width = width;
         this.stage_of_growth = stage_of_growth;
         this.soil_type = soil_type;
         this.own_soil_volume = own_soil_volume;
-        this.garden_location = garden_location;
         this.common_plant_name = common_plant_name;
         this.category_name = category_name;
-        seeded_at = LocalDate.now();
+        seeded_at = LocalDate.now().toString();
     }
-
 
     public int getPlant_ID() {
         return plant_ID;
@@ -110,19 +108,19 @@ public class Plant {
         this.category_name = category_name;
     }
 
-    public LocalDate getSeeded_at() {
+    public String getSeeded_at() {
         return seeded_at;
     }
 
-    public void setSeeded_at(LocalDate seeded_at) {
+    public void setSeeded_at(String  seeded_at) {
         this.seeded_at = seeded_at;
     }
 
-    public LocalDate getHarvested_at() {
+    public String getHarvested_at() {
         return harvested_at;
     }
 
-    public void setHarvested_at(LocalDate harvested_at) {
+    public void setHarvested_at(String harvested_at) {
         this.harvested_at = harvested_at;
     }
 }
