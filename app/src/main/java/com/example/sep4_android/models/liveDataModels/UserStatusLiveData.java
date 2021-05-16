@@ -1,4 +1,4 @@
-package com.example.sep4_android.models;
+package com.example.sep4_android.models.liveDataModels;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -12,7 +12,8 @@ public class UserStatusLiveData extends LiveData<Boolean> {
     private final ValueEventListener listener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
-            setValue(snapshot.hasChild(uid));
+            Boolean status = snapshot.getValue(Boolean.class);
+            setValue(status);
         }
 
         @Override
@@ -22,11 +23,8 @@ public class UserStatusLiveData extends LiveData<Boolean> {
     };
 
     DatabaseReference databaseReference;
-    String uid;
-
-    public UserStatusLiveData(DatabaseReference databaseReference, String uid) {
+    public UserStatusLiveData(DatabaseReference databaseReference) {
         this.databaseReference = databaseReference;
-        this.uid = uid;
     }
 
     @Override

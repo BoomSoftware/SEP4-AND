@@ -32,19 +32,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/text_plant_garden_name"
-            style="@style/input_title"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            android:text="@string/plant_garden_name"
-            android:textColor="@color/green_700" />
-
-        <EditText
-            android:id="@+id/input_plant_garden_name"
-            style="@style/input"
-            android:layout_marginTop="4dp" />
-
-        <TextView
             android:id="@+id/text_plant_height"
             style="@style/input_title"
             android:layout_marginTop="10dp"
@@ -132,6 +119,19 @@
 
         <EditText
             android:id="@+id/input_plant_category_name"
+            style="@style/input"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/text_plant_garden_location"
+            style="@style/input_title"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/plant_garden_location"
+            android:textColor="@color/green_700" />
+
+        <EditText
+            android:id="@+id/input_plant_garden_location"
             style="@style/input"
             android:layout_marginTop="4dp" />
     </LinearLayout>

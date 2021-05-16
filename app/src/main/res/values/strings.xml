@@ -22,7 +22,11 @@
     <string name="settings">Settings</string>
     <string name="view_garden">View Garden</string>
     <string name="add_garden">Add Garden</string>
+    <string name="remove_garden">Remove Garden</string>
     <string name="add_plant">Add Plant</string>
+    <string name="no_garden_added">No garden added</string>
+    <string name="main_title">GardenManager</string>
+    <string name="main_sub_title">Manage your garden and check the status of plants anytime</string>
 
     <!-- Sign up -->
     <string name="gardener">Gardener</string>
@@ -44,4 +48,13 @@
     <string name="plant_soil_volume">Own Soil Volume</string>
     <string name="plant_common_name">Common Plant Name</string>
     <string name="plant_category_name">Category Name</string>
+    <string name="plant_garden_location">Garden location</string>
+
+    <!--    Sensors-->
+    <string name="light_sensor">Light sensor ID</string>
+    <string name="co2_sensor">CO2 sensor ID</string>
+    <string name="temp_sensor">Temperature and humidity sensor ID</string>
+
+    <!--    Messages-->
+    <string name="no_garden">First create garden!</string>
 </resources>

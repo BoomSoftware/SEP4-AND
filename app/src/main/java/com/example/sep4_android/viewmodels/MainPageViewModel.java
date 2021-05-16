@@ -2,6 +2,7 @@ package com.example.sep4_android.viewmodels;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -10,21 +11,25 @@ import com.example.sep4_android.repositories.GardenRepository;
 import com.example.sep4_android.repositories.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
-public class AddNewGardenViewModel extends AndroidViewModel {
+public class MainPageViewModel extends AndroidViewModel {
     private GardenRepository gardenRepository;
     private UserRepository userRepository;
 
-    public AddNewGardenViewModel(Application application) {
+    public MainPageViewModel(@NonNull Application application) {
         super(application);
         userRepository = UserRepository.getInstance(application);
         gardenRepository = GardenRepository.getInstance(application);
     }
 
-    public void addNewGarden(Garden garden){
-        gardenRepository.createGarden(garden);
+    public LiveData<Garden> getGarden(String userGoogleId){
+        return gardenRepository.getGarden(userGoogleId);
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){
         return userRepository.getCurrentUser();
+    }
+
+    public void removeGarden(String userGoogleId){
+        gardenRepository.removeGarden(userGoogleId);
     }
 }

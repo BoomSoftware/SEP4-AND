@@ -4,8 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.sep4_android.models.UserLiveData;
-import com.example.sep4_android.models.UserStatusLiveData;
+import com.example.sep4_android.models.liveDataModels.UserLiveData;
+import com.example.sep4_android.models.liveDataModels.UserStatusLiveData;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -36,8 +36,8 @@ public class UserRepository {
     }
 
     public UserStatusLiveData getStatus(String uid){
-        myRef = FirebaseDatabase.getInstance().getReference("users");
-        return new UserStatusLiveData(myRef, uid);
+        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("status");
+        return new UserStatusLiveData(myRef);
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){

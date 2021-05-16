@@ -1,21 +1,26 @@
 package com.example.sep4_android.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Garden {
-    private String owner_google_id;
+    @PrimaryKey(autoGenerate = true)
     private int id;
+    private String ownerGoogleId;
     private String name;
-    private double land_area;
+    private double landArea;
     private String city;
     private String street;
     private String number;
 
-    public Garden(String name, double land_area, String city, String street, String number, String owner_google_id) {
+    public Garden(String name, double landArea, String city, String street, String number, String ownerGoogleId) {
         this.name = name;
-        this.land_area = land_area;
+        this.landArea = landArea;
         this.city = city;
         this.street = street;
         this.number = number;
-        this.owner_google_id = owner_google_id;
+        this.ownerGoogleId = ownerGoogleId;
     }
 
     public int getId() {
@@ -34,12 +39,12 @@ public class Garden {
         this.name = name;
     }
 
-    public double getLand_area() {
-        return land_area;
+    public double getLandArea() {
+        return landArea;
     }
 
-    public void setLand_area(double land_area) {
-        this.land_area = land_area;
+    public void setLandArea(double landArea) {
+        this.landArea = landArea;
     }
 
     public String getCity() {
@@ -66,11 +71,11 @@ public class Garden {
         this.number = number;
     }
 
-    public String getOwner_google_id() {
-        return owner_google_id;
+    public String getOwnerGoogleId() {
+        return ownerGoogleId;
     }
 
-    public void setOwner_google_id(String owner_google_id) {
-        this.owner_google_id = owner_google_id;
+    public void setOwnerGoogleId(String ownerGoogleId) {
+        this.ownerGoogleId = ownerGoogleId;
     }
 }

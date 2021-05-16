@@ -24,7 +24,7 @@
         android:id="@+id/addGardenFragment"
         android:name="com.example.sep4_android.views.mainapp.AddGardenFragment"
         android:label=""
-        tools:layout="@layout/fragment_add_plant" />
+        tools:layout="@layout/fragment_add_garden" />
     <fragment
         android:id="@+id/gardenListFragment"
         android:name="com.example.sep4_android.views.mainapp.GardenListFragment"
@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_gardenListFragment_to_addPlantFragment"
             app:destination="@id/addPlantFragment" />
+        <action
+            android:id="@+id/action_gardenListFragment_to_plantOverviewFragment"
+            app:destination="@id/plantOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -42,5 +45,23 @@
         android:id="@+id/addPlantFragment"
         android:name="com.example.sep4_android.views.mainapp.AddPlantFragment"
         android:label="fragment_add_plant"
-        tools:layout="@layout/fragment_add_garden" />
+        tools:layout="@layout/fragment_add_plant" >
+        <action
+            android:id="@+id/action_addPlantFragment_to_addSensorsFragment"
+            app:destination="@id/addSensorsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSensorsFragment"
+        android:name="com.example.sep4_android.views.mainapp.AddSensorsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_add_sensors" >
+        <action
+            android:id="@+id/action_addSensorsFragment_to_gardenListFragment"
+            app:destination="@id/gardenListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/plantOverviewFragment"
+        android:name="com.example.sep4_android.views.mainapp.PlantOverviewFragment"
+        android:label="fragment_plant_overview"
+        tools:layout="@layout/fragment_plant_overview" />
 </navigation>

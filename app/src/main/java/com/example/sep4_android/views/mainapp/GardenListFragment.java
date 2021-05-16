@@ -3,6 +3,7 @@ package com.example.sep4_android.views.mainapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,42 +11,70 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.PlantAdapter;
-import com.example.sep4_android.models.Plant;
+import com.example.sep4_android.viewmodels.GardenViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
+public class GardenListFragment extends Fragment implements PlantAdapter.OnClickListener {
 
-
-public class GardenListFragment extends Fragment  {
-
-private RecyclerView recyclerView;
-private View view;
-private PlantAdapter plantAdapter;
-private ArrayList<Plant> plantArrayList;
-private Button button;
-
-
+    private RecyclerView recyclerView;
+    private View view;
+    private PlantAdapter plantAdapter;
+    private FloatingActionButton addPlantButton;
+    private GardenViewModel gardenViewModel;
+    private String gardenName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         view= inflater.inflate(R.layout.fragment_garden_list, container, false);
-        recyclerView = view.findViewById(R.id.recycler);
-        recyclerView.hasFixedSize();
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false));
-
-//        ArrayList<Plant> plantArrayList = new ArrayList<>();
-//        plantAdapter = new PlantAdapter(plantArrayList,this);
-        recyclerView.setAdapter(plantAdapter);
+        view = inflater.inflate(R.layout.fragment_garden_list, container, false);
+        gardenViewModel = new ViewModelProvider(this).get(GardenViewModel.class);
+        prepareUI();
+        prepareRecyclerView();
+        prepareOnClickEvents();
         return view;
     }
-//
-//    @Override
-//    public void onListItemClick(int plantId) {
-//        button.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_addPlantFragment));
-//    }
+
+
+    private void prepareUI() {
+        addPlantButton = view.findViewById(R.id.button_add_plant);
+        recyclerView = view.findViewById(R.id.recycler);
+    }
+
+    private void prepareOnClickEvents() {
+        addPlantButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("gardenName", gardenName);
+            Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_addPlantFragment, bundle);
+        });
+    }
+
+
+    private void prepareRecyclerView() {
+        recyclerView.hasFixedSize();
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+
+        plantAdapter = new PlantAdapter(this);
+        gardenViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+            gardenViewModel.getGardenInfo(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
+                if(garden != null){
+                    gardenName = garden.getName();
+                    gardenViewModel.getPlantsForGarden(garden.getName()).observe(getViewLifecycleOwner(), plants -> {
+                        if(!plants.isEmpty()){
+                            plantAdapter.setPlants(plants);
+                        }
+                    });
+                }
+            });
+        });
+        recyclerView.setAdapter(plantAdapter);
+    }
+
+    @Override
+    public void onClick(int plantId) {
+        gardenViewModel.loadPlant(plantId);
+        Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_plantOverviewFragment);
+    }
 }

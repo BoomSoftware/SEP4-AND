@@ -2,28 +2,20 @@ package com.example.sep4_android.views.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.example.sep4_android.MainAppActivity;
 import com.example.sep4_android.R;
 import com.example.sep4_android.viewmodels.SignInViewModel;
-import com.example.sep4_android.viewmodels.SignUpViewModel;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.common.SignInButton;
-
 import java.util.Arrays;
 import java.util.List;
-
 import es.dmoral.toasty.Toasty;
 
 import static android.app.Activity.RESULT_OK;
@@ -58,7 +50,7 @@ public class SignInFragment extends Fragment {
         loginViewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
             if(firebaseUser != null){
                 loginViewModel.getStatus().observe(getViewLifecycleOwner(), status -> {
-                    if(status){
+                    if(status != null && status){
                         Intent intent = new Intent(getContext(), MainAppActivity.class);
                         getContext().startActivity(intent);
                     }else{
@@ -95,7 +87,7 @@ public class SignInFragment extends Fragment {
     private void handleSignInRequest(int resultCode){
         if(resultCode == RESULT_OK) {
             loginViewModel.getStatus().observe(getActivity(), status -> {
-                if(status){
+                if(status != null && status){
                     Intent intent = new Intent(getContext(), MainAppActivity.class);
                     getContext().startActivity(intent);
                 }
