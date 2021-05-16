@@ -23,6 +23,9 @@
     <color name="green_800">#1B4332</color> // white text
     <color name="green_900">#081C15</color> // white text
 
+    <color name="dark_green">#22483E</color>
+    <color name="contrast_green">#739F62</color>
+
     //warnings
 
     <color name="warning_light">#FFBB33</color>

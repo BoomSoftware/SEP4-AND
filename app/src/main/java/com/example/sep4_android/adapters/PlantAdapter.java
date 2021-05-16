@@ -29,15 +29,18 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recycleviewdesign,parent,false);
+        View view = inflater.inflate(R.layout.item_plant, parent, false);
         return new PlantAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-       holder.button.setOnClickListener(v->{
-           onClickListener.onClick(plants.get(position).getPlantID());
-       });
+        Plant currentPlant = plants.get(position);
+        holder.plantLocation.setText(currentPlant.getGardenLocation());
+        holder.plantName.setText(currentPlant.getCategoryName());
+        holder.viewPlant.setOnClickListener(v -> {
+            onClickListener.onClick(currentPlant.getPlantID());
+        });
     }
 
 
@@ -52,13 +55,15 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
-        Button button;
+        TextView plantName;
+        TextView plantLocation;
+        Button viewPlant;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.plantName);
-            button = itemView.findViewById(R.id.buttonOpen);
+            plantName = itemView.findViewById(R.id.text_plant_item_name);
+            viewPlant = itemView.findViewById(R.id.button_item_plant_view);
+            plantLocation = itemView.findViewById(R.id.text_item_plant_location);
         }
     }
 

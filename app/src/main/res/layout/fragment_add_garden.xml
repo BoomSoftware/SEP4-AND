@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_300"
+    android:background="@color/dark_green"
     tools:context=".views.mainapp.AddGardenFragment">
 
     <ImageView
@@ -34,8 +34,9 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="Add Your Garden"
-            android:textColor="@color/green_700"
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -43,8 +44,7 @@
             style="@style/input_title"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/garden_name"
-            android:textColor="@color/green_700" />
+            android:text="@string/garden_name" />
 
         <EditText
             android:id="@+id/input_garden_name"
@@ -56,8 +56,7 @@
             style="@style/input_title"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/garden_land_area"
-            android:textColor="@color/green_700" />
+            android:text="@string/garden_land_area" />
 
         <EditText
             android:id="@+id/input_land_area"
@@ -71,7 +70,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="30dp"
             android:text="@string/garden_city"
-            android:textColor="@color/green_700" />
+            />
 
         <EditText
             android:id="@+id/input_city"
@@ -85,7 +84,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
             android:text="@string/garden_street"
-            android:textColor="@color/green_700" />
+            />
 
         <EditText
             android:id="@+id/input_street"
@@ -99,7 +98,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
             android:text="@string/garden_street_number"
-            android:textColor="@color/green_700" />
+            />
 
         <EditText
             android:id="@+id/input_street_number"
@@ -113,7 +112,7 @@
     <Button
         android:id="@+id/button_add_garden"
         style="@style/green_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/add_garden"

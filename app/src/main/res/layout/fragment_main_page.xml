@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/light_gradient"
+    android:background="@color/dark_green"
     tools:context=".views.mainapp.MainPageFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,10 +12,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/rounded_bg"
-        android:backgroundTint="@color/green_600"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:text="@string/no_garden_added"
-            android:textColor="@color/white"
+            android:textColor="@color/contrast_green"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
@@ -71,7 +71,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:text=""
-            android:textColor="@color/white"
+            android:textColor="@color/contrast_green"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,9 +82,9 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="120dp"
         android:text="@string/main_title"
-        android:textColor="@color/green_700"
+        android:textColor="@color/white"
         android:textSize="42sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +99,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
-        android:textColor="@color/green_700"
+        android:textColor="@color/white"
         android:text="@string/main_sub_title"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +122,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/button_main_settings"
             android:background="@drawable/rounded_bg"
-            android:backgroundTint="@color/green_600"
+            android:backgroundTint="@color/white"
             android:layout_marginEnd="5dp"
             android:layout_width="0dp"
             android:layout_weight="50"
@@ -137,7 +137,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
+                app:tint="@color/contrast_green" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -147,7 +147,7 @@
                 android:padding="10dp"
                 android:text="@string/settings"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/contrast_green"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -160,7 +160,7 @@
             android:id="@+id/button_main_add_garden"
             android:layout_marginStart="5dp"
             android:background="@drawable/rounded_bg"
-            android:backgroundTint="@color/green_600"
+            android:backgroundTint="@color/contrast_green"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50">

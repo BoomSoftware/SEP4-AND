@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.PlantAdapter;
@@ -25,6 +26,7 @@ public class GardenListFragment extends Fragment implements PlantAdapter.OnClick
     private FloatingActionButton addPlantButton;
     private GardenViewModel gardenViewModel;
     private String gardenName;
+    private TextView emptyGarden;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +43,8 @@ public class GardenListFragment extends Fragment implements PlantAdapter.OnClick
     private void prepareUI() {
         addPlantButton = view.findViewById(R.id.button_add_plant);
         recyclerView = view.findViewById(R.id.recycler);
+        emptyGarden = view.findViewById(R.id.empty_garden);
+        emptyGarden.setVisibility(View.GONE);
     }
 
     private void prepareOnClickEvents() {
@@ -63,8 +67,11 @@ public class GardenListFragment extends Fragment implements PlantAdapter.OnClick
                     gardenName = garden.getName();
                     gardenViewModel.getPlantsForGarden(garden.getName()).observe(getViewLifecycleOwner(), plants -> {
                         if(!plants.isEmpty()){
+                            emptyGarden.setVisibility(View.GONE);
                             plantAdapter.setPlants(plants);
+                            return;
                         }
+                        emptyGarden.setVisibility(View.VISIBLE);
                     });
                 }
             });

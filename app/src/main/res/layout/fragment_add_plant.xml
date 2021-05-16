@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_300"
+    android:background="@color/dark_green"
     tools:context=".views.mainapp.AddPlantFragment">
 
 
@@ -12,32 +12,19 @@
         android:id="@+id/plant_add_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button_add_plant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/add_plant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="Add Your Plant"
-            android:textColor="@color/green_700"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/text_plant_height"
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/plant_height"
-            android:textColor="@color/green_700" />
+            android:text="@string/plant_height" />
 
         <EditText
             android:id="@+id/input_plant_height"
@@ -49,8 +36,7 @@
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/plant_width"
-            android:textColor="@color/green_700" />
+            android:text="@string/plant_width" />
 
         <EditText
             android:id="@+id/input_plant_width"
@@ -62,8 +48,7 @@
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/plant_growth_stage"
-            android:textColor="@color/green_700" />
+            android:text="@string/plant_growth_stage" />
 
         <EditText
             android:id="@+id/input_plant_stage_growth"
@@ -75,8 +60,7 @@
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/plant_soil_type"
-            android:textColor="@color/green_700" />
+            android:text="@string/plant_soil_type" />
 
         <EditText
             android:id="@+id/input_plant_soil_type"
@@ -88,8 +72,7 @@
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/plant_soil_volume"
-            android:textColor="@color/green_700" />
+            android:text="@string/plant_soil_volume" />
 
         <EditText
             android:id="@+id/input_plant_soil_volume"
@@ -101,8 +84,7 @@
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/plant_common_name"
-            android:textColor="@color/green_700" />
+            android:text="@string/plant_common_name" />
 
         <EditText
             android:id="@+id/input_common_plant_name"
@@ -114,8 +96,7 @@
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/plant_category_name"
-            android:textColor="@color/green_700" />
+            android:text="@string/plant_category_name" />
 
         <EditText
             android:id="@+id/input_plant_category_name"
@@ -127,8 +108,7 @@
             style="@style/input_title"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/plant_garden_location"
-            android:textColor="@color/green_700" />
+            android:text="@string/plant_garden_location" />
 
         <EditText
             android:id="@+id/input_plant_garden_location"
@@ -139,13 +119,16 @@
     <Button
         android:id="@+id/button_add_plant"
         style="@style/green_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+
         android:layout_marginBottom="16dp"
         android:text="@string/add_plant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plant_add_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

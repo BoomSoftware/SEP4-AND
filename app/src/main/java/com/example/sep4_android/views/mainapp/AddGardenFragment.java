@@ -13,6 +13,8 @@ import com.example.sep4_android.R;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.viewmodels.AddNewGardenViewModel;
 
+import es.dmoral.toasty.Toasty;
+
 public class AddGardenFragment extends Fragment {
 
     private AddNewGardenViewModel viewModel;
@@ -49,6 +51,7 @@ public class AddGardenFragment extends Fragment {
         confirm.setOnClickListener(v -> {
             viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
                 viewModel.addNewGarden(new Garden(gardenName.getText().toString(), Double.parseDouble(gardenLand.getText().toString()), gardenCity.getText().toString(), gardenStreet.getText().toString(), gardenNumber.getText().toString(), user.getUid()));
+                Toasty.success(view.getContext(), view.getContext().getString(R.string.success_garden), Toasty.LENGTH_SHORT, true).show();
             });
         });
     }
