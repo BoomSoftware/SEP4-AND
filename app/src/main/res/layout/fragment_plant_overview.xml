@@ -248,7 +248,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button_plant_take_pic" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_plant_statistics"
         style="@style/green_button"
         android:layout_width="160dp"
         android:layout_height="wrap_content"

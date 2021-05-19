@@ -4,10 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ public class PlantOverviewFragment extends Fragment {
     private TextView plantLocation;
     private ImageView plantImg;
     private DecimalFormat formatter;
+    private Button statisticsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +45,7 @@ public class PlantOverviewFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(PlantOverviewViewModel.class);
         formatter = new DecimalFormat("0.##");
         prepareUI();
+        prepareOnClickEvents();
         loadData();
         return view;
     }
@@ -55,6 +59,11 @@ public class PlantOverviewFragment extends Fragment {
         plantLocation = view.findViewById(R.id.text_plant_location);
         plantName = view.findViewById(R.id.text_plant_name);
         plantImg = view.findViewById(R.id.img_plant);
+        statisticsButton = view.findViewById(R.id.button_plant_statistics);
+    }
+
+    private void prepareOnClickEvents() {
+        statisticsButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_plantOverviewFragment_to_statisticsFragment));
     }
 
     private void loadData(){

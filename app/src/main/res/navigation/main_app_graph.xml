@@ -62,5 +62,14 @@
         android:id="@+id/plantOverviewFragment"
         android:name="com.example.sep4_android.views.mainapp.PlantOverviewFragment"
         android:label=""
-        tools:layout="@layout/fragment_plant_overview" />
+        tools:layout="@layout/fragment_plant_overview" >
+        <action
+            android:id="@+id/action_plantOverviewFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.example.sep4_android.views.mainapp.StatisticsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_statistics" />
 </navigation>
