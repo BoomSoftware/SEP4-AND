@@ -1,4 +1,4 @@
-package com.example.sep4_android.views.mainapp;
+package com.example.sep4_android.views.mainapp.gardener;
 
 import android.os.Bundle;
 
@@ -20,7 +20,7 @@ import com.example.sep4_android.viewmodels.MainPageViewModel;
 
 import es.dmoral.toasty.Toasty;
 
-public class MainPageFragment extends Fragment {
+public class GardenerHomepageFragment extends Fragment {
 
     private View view;
     private MainPageViewModel viewModel;
@@ -40,7 +40,7 @@ public class MainPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_main_page, container, false);
+        view = inflater.inflate(R.layout.fragment_gardener_homepage, container, false);
         viewModel = new ViewModelProvider(this).get(MainPageViewModel.class);
         prepareUI();
         prepareOnClickEvents();

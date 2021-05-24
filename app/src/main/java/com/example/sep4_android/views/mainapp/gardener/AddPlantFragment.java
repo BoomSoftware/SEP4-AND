@@ -1,4 +1,4 @@
-package com.example.sep4_android.views.mainapp;
+package com.example.sep4_android.views.mainapp.gardener;
 
 import android.os.Bundle;
 

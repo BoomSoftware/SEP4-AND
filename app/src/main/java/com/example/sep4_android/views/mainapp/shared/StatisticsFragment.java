@@ -1,4 +1,4 @@
-package com.example.sep4_android.views.mainapp;
+package com.example.sep4_android.views.mainapp.shared;
 
 import android.graphics.Color;
 import android.os.Bundle;

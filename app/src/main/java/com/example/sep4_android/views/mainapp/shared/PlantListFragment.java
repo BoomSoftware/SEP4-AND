@@ -1,4 +1,4 @@
-package com.example.sep4_android.views.mainapp;
+package com.example.sep4_android.views.mainapp.shared;
 
 import android.os.Bundle;
 
@@ -23,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.dmoral.toasty.Toasty;
 
-public class GardenListFragment extends Fragment implements PlantAdapter.OnClickListener {
+public class PlantListFragment extends Fragment implements PlantAdapter.OnClickListener {
 
     private RecyclerView recyclerView;
     private View view;
@@ -36,7 +36,7 @@ public class GardenListFragment extends Fragment implements PlantAdapter.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_garden_list, container, false);
+        view = inflater.inflate(R.layout.fragment_plant_list, container, false);
         gardenViewModel = new ViewModelProvider(this).get(GardenViewModel.class);
         prepareUI();
         prepareRecyclerView();
