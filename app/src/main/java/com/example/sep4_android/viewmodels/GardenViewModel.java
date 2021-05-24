@@ -34,6 +34,10 @@ public class GardenViewModel extends AndroidViewModel {
         return plantRepository.getPlantsForGarden(gardenName);
     }
 
+    public void removePlantFromGarden(int plantId){
+        plantRepository.removePlantFromGarden(plantId);
+    }
+
     public LiveData<Garden> getGardenInfo(String userGoogleId){
         return gardenRepository.getGarden(userGoogleId);
     }

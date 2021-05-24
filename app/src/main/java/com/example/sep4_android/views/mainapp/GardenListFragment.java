@@ -2,9 +2,11 @@ package com.example.sep4_android.views.mainapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,11 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.PlantAdapter;
 import com.example.sep4_android.viewmodels.GardenViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import es.dmoral.toasty.Toasty;
 
 public class GardenListFragment extends Fragment implements PlantAdapter.OnClickListener {
 
@@ -77,6 +82,7 @@ public class GardenListFragment extends Fragment implements PlantAdapter.OnClick
             });
         });
         recyclerView.setAdapter(plantAdapter);
+        setSwipeEvent();
     }
 
     @Override
@@ -84,5 +90,21 @@ public class GardenListFragment extends Fragment implements PlantAdapter.OnClick
         Bundle bundle = new Bundle();
         bundle.putInt("plantId", plantId);
         Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_plantOverviewFragment, bundle);
+    }
+
+    private void setSwipeEvent(){
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                gardenViewModel.removePlantFromGarden(plantAdapter.getItemAt(viewHolder.getAdapterPosition()).getPlantID());
+                Toasty.success(view.getContext(), view.getContext().getString(R.string.remove_plant), Toast.LENGTH_SHORT, true).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 }

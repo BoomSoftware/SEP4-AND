@@ -53,6 +53,10 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public Plant getItemAt(int position){
+        return plants.get(position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView plantName;
         TextView plantLocation;

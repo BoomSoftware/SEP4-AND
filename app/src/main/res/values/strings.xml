@@ -59,4 +59,5 @@
     <string name="no_garden">First create garden!</string>
     <string name="empty_garden">No plant added. Click the button and add a new one.</string>
     <string name="success_garden">A new garden has been successfully created!</string>
+    <string name="remove_plant">Plant has been successfully removed!</string>
 </resources>
