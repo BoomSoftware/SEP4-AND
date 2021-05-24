@@ -8,10 +8,10 @@ import androidx.lifecycle.LiveData;
 import com.example.sep4_android.repositories.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainPageActivityViewModel extends AndroidViewModel {
+public class MainActivityViewModel extends AndroidViewModel {
     private final UserRepository userRepository;
 
-    public MainPageActivityViewModel(Application app){
+    public MainActivityViewModel(Application app){
         super(app);
         userRepository = UserRepository.getInstance(app);
     }

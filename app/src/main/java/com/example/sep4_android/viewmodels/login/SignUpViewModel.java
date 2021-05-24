@@ -1,4 +1,4 @@
-package com.example.sep4_android.viewmodels;
+package com.example.sep4_android.viewmodels.login;
 
 import android.app.Application;
 

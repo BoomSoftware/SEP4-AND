@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import com.example.sep4_android.MainAppActivity;
 import com.example.sep4_android.R;
-import com.example.sep4_android.viewmodels.SignInViewModel;
+import com.example.sep4_android.viewmodels.login.SignInViewModel;
 import com.firebase.ui.auth.AuthUI;
 import java.util.Arrays;
 import java.util.List;

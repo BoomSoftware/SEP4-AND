@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.example.sep4_android.MainAppActivity;
 import com.example.sep4_android.R;
-import com.example.sep4_android.viewmodels.SignUpViewModel;
+import com.example.sep4_android.viewmodels.login.SignUpViewModel;
 
 public class SignUpFragment extends Fragment {
     private View view;

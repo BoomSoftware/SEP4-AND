@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Garden;
-import com.example.sep4_android.viewmodels.AddNewGardenViewModel;
+import com.example.sep4_android.viewmodels.gardener.AddNewGardenViewModel;
 
 import es.dmoral.toasty.Toasty;
 

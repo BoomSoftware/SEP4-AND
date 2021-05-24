@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Plant;
-import com.example.sep4_android.viewmodels.AddPlantViewModel;
+import com.example.sep4_android.viewmodels.gardener.AddPlantViewModel;
 
 public class AddPlantFragment extends Fragment {
 

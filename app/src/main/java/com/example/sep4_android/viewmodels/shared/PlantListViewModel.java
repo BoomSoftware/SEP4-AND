@@ -1,4 +1,4 @@
-package com.example.sep4_android.viewmodels;
+package com.example.sep4_android.viewmodels.shared;
 
 import android.app.Application;
 
@@ -14,12 +14,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
-public class GardenViewModel extends AndroidViewModel {
+public class PlantListViewModel extends AndroidViewModel {
     private final GardenRepository gardenRepository;
     private final PlantRepository plantRepository;
     private final UserRepository userRepository;
 
-    public GardenViewModel(@NonNull Application application) {
+    public PlantListViewModel(@NonNull Application application) {
         super(application);
         gardenRepository = GardenRepository.getInstance(application);
         plantRepository = PlantRepository.getInstance(application);

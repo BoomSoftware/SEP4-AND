@@ -16,14 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sep4_android.R;
-import com.example.sep4_android.viewmodels.MainPageViewModel;
+import com.example.sep4_android.viewmodels.gardener.GardenerHomepageViewModel;
 
 import es.dmoral.toasty.Toasty;
 
 public class GardenerHomepageFragment extends Fragment {
 
     private View view;
-    private MainPageViewModel viewModel;
+    private GardenerHomepageViewModel viewModel;
     private TextView gardenNameTextView;
     private TextView descriptionTextView;
     private TextView addGardenTextView;
@@ -41,7 +41,7 @@ public class GardenerHomepageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_gardener_homepage, container, false);
-        viewModel = new ViewModelProvider(this).get(MainPageViewModel.class);
+        viewModel = new ViewModelProvider(this).get(GardenerHomepageViewModel.class);
         prepareUI();
         prepareOnClickEvents();
         return view;

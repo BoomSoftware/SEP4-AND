@@ -17,7 +17,7 @@ import com.example.sep4_android.R;
 import com.example.sep4_android.models.FrequencyTypes;
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
-import com.example.sep4_android.viewmodels.PlantOverviewViewModel;
+import com.example.sep4_android.viewmodels.shared.PlantOverviewViewModel;
 
 import java.text.DecimalFormat;
 

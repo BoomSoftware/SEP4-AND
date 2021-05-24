@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.PlantAdapter;
-import com.example.sep4_android.viewmodels.GardenViewModel;
+import com.example.sep4_android.viewmodels.shared.PlantListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.dmoral.toasty.Toasty;
@@ -29,7 +29,7 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
     private View view;
     private PlantAdapter plantAdapter;
     private FloatingActionButton addPlantButton;
-    private GardenViewModel gardenViewModel;
+    private PlantListViewModel gardenViewModel;
     private String gardenName;
     private TextView emptyGarden;
 
@@ -37,7 +37,7 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plant_list, container, false);
-        gardenViewModel = new ViewModelProvider(this).get(GardenViewModel.class);
+        gardenViewModel = new ViewModelProvider(this).get(PlantListViewModel.class);
         prepareUI();
         prepareRecyclerView();
         prepareOnClickEvents();

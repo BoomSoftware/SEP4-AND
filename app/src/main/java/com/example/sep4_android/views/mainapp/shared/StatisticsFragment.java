@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sep4_android.R;
-import com.example.sep4_android.viewmodels.PlantOverviewViewModel;
+import com.example.sep4_android.viewmodels.shared.PlantOverviewViewModel;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;

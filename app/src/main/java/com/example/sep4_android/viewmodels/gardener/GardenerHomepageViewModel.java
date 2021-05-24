@@ -1,4 +1,4 @@
-package com.example.sep4_android.viewmodels;
+package com.example.sep4_android.viewmodels.gardener;
 
 import android.app.Application;
 
@@ -11,11 +11,11 @@ import com.example.sep4_android.repositories.GardenRepository;
 import com.example.sep4_android.repositories.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainPageViewModel extends AndroidViewModel {
+public class GardenerHomepageViewModel extends AndroidViewModel {
     private GardenRepository gardenRepository;
     private UserRepository userRepository;
 
-    public MainPageViewModel(@NonNull Application application) {
+    public GardenerHomepageViewModel(@NonNull Application application) {
         super(application);
         userRepository = UserRepository.getInstance(application);
         gardenRepository = GardenRepository.getInstance(application);
