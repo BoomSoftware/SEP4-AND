@@ -19,8 +19,6 @@ import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
 import com.example.sep4_android.viewmodels.PlantOverviewViewModel;
 
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
 
 
@@ -37,12 +35,14 @@ public class PlantOverviewFragment extends Fragment {
     private ImageView plantImg;
     private DecimalFormat formatter;
     private Button statisticsButton;
+    private int plantID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plant_overview, container, false);
         viewModel = new ViewModelProvider(this).get(PlantOverviewViewModel.class);
+        plantID = getArguments().getInt("plantId");
         formatter = new DecimalFormat("0.##");
         prepareUI();
         prepareOnClickEvents();
@@ -67,31 +67,33 @@ public class PlantOverviewFragment extends Fragment {
     }
 
     private void loadData(){
-        viewModel.getLoadedPlant().observe(getViewLifecycleOwner(), plant -> {
+        viewModel.loadPlant(plantID).observe(getViewLifecycleOwner(), plant -> {
             plantName.setText(plant.getCategoryName());
             plantLocation.setText(plant.getGardenLocation());
-            //REMEMBER TO CHANGE THE PLANT_ID VALUE!!!!!!!
-            viewModel.loadMeasurements(3, FrequencyTypes.LATEST, MeasurementTypes.ALL);
-            viewModel.getLoadedMeasurements().observe(getViewLifecycleOwner(), measurements -> {
-                for (Measurement measurement : measurements){
-                    if(measurement.getMeasurementType().equals(MeasurementTypes.TEMP.toString())){
-                        String value = formatter.format(measurement.getMeasurementValue()) + " \u00B0C";
-                        tempValue.setText(value);
-                    }
-                    if(measurement.getMeasurementType().equals(MeasurementTypes.CO2.toString())){
-                        String value = formatter.format(measurement.getMeasurementValue()) + " PPM";
-                        co2Value.setText(value);
-                    }
-                    if(measurement.getMeasurementType().equals(MeasurementTypes.LIGHT.toString())){
-                        String value = formatter.format(measurement.getMeasurementValue()) + " lux";
-                        lightValue.setText(value);
-                    }
-                    if(measurement.getMeasurementType().equals(MeasurementTypes.HUM.toString())){
-                        String value = formatter.format(measurement.getMeasurementValue()) + " %";
-                        humidityValue.setText(value);
-                    }
+            loadMeasurements();
+        });
+    }
+    private void loadMeasurements(){
+        viewModel.loadMeasurements(plantID, FrequencyTypes.LATEST, MeasurementTypes.ALL);
+        viewModel.getLoadedMeasurements().observe(getViewLifecycleOwner(), measurements -> {
+            for (Measurement measurement : measurements){
+                if(measurement.getMeasurementType().equals(MeasurementTypes.TEMP.toString())){
+                    String value = formatter.format(measurement.getMeasurementValue()) + " \u00B0C";
+                    tempValue.setText(value);
                 }
-            });
+                if(measurement.getMeasurementType().equals(MeasurementTypes.CO2.toString())){
+                    String value = formatter.format(measurement.getMeasurementValue()) + " PPM";
+                    co2Value.setText(value);
+                }
+                if(measurement.getMeasurementType().equals(MeasurementTypes.LIGHT.toString())){
+                    String value = formatter.format(measurement.getMeasurementValue()) + " lux";
+                    lightValue.setText(value);
+                }
+                if(measurement.getMeasurementType().equals(MeasurementTypes.HUM.toString())){
+                    String value = formatter.format(measurement.getMeasurementValue()) + " %";
+                    humidityValue.setText(value);
+                }
+            }
         });
     }
 }

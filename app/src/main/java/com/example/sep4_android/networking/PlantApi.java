@@ -2,7 +2,6 @@ package com.example.sep4_android.networking;
 
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.Plant;
-import com.example.sep4_android.models.PlantWithSensor;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import retrofit2.http.Query;
 
 public interface PlantApi {
     @POST("/plants")
-    Call<Integer> addNewPlant(@Body PlantWithSensor plantWithSensor);
+    Call<Integer> addNewPlant(@Body Plant plant);
 
     @DELETE("/plants/{plantId}")
     Call<Void> removePlant(@Path("plantId") int plantId);
@@ -26,7 +25,7 @@ public interface PlantApi {
     Call<List<Plant>> getPlantsForGarden(@Query("gardenName") String gardenName);
 
     @PUT("/plants/{plantId}")
-    Call<Void> updatePlant(@Path("plantId") int plantId, @Body PlantWithSensor plantWithSensor);
+    Call<Void> updatePlant(@Path("plantId") int plantId, @Body Plant plant);
 
     @GET("measurements/{plantId}")
     Call<List<Measurement>> getAllMeasurements(@Path("plantId") int plantId, @Query("type") String type, @Query("measurementType") String measurementType);

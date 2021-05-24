@@ -44,20 +44,7 @@
     <fragment
         android:id="@+id/addPlantFragment"
         android:name="com.example.sep4_android.views.mainapp.AddPlantFragment"
-        tools:layout="">
-        <action
-            android:id="@+id/action_addPlantFragment_to_addSensorsFragment"
-            app:destination="@id/addSensorsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addSensorsFragment"
-        android:name="com.example.sep4_android.views.mainapp.AddSensorsFragment"
-        android:label=""
-        tools:layout="@layout/fragment_add_sensors" >
-        <action
-            android:id="@+id/action_addSensorsFragment_to_gardenListFragment"
-            app:destination="@id/gardenListFragment" />
-    </fragment>
+        tools:layout=""/>
     <fragment
         android:id="@+id/plantOverviewFragment"
         android:name="com.example.sep4_android.views.mainapp.PlantOverviewFragment"

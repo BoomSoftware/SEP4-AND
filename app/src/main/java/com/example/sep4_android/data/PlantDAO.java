@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.sep4_android.models.Plant;
 
@@ -14,6 +15,9 @@ public interface PlantDAO {
     @Insert
     void addPlant(Plant plant);
 
+    @Update
+    void updatePlant(Plant plant);
+
     @Query("DELETE FROM Plant WHERE plantID=:plantID")
     void removePlant(int plantID);
 
@@ -22,5 +26,4 @@ public interface PlantDAO {
 
     @Query("SELECT * FROM Plant WHERE gardenName=:gardenName")
     LiveData<List<Plant>> getPlantsForGarden(String gardenName);
-
 }

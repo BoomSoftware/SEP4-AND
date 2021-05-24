@@ -81,7 +81,8 @@ public class GardenListFragment extends Fragment implements PlantAdapter.OnClick
 
     @Override
     public void onClick(int plantId) {
-        gardenViewModel.loadPlant(plantId);
-        Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_plantOverviewFragment);
+        Bundle bundle = new Bundle();
+        bundle.putInt("plantId", plantId);
+        Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_plantOverviewFragment, bundle);
     }
 }

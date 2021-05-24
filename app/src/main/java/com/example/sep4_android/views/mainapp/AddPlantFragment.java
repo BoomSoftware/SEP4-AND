@@ -4,17 +4,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Plant;
-import com.example.sep4_android.models.Sensor;
 import com.example.sep4_android.viewmodels.AddPlantViewModel;
 
 public class AddPlantFragment extends Fragment {
@@ -56,19 +52,16 @@ public class AddPlantFragment extends Fragment {
     }
 
     private void prepareOnClickEvents(){
-        confirm.setOnClickListener(v -> {
-            viewModel.addNewPlantToGarden(new Plant(
-                    gardenName,
-                    Integer.parseInt(plantHeight.getText().toString()),
-                    Integer.parseInt(plantWidth.getText().toString()),
-                    stageGrowth.getText().toString(),
-                    soilType.getText().toString(),
-                    Integer.parseInt(soilVolume.getText().toString()),
-                    commonPlantName.getText().toString(),
-                    categoryName.getText().toString(),
-                    gardenLocation.getText().toString()
-                    ));
-            Navigation.findNavController(view).navigate(R.id.action_addPlantFragment_to_addSensorsFragment);
-        });
+        confirm.setOnClickListener(v -> viewModel.addNewPlantToGarden(new Plant(
+                gardenName,
+                Integer.parseInt(plantHeight.getText().toString()),
+                Integer.parseInt(plantWidth.getText().toString()),
+                stageGrowth.getText().toString(),
+                soilType.getText().toString(),
+                Integer.parseInt(soilVolume.getText().toString()),
+                commonPlantName.getText().toString(),
+                categoryName.getText().toString(),
+                gardenLocation.getText().toString()
+                )));
     }
 }

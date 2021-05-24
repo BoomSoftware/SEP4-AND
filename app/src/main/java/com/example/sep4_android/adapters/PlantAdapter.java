@@ -43,7 +43,6 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         });
     }
 
-
     @Override
     public int getItemCount() {
         return plants.size();

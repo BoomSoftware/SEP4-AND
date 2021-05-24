@@ -11,7 +11,6 @@ import com.example.sep4_android.models.FrequencyTypes;
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
 import com.example.sep4_android.models.Plant;
-import com.example.sep4_android.models.PlantWithSensor;
 import com.example.sep4_android.models.Sensor;
 import com.example.sep4_android.networking.PlantApi;
 import com.example.sep4_android.networking.ServiceGenerator;
@@ -26,12 +25,10 @@ import retrofit2.Response;
 
 public class PlantRepository {
     private static PlantRepository instance;
-    private PlantDAO plantDAO;
-    private ExecutorService executorService;
-    private PlantApi plantApi;
-    private LiveData<Plant> loadedPlant;
-    private MutableLiveData<List<Measurement>> measurements;
-    private Plant plant;
+    private final PlantDAO plantDAO;
+    private final ExecutorService executorService;
+    private final PlantApi plantApi;
+    private final MutableLiveData<List<Measurement>> measurements;
 
     private PlantRepository(Application application) {
         GardenDatabase database = GardenDatabase.getInstance(application);
@@ -52,25 +49,16 @@ public class PlantRepository {
         return plantDAO.getPlantsForGarden(gardenName);
     }
 
-    public LiveData<Plant> getLoadedPlant(){
-        return loadedPlant;
-    }
-
     public MutableLiveData<List<Measurement>> getLoadedMeasurements(){
         return measurements;
     }
 
-    public void loadPlant(int plantId){
-        loadedPlant = plantDAO.getPlantById(plantId);
+    public LiveData<Plant> loadPlant(int plantId){
+        return plantDAO.getPlantById(plantId);
     }
 
-    public void addNewPlantToGarden(Plant plant){
-        this.plant = plant;
-    }
-
-
-    public void confirm(Sensor sensor){
-        Call<Integer> call = plantApi.addNewPlant(new PlantWithSensor(plant, sensor));
+    public void addPlantToGarden(Plant plant){
+        Call<Integer> call = plantApi.addNewPlant(plant);
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
@@ -90,14 +78,12 @@ public class PlantRepository {
             @Override
             public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
                 if(response.isSuccessful() && response.body() != null) {
-                    System.out.println("XXXXXXXXXXXX" + response.body());
                     measurements.setValue(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
-                System.out.println("XXXXXXXXXXXX" + t.getMessage());
             }
         });
     }
@@ -117,7 +103,18 @@ public class PlantRepository {
         });
     }
 
-    public void addNewPlantToLocalDatabase(Plant plant){
+    public void updatePlantInGarden(Plant plant) {
+        Call<Void> call = plantApi.updatePlant(plant.getPlantID(), plant);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    executorService.execute(() -> plantDAO.updatePlant(plant));
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {}
+        });
     }
 
     public void removePlantFromLocalDatabase(int plantId){

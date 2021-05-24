@@ -16,16 +16,15 @@ import com.example.sep4_android.repositories.PlantRepository;
 import java.util.List;
 
 public class PlantOverviewViewModel extends AndroidViewModel {
-    private PlantRepository plantRepository;
-
+    private final PlantRepository plantRepository;
 
     public PlantOverviewViewModel(@NonNull Application application) {
         super(application);
         plantRepository = PlantRepository.getInstance(application);
     }
 
-    public LiveData<Plant> getLoadedPlant(){
-        return plantRepository.getLoadedPlant();
+    public LiveData<Plant> loadPlant(int plantId){
+        return plantRepository.loadPlant(plantId);
     }
 
     public MutableLiveData<List<Measurement>> getLoadedMeasurements(){
