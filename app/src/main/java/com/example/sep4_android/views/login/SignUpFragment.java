@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.example.sep4_android.MainAppActivity;
 import com.example.sep4_android.R;
+import com.example.sep4_android.models.UserStatus;
 import com.example.sep4_android.viewmodels.login.SignUpViewModel;
 
 public class SignUpFragment extends Fragment {
@@ -38,13 +39,17 @@ public class SignUpFragment extends Fragment {
     }
 
     private void prepareOnClickEvents() {
-        buttonGardener.setOnClickListener(v -> {
-            loginViewModel.createUser(true);
-            openMainActivity();
-        });
-        buttonAssistant.setOnClickListener(v -> {
-            loginViewModel.createUser(false);
-            openMainActivity();
+        loginViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+            if(user != null){
+                buttonGardener.setOnClickListener(v -> {
+                    loginViewModel.createUser(new UserStatus(user.getUid(), true));
+                    openMainActivity();
+                });
+                buttonAssistant.setOnClickListener(v -> {
+                    loginViewModel.createUser(new UserStatus(user.getUid(), false));
+                    openMainActivity();
+                });
+            }
         });
     }
 

@@ -29,7 +29,7 @@ public class GardenerHomepageViewModel extends AndroidViewModel {
         return userRepository.getCurrentUser();
     }
 
-    public void removeGarden(String userGoogleId){
-        gardenRepository.removeGarden(userGoogleId);
+    public void removeGarden(String gardenName){
+        gardenRepository.removeGarden(gardenName);
     }
 }

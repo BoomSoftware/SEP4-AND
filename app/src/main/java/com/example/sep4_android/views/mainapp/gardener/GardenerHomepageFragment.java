@@ -58,7 +58,6 @@ public class GardenerHomepageFragment extends Fragment {
     }
 
     private void prepareOnClickEvents() {
-
         viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             viewModel.getGarden(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
                 buttonViewGarden.setOnClickListener(v -> {
@@ -80,7 +79,7 @@ public class GardenerHomepageFragment extends Fragment {
                 descriptionTextView.setText(description);
                 gardenNameTextView.setText(garden.getName());
                 addGardenTextView.setText(getString(R.string.remove_garden));
-                buttonAddGarden.setOnClickListener(v -> viewModel.removeGarden(user.getUid()));
+                buttonAddGarden.setOnClickListener(v -> viewModel.removeGarden(garden.getName()));
             });
             buttonSettings.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_settingsFragment));
         });

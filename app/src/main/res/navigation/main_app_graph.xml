@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_app_graph.xml"
-    app:startDestination="@id/gardenerHomepageFragment">
+    android:id="@+id/main_app_graph.xml">
 
     <fragment
         android:id="@+id/gardenerHomepageFragment"
@@ -68,18 +67,6 @@
         <action
             android:id="@+id/action_assistantHomepageFragment_to_gardenListFragment"
             app:destination="@id/gardenListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/welcomeViewFragment"
-        android:name="com.example.sep4_android.views.mainapp.shared.WelcomeViewFragment"
-        android:label="fragment_welcome_view"
-        tools:layout="@layout/fragment_welcome_view" >
-        <action
-            android:id="@+id/action_welcomeViewFragment_to_gardenerHomepageFragment"
-            app:destination="@id/gardenerHomepageFragment" />
-        <action
-            android:id="@+id/action_welcomeViewFragment_to_assistantHomepageFragment"
-            app:destination="@id/assistantHomepageFragment" />
     </fragment>
     <fragment
         android:id="@+id/gardenListFragment"

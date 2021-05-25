@@ -30,8 +30,8 @@ public class SignInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        loginViewModel = new ViewModelProvider(this).get(SignInViewModel.class);
         view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        loginViewModel = new ViewModelProvider(this).get(SignInViewModel.class);
         checkIfSignedIn();
         prepareUI();
         prepareOnClickActions();
@@ -47,10 +47,10 @@ public class SignInFragment extends Fragment {
     }
 
     private void checkIfSignedIn(){
-        loginViewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
-            if(firebaseUser != null){
-                loginViewModel.getStatus().observe(getViewLifecycleOwner(), status -> {
-                    if(status != null && status){
+        loginViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+            if(user != null){
+                loginViewModel.getStatus(user.getUid()).observe(getViewLifecycleOwner(), status -> {
+                    if(status != null){
                         Intent intent = new Intent(getContext(), MainAppActivity.class);
                         getContext().startActivity(intent);
                     }else{
@@ -86,13 +86,14 @@ public class SignInFragment extends Fragment {
 
     private void handleSignInRequest(int resultCode){
         if(resultCode == RESULT_OK) {
-            loginViewModel.getStatus().observe(getActivity(), status -> {
-                if(status != null && status){
-                    Intent intent = new Intent(getContext(), MainAppActivity.class);
-                    getContext().startActivity(intent);
-                }
+            loginViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+                loginViewModel.getStatus(user.getUid()).observe(getActivity(), status -> {
+                    if(status != null){
+                        Intent intent = new Intent(getContext(), MainAppActivity.class);
+                        getContext().startActivity(intent);
+                    }
+                });
             });
-
         }
         else{
             Toasty.error(getContext(), getContext().getString(R.string.invalid_auth), Toasty.LENGTH_SHORT).show();

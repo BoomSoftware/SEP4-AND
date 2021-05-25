@@ -1,4 +1,4 @@
-package com.example.sep4_android.models.liveDataModels;
+package com.example.sep4_android.models;
 
 import androidx.lifecycle.LiveData;
 

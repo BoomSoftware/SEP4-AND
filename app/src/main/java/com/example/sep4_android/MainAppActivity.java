@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.NavInflater;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -28,11 +30,9 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        checkIfSignedIn();
         setContentView(R.layout.activity_main_app);
-        prepareToolbar();
+        checkIfSignedIn();
         setNavigationViewListener();
     }
 
@@ -49,15 +49,29 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     private void checkIfSignedIn() {
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
-                setNavigationHeader();
+                viewModel.getUserStatus(user.getUid()).observe(this, status -> {
+                    prepareToolbar(status.isStatus());
+                    setNavigationHeader();
+                });
+
             } else
                 startActivity(new Intent(this, LoginActivity.class));
         });
     }
 
-    private void prepareToolbar() {
+    private void prepareToolbar(boolean status) {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_fragment_main);
         NavController navController = navHostFragment.getNavController();
+        NavGraph navGraph  = navController.getNavInflater().inflate(R.navigation.main_app_graph);
+        if(status){
+            navGraph.setStartDestination(R.id.gardenerHomepageFragment);
+        }else{
+            navGraph.setStartDestination(R.id.assistantHomepageFragment);
+        }
+
+        navController.setGraph(navGraph);
+
+
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).setOpenableLayout(drawerLayout).build();
 

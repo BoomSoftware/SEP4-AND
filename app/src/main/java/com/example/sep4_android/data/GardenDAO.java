@@ -12,8 +12,8 @@ public interface GardenDAO {
     @Insert
     void createGarden(Garden garden);
 
-    @Query("DELETE FROM GARDEN WHERE ownerGoogleId=:userGoogleId")
-    void removeGarden(String userGoogleId);
+    @Query("DELETE FROM GARDEN WHERE name=:gardenName")
+    void removeGarden(String gardenName);
 
     @Query("SELECT * FROM Garden WHERE ownerGoogleId=:userGoogleId")
     LiveData<Garden> getGarden(String userGoogleId);

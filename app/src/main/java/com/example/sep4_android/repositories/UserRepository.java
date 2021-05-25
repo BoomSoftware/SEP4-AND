@@ -4,21 +4,28 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.sep4_android.models.liveDataModels.UserLiveData;
-import com.example.sep4_android.models.liveDataModels.UserStatusLiveData;
+import com.example.sep4_android.data.GardenDatabase;
+import com.example.sep4_android.data.StatusDAO;
+import com.example.sep4_android.models.UserStatus;
+import com.example.sep4_android.models.UserLiveData;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class UserRepository {
+    private static UserRepository instance;
     private final Application application;
     private final UserLiveData currentUser;
-    private static UserRepository instance;
-    private DatabaseReference myRef;
+    private final ExecutorService executorService;
+    private final StatusDAO statusDAO;
 
 
     private UserRepository(Application application){
+        GardenDatabase database = GardenDatabase.getInstance(application);
+        statusDAO = database.statusDAO();
+        executorService = Executors.newFixedThreadPool(2);
         this.application = application;
         this.currentUser = new UserLiveData();
     }
@@ -30,14 +37,12 @@ public class UserRepository {
         return instance;
     }
 
-    public void createUser(String uid, boolean isOwner){
-        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
-        myRef.child("status").setValue(isOwner);
+    public void createUser(UserStatus userStatus){
+        executorService.execute(() -> statusDAO.createNewUser(userStatus));
     }
 
-    public UserStatusLiveData getStatus(String uid){
-        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("status");
-        return new UserStatusLiveData(myRef);
+    public LiveData<UserStatus> getStatus(String uid){
+       return statusDAO.getStatusForUser(uid);
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){

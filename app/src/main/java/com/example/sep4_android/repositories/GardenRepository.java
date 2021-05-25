@@ -2,6 +2,7 @@ package com.example.sep4_android.repositories;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.sep4_android.data.GardenDAO;
@@ -36,50 +37,42 @@ public class GardenRepository {
         return instance;
     }
 
-    public void addGardenToLocalDatabase(Garden garden){
-        executorService.execute(() -> gardenDAO.createGarden(garden));
-    }
-
     public LiveData<Garden> getGarden(String userGoogleId){
         return gardenDAO.getGarden(userGoogleId);
     }
 
-    public void createGarden(Garden garden) {
-        myRef = FirebaseDatabase.getInstance().getReference().child("users");
+    private void addGardenToLocalDatabase(Garden garden){
+        executorService.execute(() -> gardenDAO.createGarden(garden));
+    }
+
+    public void createGarden(Garden garden){
+        myRef = FirebaseDatabase.getInstance().getReference().child("gardens");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean flag = false;
-                for(DataSnapshot users : dataSnapshot.getChildren()){
-                    if(users.child("garden").child("gardenName").getValue() != null && users.child("garden").child("gardenName").getValue().equals(garden.getName())){
-                        flag = true;
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean result = true;
+                for(DataSnapshot gardenFromFirebase: snapshot.getChildren()){
+                    if(gardenFromFirebase.getValue().equals(garden.getName())){
+                        result = false;
                         break;
                     }
                 }
-                if(!flag){
-                    myRef.child(garden.getOwnerGoogleId()).child("garden").child("gardenName").setValue(garden.getName());
-                    myRef.child(garden.getOwnerGoogleId()).child("garden").child("land").setValue(garden.getLandArea());
-                    myRef.child(garden.getOwnerGoogleId()).child("garden").child("city").setValue(garden.getCity());
-                    myRef.child(garden.getOwnerGoogleId()).child("garden").child("street").setValue(garden.getStreet());
-                    myRef.child(garden.getOwnerGoogleId()).child("garden").child("number").setValue(garden.getNumber());
-
+                if(result){
+                    myRef.child(garden.getName()).setValue(garden);
                     addGardenToLocalDatabase(garden);
                 }
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
 
-    public void removeGarden(String userGoogleId) {
-        myRef = FirebaseDatabase.getInstance().getReference().child("users").child(userGoogleId).child("garden");
+    public void removeGarden(String gardenName) {
+        myRef = FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName);
         myRef.removeValue();
-
-        executorService.execute(() -> gardenDAO.removeGarden(userGoogleId));
+        executorService.execute(() -> gardenDAO.removeGarden(gardenName));
     }
 
 }

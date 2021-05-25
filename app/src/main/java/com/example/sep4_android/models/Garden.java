@@ -1,7 +1,13 @@
 package com.example.sep4_android.models;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Garden {
@@ -13,6 +19,10 @@ public class Garden {
     private String city;
     private String street;
     private String number;
+    @Ignore
+    private Map<String, Boolean> assistantList = new HashMap<>();
+
+    public Garden(){}
 
     public Garden(String name, double landArea, String city, String street, String number, String ownerGoogleId) {
         this.name = name;
@@ -21,6 +31,8 @@ public class Garden {
         this.street = street;
         this.number = number;
         this.ownerGoogleId = ownerGoogleId;
+
+        assistantList.put("assistant1", true);
     }
 
     public int getId() {
@@ -77,5 +89,14 @@ public class Garden {
 
     public void setOwnerGoogleId(String ownerGoogleId) {
         this.ownerGoogleId = ownerGoogleId;
+    }
+
+
+    public Map<String, Boolean> getAssistantList() {
+        return assistantList;
+    }
+
+    public void setAssistantList(Map<String, Boolean> assistantList) {
+        this.assistantList = assistantList;
     }
 }
