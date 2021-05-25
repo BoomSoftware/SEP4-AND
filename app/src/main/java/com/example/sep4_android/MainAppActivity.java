@@ -11,8 +11,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +30,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private NavigationView navigationView;
     private MainActivityViewModel viewModel;
+    private final String CHANNEL_ID = "misc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,9 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_main_app);
         checkIfSignedIn();
         setNavigationViewListener();
+        createNotificationChannel();
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -62,10 +69,10 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     private void prepareToolbar(boolean status) {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_fragment_main);
         NavController navController = navHostFragment.getNavController();
-        NavGraph navGraph  = navController.getNavInflater().inflate(R.navigation.main_app_graph);
-        if(status){
+        NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_app_graph);
+        if (status) {
             navGraph.setStartDestination(R.id.gardenerHomepageFragment);
-        }else{
+        } else {
             navGraph.setStartDestination(R.id.assistantHomepageFragment);
         }
 
@@ -93,10 +100,23 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         ImageView headerAvatar = header.findViewById(R.id.nav_header_avatar);
 
         viewModel.getCurrentUser().observe(this, user -> {
-            if (user != null){
+            if (user != null) {
                 headerName.setText(user.getDisplayName());
                 Glide.with(this).load(user.getPhotoUrl()).into(headerAvatar);
             }
         });
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
     }
 }

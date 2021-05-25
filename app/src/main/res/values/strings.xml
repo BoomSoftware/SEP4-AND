@@ -61,4 +61,6 @@
     <string name="success_garden">A new garden has been successfully created!</string>
     <string name="remove_plant">Plant has been successfully removed!</string>
     <string name="welcome">Welcome</string>
+    <string name="channel_name">Channel Name</string>
+    <string name="channel_description">Channed description</string>
 </resources>
