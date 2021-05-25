@@ -1,11 +1,19 @@
 package com.example.sep4_android.views.mainapp.shared;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +30,7 @@ import com.example.sep4_android.viewmodels.shared.PlantOverviewViewModel;
 import java.text.DecimalFormat;
 
 
-public class PlantOverviewFragment extends Fragment {
+public class PlantOverviewFragment extends DialogFragment {
 
     private View view;
     private PlantOverviewViewModel viewModel;
@@ -35,7 +43,9 @@ public class PlantOverviewFragment extends Fragment {
     private ImageView plantImg;
     private DecimalFormat formatter;
     private Button statisticsButton;
+    private Button buttonTakePic;
     private int plantID;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +57,7 @@ public class PlantOverviewFragment extends Fragment {
         prepareUI();
         prepareOnClickEvents();
         loadData();
+        dispatchTakePictureIntent();
         return view;
     }
 
@@ -60,10 +71,11 @@ public class PlantOverviewFragment extends Fragment {
         plantName = view.findViewById(R.id.text_plant_name);
         plantImg = view.findViewById(R.id.img_plant);
         statisticsButton = view.findViewById(R.id.button_plant_statistics);
+        buttonTakePic = view.findViewById(R.id.button_plant_take_pic);
     }
 
     private void prepareOnClickEvents() {
-        statisticsButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_plantOverviewFragment_to_statisticsFragment));
+        statisticsButton.setOnClickListener(v -> createDialog());
     }
 
     private void loadData(){
@@ -96,4 +108,34 @@ public class PlantOverviewFragment extends Fragment {
             }
         });
     }
+
+    private void createDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.measurements)
+                .setItems(R.array.measurements_entries, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.create();
+    }
+
+    private void dispatchTakePictureIntent() {
+        buttonTakePic.setOnClickListener(v -> {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            try {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            } catch (ActivityNotFoundException e) {
+                // display error state to the user
+            }
+        });
+    }
+
+    //    private void galleryAddPic() {
+//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//        File f = new File(currentPhotoPath);
+//        Uri contentUri = Uri.fromFile(f);
+//        mediaScanIntent.setData(contentUri);
+//        this.sendBroadcast(mediaScanIntent);
+//    }
 }

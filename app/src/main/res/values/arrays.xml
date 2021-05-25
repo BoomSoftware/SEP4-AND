@@ -9,4 +9,12 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <!-- Measurements dialog -->
+    <string-array name="measurements_entries">
+        <item>light</item>
+        <item>co2</item>
+        <item>humidity</item>
+        <item>temperature</item>
+    </string-array>
 </resources>
