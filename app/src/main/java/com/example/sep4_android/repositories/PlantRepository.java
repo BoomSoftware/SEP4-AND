@@ -105,7 +105,6 @@ public class PlantRepository {
                     measurements.setValue(response.body());
                 }
             }
-
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
             }

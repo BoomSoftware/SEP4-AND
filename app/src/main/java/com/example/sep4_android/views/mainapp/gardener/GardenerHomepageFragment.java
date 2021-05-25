@@ -72,13 +72,15 @@ public class GardenerHomepageFragment extends Fragment {
             if (garden != null) {
                 viewModel.initializeGarden(garden.getName());
                 viewModel.getLiveGarden().observe(getViewLifecycleOwner(), liveGarden -> {
-                    int notifications = 0;
-                    for (Map.Entry<String, Boolean> entry : liveGarden.getAssistantList().entrySet()) {
-                        if (!entry.getValue()) {
-                            notifications++;
+                    if(liveGarden != null){
+                        int notifications = 0;
+                        for (Map.Entry<String, Boolean> entry : liveGarden.getAssistantList().entrySet()) {
+                            if (!entry.getValue()) {
+                                notifications++;
+                            }
                         }
+                        notificationNumber.setText(String.valueOf(notifications));
                     }
-                    notificationNumber.setText(String.valueOf(notifications));
                 });
             }
         });
