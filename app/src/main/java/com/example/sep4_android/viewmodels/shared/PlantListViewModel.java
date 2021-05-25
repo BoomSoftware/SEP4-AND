@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.Plant;
+import com.example.sep4_android.models.UserStatus;
 import com.example.sep4_android.repositories.GardenRepository;
 import com.example.sep4_android.repositories.PlantRepository;
 import com.example.sep4_android.repositories.UserRepository;
@@ -32,6 +33,10 @@ public class PlantListViewModel extends AndroidViewModel {
 
     public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
         return plantRepository.getPlantsForGarden(gardenName);
+    }
+
+    public LiveData<UserStatus> getUserStatus(String userGoogleId){
+        return userRepository.getStatus(userGoogleId);
     }
 
     public void removePlantFromGarden(int plantId){

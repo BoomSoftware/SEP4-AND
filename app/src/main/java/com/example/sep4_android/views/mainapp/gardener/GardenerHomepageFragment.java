@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.viewmodels.gardener.GardenerHomepageViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
@@ -24,6 +27,9 @@ public class GardenerHomepageFragment extends Fragment {
 
     private View view;
     private GardenerHomepageViewModel viewModel;
+    private ImageView assistantsButton;
+    private ImageView notificationButton;
+    private TextView notificationNumber;
     private TextView gardenNameTextView;
     private TextView descriptionTextView;
     private TextView addGardenTextView;
@@ -44,24 +50,45 @@ public class GardenerHomepageFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(GardenerHomepageViewModel.class);
         prepareUI();
         prepareOnClickEvents();
+        loadValues();
         return view;
     }
 
     private void prepareUI() {
         buttonAddGarden = view.findViewById(R.id.button_main_add_garden);
-        buttonViewGarden = view.findViewById(R.id.button_main_view_garden);
+        buttonViewGarden = view.findViewById(R.id.button_own_garden_open);
         buttonSettings = view.findViewById(R.id.button_main_settings);
-        gardenNameTextView = view.findViewById(R.id.text_main_garden_name);
-        descriptionTextView = view.findViewById(R.id.text_main_description);
+        gardenNameTextView = view.findViewById(R.id.text_own_garden_name);
+        descriptionTextView = view.findViewById(R.id.text_own_garden_info);
         addGardenImageView = view.findViewById(R.id.img_main_add_garden);
         addGardenTextView = view.findViewById(R.id.text_main_add_garden);
+        notificationButton = view.findViewById(R.id.img_main_notification);
+        assistantsButton = view.findViewById(R.id.img_main_assistant);
+        notificationNumber = view.findViewById(R.id.text_main_notifications);
+    }
+
+    private void loadValues() {
+        viewModel.getGarden(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), garden -> {
+            if (garden != null) {
+                viewModel.initializeGarden(garden.getName());
+                viewModel.getLiveGarden().observe(getViewLifecycleOwner(), liveGarden -> {
+                    int notifications = 0;
+                    for (Map.Entry<String, Boolean> entry : liveGarden.getAssistantList().entrySet()) {
+                        if (!entry.getValue()) {
+                            notifications++;
+                        }
+                    }
+                    notificationNumber.setText(String.valueOf(notifications));
+                });
+            }
+        });
     }
 
     private void prepareOnClickEvents() {
         viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
             viewModel.getGarden(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
                 buttonViewGarden.setOnClickListener(v -> {
-                    if (garden != null){
+                    if (garden != null) {
                         Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_gardenListFragment);
                         return;
                     }
@@ -82,6 +109,18 @@ public class GardenerHomepageFragment extends Fragment {
                 buttonAddGarden.setOnClickListener(v -> viewModel.removeGarden(garden.getName()));
             });
             buttonSettings.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_settingsFragment));
+        });
+
+        notificationButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("listType", "requests");
+            Navigation.findNavController(view).navigate(R.id.action_gardenerHomepageFragment_to_assistantListFragment, bundle);
+        });
+
+        assistantsButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("listType", "all");
+            Navigation.findNavController(view).navigate(R.id.action_gardenerHomepageFragment_to_assistantListFragment, bundle);
         });
     }
 }

@@ -20,6 +20,7 @@ import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.PlantAdapter;
 import com.example.sep4_android.viewmodels.shared.PlantListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import es.dmoral.toasty.Toasty;
 
@@ -41,6 +42,7 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         prepareUI();
         prepareRecyclerView();
         prepareOnClickEvents();
+        personalizeView();
         return view;
     }
 
@@ -50,6 +52,20 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         recyclerView = view.findViewById(R.id.recycler);
         emptyGarden = view.findViewById(R.id.empty_garden);
         emptyGarden.setVisibility(View.GONE);
+
+
+    }
+
+    private void personalizeView(){
+        gardenViewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), status -> {
+            if(!status.isStatus()){
+                addPlantButton.setVisibility(View.GONE);
+            }
+            else{
+                addPlantButton.setVisibility(View.VISIBLE);
+                setSwipeEvent();
+            }
+        });
     }
 
     private void prepareOnClickEvents() {
@@ -82,7 +98,6 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
             });
         });
         recyclerView.setAdapter(plantAdapter);
-        setSwipeEvent();
     }
 
     @Override

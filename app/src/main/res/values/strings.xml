@@ -70,4 +70,9 @@
     <string name="humidity_measurement">1000 mPa</string>
     <string name="temperature_measurement">20</string>
     <string name="measurements">Measurements</string>
+
+    <!-- Garden Info-->
+    <string name="area">Area:</string>
+    <string name="address">Address:</string>
+    <string name="assistant_no">All assistants:</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.sep4_android.models.Garden;
+import com.example.sep4_android.models.GardenLiveData;
 import com.example.sep4_android.repositories.GardenRepository;
 import com.example.sep4_android.repositories.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,4 +33,14 @@ public class GardenerHomepageViewModel extends AndroidViewModel {
     public void removeGarden(String gardenName){
         gardenRepository.removeGarden(gardenName);
     }
+
+    public void initializeGarden(String gardenName){
+        gardenRepository.initializeGarden(gardenName);
+    }
+
+    public GardenLiveData getLiveGarden(){
+        return gardenRepository.getLiveGarden();
+    }
+
+
 }

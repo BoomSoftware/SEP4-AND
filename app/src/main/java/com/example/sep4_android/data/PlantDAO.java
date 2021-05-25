@@ -21,6 +21,9 @@ public interface PlantDAO {
     @Query("DELETE FROM Plant WHERE plantID=:plantID")
     void removePlant(int plantID);
 
+    @Query("DELETE FROM Plant WHERE gardenName=:gardenName")
+    void removeAllPlants(String gardenName);
+
     @Query("SELECT * FROM Plant WHERE plantID=:plantId")
     LiveData<Plant> getPlantById(int plantId);
 

@@ -22,7 +22,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <Button
-            android:id="@+id/button_main_view_garden"
+            android:id="@+id/button_own_garden_open"
             style="@style/green_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,11 +33,11 @@
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_main_description"
+            app:layout_constraintTop_toBottomOf="@+id/text_own_garden_info"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/text_main_garden_name"
+            android:id="@+id/text_own_garden_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -65,7 +65,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_main_description"
+            android:id="@+id/text_own_garden_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -75,7 +75,7 @@
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_main_garden_name" />
+            app:layout_constraintTop_toBottomOf="@+id/text_own_garden_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -193,5 +193,36 @@
                 app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_main_assistant"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_baseline_assistant_24"
+        app:layout_constraintEnd_toStartOf="@+id/img_main_notification"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/text_main_notifications"
+        style="@style/input_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_main_notification"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_baseline_notification_24"
+        app:layout_constraintEnd_toStartOf="@+id/text_main_notifications"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

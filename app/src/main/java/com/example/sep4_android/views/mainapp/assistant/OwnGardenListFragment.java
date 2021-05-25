@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,48 +14,44 @@ import android.view.ViewGroup;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.GardenAdapter;
+import com.example.sep4_android.adapters.OwnGardenAdapter;
 import com.example.sep4_android.models.Garden;
-import com.example.sep4_android.viewmodels.assistant.GardenListViewModel;
+import com.example.sep4_android.viewmodels.assistant.OwnGardenListViewModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
-public class GardenListFragment extends Fragment implements GardenAdapter.OnItemClickListener {
+public class OwnGardenListFragment extends Fragment implements OwnGardenAdapter.OnItemClickListener {
+
     private View view;
-    private GardenListViewModel viewModel;
+    private OwnGardenListViewModel viewModel;
     private FirebaseRecyclerOptions<Garden> options;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_garden_list, container, false);
-        viewModel = new ViewModelProvider(this).get(GardenListViewModel.class);
+        view = inflater.inflate(R.layout.fragment_own_garden_list, container, false);
+        viewModel = new ViewModelProvider(this).get(OwnGardenListViewModel.class);
         loadData();
         prepareRecyclerView();
         return view;
     }
 
     private void loadData(){
-        options = new FirebaseRecyclerOptions.Builder<Garden>().setQuery(viewModel.getAllGardens(), Garden.class).build();
+        options = new FirebaseRecyclerOptions.Builder<Garden>().setQuery(viewModel.getOwnGardens(), Garden.class).build();
     }
 
     private void prepareRecyclerView(){
-        RecyclerView recyclerView = view.findViewById(R.id.garden_recycler);
+        RecyclerView recyclerView = view.findViewById(R.id.own_garden_recycler);
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        GardenAdapter adapter = new GardenAdapter(options, this);
+        OwnGardenAdapter adapter = new OwnGardenAdapter(options, this);
         adapter.startListening();
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onSendRequestClick(String gardenName) {
-        viewModel.sendAssistantRequest(gardenName);
-    }
-
-    @Override
-    public void onCancelAssistance(String gardenName, String assistantGoogleId) {
-        viewModel.removeRequest(gardenName, assistantGoogleId);
+    public void onOpenGarden(String gardenName) {
+        viewModel.synchronizePlants(gardenName);
+        Navigation.findNavController(view).navigate(R.id.action_ownGardenListFragment_to_plantListFragment);
     }
 }

@@ -21,11 +21,12 @@ public interface PlantApi {
     @DELETE("/plants/{plantId}")
     Call<Void> removePlant(@Path("plantId") int plantId);
 
-    @GET("/plants")
+    @GET("/plants/garden")
     Call<List<Plant>> getPlantsForGarden(@Query("gardenName") String gardenName);
 
     @PUT("/plants/{plantId}")
     Call<Void> updatePlant(@Path("plantId") int plantId, @Body Plant plant);
+
 
     @GET("measurements/{plantId}")
     Call<List<Measurement>> getAllMeasurements(@Path("plantId") int plantId, @Query("type") String type, @Query("measurementType") String measurementType);

@@ -4,9 +4,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -32,7 +30,7 @@ public class Garden {
         this.number = number;
         this.ownerGoogleId = ownerGoogleId;
 
-        assistantList.put("assistant1", true);
+        assistantList.put(ownerGoogleId, true);
     }
 
     public int getId() {
@@ -98,5 +96,17 @@ public class Garden {
 
     public void setAssistantList(Map<String, Boolean> assistantList) {
         this.assistantList = assistantList;
+    }
+
+    public void addWaitingAssistant(String assistantGoogleId){
+        this.assistantList.put(assistantGoogleId, false);
+    }
+
+    public void approveAssistant(String assistantGoogleId){
+        this.assistantList.put(assistantGoogleId, true);
+    }
+
+    public void removeAssistant(String assistantGoogleId){
+        this.assistantList.remove(assistantGoogleId);
     }
 }

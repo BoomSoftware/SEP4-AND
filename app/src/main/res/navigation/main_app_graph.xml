@@ -2,7 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_app_graph.xml">
+    android:id="@+id/main_app_graph.xml"
+    app:startDestination="@id/ownGardenListFragment">
 
     <fragment
         android:id="@+id/gardenerHomepageFragment"
@@ -19,6 +20,9 @@
         <action
             android:id="@+id/action_mainPageFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_gardenerHomepageFragment_to_assistantListFragment"
+            app:destination="@id/assistantListFragment" />
     </fragment>
     <fragment
         android:id="@+id/addGardenFragment"
@@ -62,19 +66,32 @@
     <fragment
         android:id="@+id/assistantHomepageFragment"
         android:name="com.example.sep4_android.views.mainapp.assistant.AssistantHomepageFragment"
-        android:label="fragment_assistant_homepage"
+        android:label=""
         tools:layout="@layout/fragment_assistant_homepage" >
         <action
             android:id="@+id/action_assistantHomepageFragment_to_gardenListFragment"
             app:destination="@id/gardenListFragment" />
+        <action
+            android:id="@+id/action_assistantHomepageFragment_to_ownGardenListFragment"
+            app:destination="@id/ownGardenListFragment" />
     </fragment>
     <fragment
         android:id="@+id/gardenListFragment"
         android:name="com.example.sep4_android.views.mainapp.assistant.GardenListFragment"
-        android:label="fragment_garden_list"
-        tools:layout="@layout/fragment_garden_list" >
+        android:label=""
+        tools:layout="@layout/fragment_garden_list" />
+    <fragment
+        android:id="@+id/ownGardenListFragment"
+        android:name="com.example.sep4_android.views.mainapp.assistant.OwnGardenListFragment"
+        android:label="fragment_own_garden_list"
+        tools:layout="@layout/fragment_own_garden_list" >
         <action
-            android:id="@+id/action_gardenListFragment_to_plantListFragment"
+            android:id="@+id/action_ownGardenListFragment_to_plantListFragment"
             app:destination="@id/plantListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/assistantListFragment"
+        android:name="com.example.sep4_android.views.mainapp.gardener.AssistantListFragment"
+        android:label="fragment_assistant_list"
+        tools:layout="@layout/fragment_assistant_list" />
 </navigation>

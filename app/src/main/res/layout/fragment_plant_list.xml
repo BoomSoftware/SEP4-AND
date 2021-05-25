@@ -41,6 +41,7 @@
         android:layout_margin="25dp"
         android:backgroundTint="@color/contrast_green"
         android:src="@android:drawable/ic_input_add"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:tint="@color/dark_green" />

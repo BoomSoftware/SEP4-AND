@@ -46,7 +46,31 @@ public class PlantRepository {
     }
 
     public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
-        return plantDAO.getPlantsForGarden(gardenName);
+        LiveData<List<Plant>> plants = plantDAO.getPlantsForGarden(gardenName);
+        return plants;
+    }
+
+    public void synchronizePlants(String gardenName){
+        Call<List<Plant>> call = plantApi.getPlantsForGarden(gardenName);
+        call.enqueue(new Callback<List<Plant>>() {
+            @Override
+            public void onResponse(Call<List<Plant>> call, Response<List<Plant>> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    executorService.execute(() -> {
+                        plantDAO.removeAllPlants(gardenName);
+                        List<Plant> plants = response.body();
+                        for(Plant plant : plants){
+                            plantDAO.addPlant(plant);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Plant>> call, Throwable t) {
+
+            }
+        });
     }
 
     public MutableLiveData<List<Measurement>> getLoadedMeasurements(){

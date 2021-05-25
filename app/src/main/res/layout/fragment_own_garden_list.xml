@@ -3,21 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/contrast_green"
     android:layout_height="match_parent"
-    tools:context=".views.mainapp.assistant.GardenListFragment">
+    android:background="@color/dark_green"
+    tools:context=".views.mainapp.assistant.OwnGardenListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/garden_recycler"
-        android:layout_marginTop="100dp"
+        android:id="@+id/own_garden_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_garden" />
+        tools:listitem="@layout/item_own_garden" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

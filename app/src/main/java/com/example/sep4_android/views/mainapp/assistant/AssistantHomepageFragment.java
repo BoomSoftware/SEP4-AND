@@ -16,6 +16,8 @@ public class AssistantHomepageFragment extends Fragment {
 
     private View view;
     private Button browseGardenButton;
+    private Button ownGardensButton;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,9 +29,11 @@ public class AssistantHomepageFragment extends Fragment {
 
     private void prepareUI(){
         browseGardenButton = view.findViewById(R.id.button_assistant_browse);
+        ownGardensButton = view.findViewById(R.id.button_assistant_own);
     }
 
     private void prepareOnclickEvents(){
+        ownGardensButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_assistantHomepageFragment_to_ownGardenListFragment));
         browseGardenButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_assistantHomepageFragment_to_gardenListFragment));
     }
 }
