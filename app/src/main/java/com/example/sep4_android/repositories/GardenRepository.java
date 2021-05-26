@@ -19,6 +19,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,8 +46,21 @@ public class GardenRepository {
         return instance;
     }
 
-    public LiveData<Garden> getGarden(String userGoogleId){
-        return gardenDAO.getGarden(userGoogleId);
+    public LiveData<Garden> getGarden(String gardenName){
+        return gardenDAO.getGarden(gardenName);
+    }
+
+    public LiveData<Garden> getOwnGarden(String userGoogleId){
+        return gardenDAO.getOwnGarden(userGoogleId);
+    }
+
+    public void synchronizeGarden(Garden garden){
+        executorService.execute(() -> {
+            Garden temp = gardenDAO.searchForGarden(garden.getName());
+            if(temp == null){
+                gardenDAO.createGarden(garden);
+            }
+        });
     }
 
     public void createGarden(Garden garden){

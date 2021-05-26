@@ -39,6 +39,7 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plant_list, container, false);
         gardenViewModel = new ViewModelProvider(this).get(PlantListViewModel.class);
+        gardenName = getArguments().getString("gardenName");
         prepareUI();
         prepareRecyclerView();
         prepareOnClickEvents();
@@ -52,8 +53,6 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         recyclerView = view.findViewById(R.id.recycler);
         emptyGarden = view.findViewById(R.id.empty_garden);
         emptyGarden.setVisibility(View.GONE);
-
-
     }
 
     private void personalizeView(){
@@ -83,9 +82,8 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
 
         plantAdapter = new PlantAdapter(this);
         gardenViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-            gardenViewModel.getGardenInfo(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
+            gardenViewModel.getGardenInfo(gardenName).observe(getViewLifecycleOwner(), garden -> {
                 if(garden != null){
-                    gardenName = garden.getName();
                     gardenViewModel.getPlantsForGarden(garden.getName()).observe(getViewLifecycleOwner(), plants -> {
                         if(!plants.isEmpty()){
                             emptyGarden.setVisibility(View.GONE);

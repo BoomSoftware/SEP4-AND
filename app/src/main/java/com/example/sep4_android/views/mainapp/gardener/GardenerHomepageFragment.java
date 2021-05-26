@@ -91,7 +91,9 @@ public class GardenerHomepageFragment extends Fragment {
             viewModel.getGarden(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
                 buttonViewGarden.setOnClickListener(v -> {
                     if (garden != null) {
-                        Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_gardenListFragment);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("gardenName", garden.getName());
+                        Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_gardenListFragment, bundle);
                         return;
                     }
                     Toasty.error(view.getContext(), view.getContext().getString(R.string.no_garden), Toasty.LENGTH_SHORT, true).show();

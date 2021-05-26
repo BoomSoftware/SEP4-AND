@@ -43,7 +43,7 @@ public class PlantListViewModel extends AndroidViewModel {
         plantRepository.removePlantFromGarden(plantId);
     }
 
-    public LiveData<Garden> getGardenInfo(String userGoogleId){
-        return gardenRepository.getGarden(userGoogleId);
+    public LiveData<Garden> getGardenInfo(String gardenName){
+        return gardenRepository.getGarden(gardenName);
     }
 }

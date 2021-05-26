@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.AssistantAdapter;
+import com.example.sep4_android.models.GardenLiveData;
+import com.example.sep4_android.models.User;
+import com.example.sep4_android.models.UserLiveData;
 import com.example.sep4_android.viewmodels.gardener.AssistantListViewModel;
 
 import java.util.ArrayList;
@@ -46,28 +49,41 @@ public class AssistantListFragment extends Fragment implements AssistantAdapter.
         assistantList.setLayoutManager(new LinearLayoutManager(view.getContext()));
         assistantList.setAdapter(adapter);
 
-        viewModel.getLiveGarden().observe(getViewLifecycleOwner(), garden -> {
-            gardenName = garden.getName();
-            List<String> assistants = new ArrayList<>();
-            if (listType.equals("requests")) {
-                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXX  requests " + listType);
-                for (Map.Entry<String, Boolean> entry : garden.getAssistantList().entrySet()) {
-                    if (!entry.getValue()) {
-                        assistants.add(entry.getKey());
-                    }
 
-                }
-            }
-            else{
-                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXX  all " + listType);
-                for (Map.Entry<String, Boolean> entry : garden.getAssistantList().entrySet()) {
-                    if (entry.getValue()) {
-                        assistants.add(entry.getKey());
+        GardenLiveData gardenLive = viewModel.getLiveGarden();
+        if(gardenLive != null){
+            gardenLive.observe(getViewLifecycleOwner(), garden -> {
+                if(garden != null){
+                    gardenName = garden.getName();
+                    List<String> assistants = new ArrayList<>();
+                    if (listType.equals("requests")) {
+                        for (Map.Entry<String, Boolean> entry : garden.getAssistantList().entrySet()) {
+                            if (!entry.getValue()) {
+                                assistants.add(entry.getKey());
+//                                viewModel.getAssistant(entry.getKey()).observe(getViewLifecycleOwner(), assistant ->{
+//                                    assistants.add(assistant);
+//                                    adapter.setAssistants(assistants);
+//                                });
+                            }
+
+                        }
                     }
+                    else{
+                        for (Map.Entry<String, Boolean> entry : garden.getAssistantList().entrySet()) {
+                            if (entry.getValue()) {
+                                assistants.add(entry.getKey());
+//                                viewModel.getAssistant(entry.getKey()).observe(getViewLifecycleOwner(), assistant -> {
+//                                    assistants.add(assistant);
+//                                    adapter.setAssistants(assistants);
+//                                });
+                            }
+                        }
+                    }
+                    adapter.setAssistants(assistants);
                 }
-            }
-            adapter.setAssistants(assistants);
-        });
+            });
+        }
+
     }
 
     @Override
@@ -81,7 +97,7 @@ public class AssistantListFragment extends Fragment implements AssistantAdapter.
     }
 
     @Override
-    public void loadAssistantInformation(String assistantGoogleId) {
-
+    public UserLiveData loadAssistantInfo(String assistantGoogleId) {
+        return viewModel.getAssistant(assistantGoogleId);
     }
 }

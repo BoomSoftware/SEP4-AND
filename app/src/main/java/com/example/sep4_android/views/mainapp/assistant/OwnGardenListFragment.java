@@ -18,6 +18,7 @@ import com.example.sep4_android.adapters.OwnGardenAdapter;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.viewmodels.assistant.OwnGardenListViewModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class OwnGardenListFragment extends Fragment implements OwnGardenAdapter.OnItemClickListener {
 
@@ -52,6 +53,13 @@ public class OwnGardenListFragment extends Fragment implements OwnGardenAdapter.
     @Override
     public void onOpenGarden(String gardenName) {
         viewModel.synchronizePlants(gardenName);
-        Navigation.findNavController(view).navigate(R.id.action_ownGardenListFragment_to_plantListFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("gardenName", gardenName);
+        Navigation.findNavController(view).navigate(R.id.action_ownGardenListFragment_to_plantListFragment ,bundle);
+    }
+
+    @Override
+    public void synchronizeGarden(Garden garden) {
+        viewModel.synchronizeGarden(garden);
     }
 }

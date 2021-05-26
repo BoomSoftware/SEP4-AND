@@ -86,7 +86,7 @@ public class SignInFragment extends Fragment {
 
     private void handleSignInRequest(int resultCode){
         if(resultCode == RESULT_OK) {
-            loginViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+            loginViewModel.getCurrentUser().observe(getActivity(), user -> {
                 loginViewModel.getStatus(user.getUid()).observe(getActivity(), status -> {
                     if(status != null){
                         Intent intent = new Intent(getContext(), MainAppActivity.class);

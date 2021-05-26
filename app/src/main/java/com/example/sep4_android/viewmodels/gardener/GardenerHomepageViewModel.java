@@ -23,7 +23,7 @@ public class GardenerHomepageViewModel extends AndroidViewModel {
     }
 
     public LiveData<Garden> getGarden(String userGoogleId){
-        return gardenRepository.getGarden(userGoogleId);
+        return gardenRepository.getOwnGarden(userGoogleId);
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){

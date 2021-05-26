@@ -6,14 +6,18 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.example.sep4_android.models.GardenLiveData;
+import com.example.sep4_android.models.UserLiveData;
 import com.example.sep4_android.repositories.GardenRepository;
+import com.example.sep4_android.repositories.UserRepository;
 
 public class AssistantListViewModel extends AndroidViewModel{
-    private GardenRepository gardenRepository;
+    private final GardenRepository gardenRepository;
+    private final UserRepository userRepository;
 
     public AssistantListViewModel(@NonNull Application application) {
         super(application);
         gardenRepository = GardenRepository.getInstance(application);
+        userRepository = UserRepository.getInstance(application);
     }
 
     public GardenLiveData getLiveGarden(){
@@ -25,5 +29,9 @@ public class AssistantListViewModel extends AndroidViewModel{
     }
     public void removeAssistant(String gardenName, String assistantGoogleId){
         gardenRepository.removeAssistant(gardenName, assistantGoogleId);
+    }
+
+    public UserLiveData getAssistant(String assistantGoogleId){
+        return userRepository.getUser(assistantGoogleId);
     }
 }

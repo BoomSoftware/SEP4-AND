@@ -7,9 +7,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.sep4_android.R;
+import com.example.sep4_android.models.User;
+import com.example.sep4_android.models.UserLiveData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +40,15 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        listener.loadAssistantInfo(assistants.get(position)).observe((LifecycleOwner) holder.itemView.getContext(), assistant -> {
+            Glide.with(holder.itemView).load(assistant.getAvatarUrl()).into(holder.assistantAvatar);
+            holder.assistantName.setText(assistant.getName());
+        });
+
+//        Glide.with(holder.itemView).load(assistants.get(position).getAvatarUrl()).into(holder.assistantAvatar);
+//        holder.assistantName.setText(assistants.get(position).getName());
+
+
         holder.approveButton.setOnClickListener(v -> {
             listener.approveAssistant(assistants.get(position));
         });
@@ -74,6 +87,6 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
     public interface OnAssistantItemActionListener {
         void approveAssistant(String assistantGoogleId);
         void removeAssistant(String assistantGoogleId);
-        void loadAssistantInformation(String assistantGoogleId);
+        UserLiveData loadAssistantInfo(String assistantGoogleId);
     }
 }
