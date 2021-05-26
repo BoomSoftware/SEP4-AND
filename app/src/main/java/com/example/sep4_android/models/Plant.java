@@ -11,7 +11,6 @@ public class Plant {
     private int plantID;
     private String gardenName;
     private int height;
-    private int width;
     private String stageOfGrowth;
     private String soilType;
     private int ownSoilVolume;
@@ -21,10 +20,9 @@ public class Plant {
     private String seededAt;
     private String harvestedAt;
 
-    public Plant(String gardenName, int height, int width, String stageOfGrowth, String soilType, int ownSoilVolume, String commonPlantName, String categoryName, String gardenLocation) {
+    public Plant(String gardenName, int height, String stageOfGrowth, String soilType, int ownSoilVolume, String commonPlantName, String categoryName, String gardenLocation) {
         this.gardenName = gardenName;
         this.height = height;
-        this.width = width;;
         this.stageOfGrowth = stageOfGrowth;
         this.soilType = soilType;
         this.ownSoilVolume = ownSoilVolume;
@@ -56,14 +54,6 @@ public class Plant {
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 
     public String getStageOfGrowth() {

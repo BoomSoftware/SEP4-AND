@@ -49,6 +49,7 @@
     <string name="plant_common_name">Common Plant Name</string>
     <string name="plant_category_name">Category Name</string>
     <string name="plant_garden_location">Garden location</string>
+    <string name="plant_update">Update</string>
 
     <!--    Sensors-->
     <string name="light_sensor">Light sensor ID</string>

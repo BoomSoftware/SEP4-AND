@@ -32,18 +32,6 @@
             android:layout_marginTop="4dp" />
 
         <TextView
-            android:id="@+id/text_plant_width"
-            style="@style/input_title"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            android:text="@string/plant_width" />
-
-        <EditText
-            android:id="@+id/input_plant_width"
-            style="@style/input"
-            android:layout_marginTop="4dp" />
-
-        <TextView
             android:id="@+id/text_plant_stage_growth"
             style="@style/input_title"
             android:layout_marginTop="10dp"

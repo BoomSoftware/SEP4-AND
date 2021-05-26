@@ -97,19 +97,16 @@ public class PlantRepository {
     }
 
     public void loadAllMeasurements(int plantId, FrequencyTypes frequencyType, MeasurementTypes measurementType){
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"+plantId);
         Call<List<Measurement>> call = plantApi.getAllMeasurements(plantId, frequencyType.toString().toLowerCase() ,measurementType.toString());
         call.enqueue(new Callback<List<Measurement>>() {
             @Override
             public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
-                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"+ response.body());
                 if(response.isSuccessful() && response.body() != null) {
                     measurements.setValue(response.body());
                 }
             }
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
-                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"+ t.getMessage());
             }
         });
     }
@@ -135,11 +132,13 @@ public class PlantRepository {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
+                    System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
                     executorService.execute(() -> plantDAO.updatePlant(plant));
                 }
             }
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {}
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
         });
     }
 
