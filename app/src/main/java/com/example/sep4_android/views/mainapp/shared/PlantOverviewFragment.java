@@ -1,17 +1,18 @@
 package com.example.sep4_android.views.mainapp.shared;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -21,12 +22,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.FrequencyTypes;
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
 import com.example.sep4_android.viewmodels.shared.PlantOverviewViewModel;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 
 
@@ -45,7 +51,7 @@ public class PlantOverviewFragment extends DialogFragment {
     private Button statisticsButton;
     private Button buttonTakePic;
     private int plantID;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private ActivityResultLauncher<Intent> pictureActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +63,7 @@ public class PlantOverviewFragment extends DialogFragment {
         prepareUI();
         prepareOnClickEvents();
         loadData();
-        dispatchTakePictureIntent();
+        registerOnActivityResultListener();
         return view;
     }
 
@@ -74,11 +80,52 @@ public class PlantOverviewFragment extends DialogFragment {
         buttonTakePic = view.findViewById(R.id.button_plant_take_pic);
     }
 
+    private void registerOnActivityResultListener() {
+        pictureActivity = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Bundle extras = result.getData().getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+                        savePictureInFirebase(imageBitmap);
+                    }
+                });
+    }
+
+    private void savePictureInFirebase(Bitmap imageBitmap){
+        String fileName = plantID + ".jpg";
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(fileName);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = storageReference.putBytes(data);
+        uploadTask.addOnFailureListener(exception -> {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXX error");
+        }).addOnSuccessListener(taskSnapshot -> {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX success");
+        });
+    }
+
     private void prepareOnClickEvents() {
         statisticsButton.setOnClickListener(v -> createDialog());
+
+        buttonTakePic.setOnClickListener(v -> {
+            Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                pictureActivity.launch(pictureIntent);
+        });
     }
 
     private void loadData(){
+        String fileName = plantID + ".jpg";
+
+        FirebaseStorage.getInstance().getReference().child(fileName).getDownloadUrl().addOnSuccessListener(uri -> {
+            System.out.println(uri.toString());
+            Glide.with(view).load(uri).into(plantImg);
+        }).addOnFailureListener(exception -> {
+            // Handle any errors
+        });
         viewModel.loadPlant(plantID).observe(getViewLifecycleOwner(), plant -> {
             plantName.setText(plant.getCategoryName());
             plantLocation.setText(plant.getGardenLocation());
@@ -112,30 +159,9 @@ public class PlantOverviewFragment extends DialogFragment {
     private void createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.measurements)
-                .setItems(R.array.measurements_entries, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                .setItems(R.array.measurements_entries, (dialog, which) -> {
 
-                    }
                 });
         builder.create();
     }
-
-    private void dispatchTakePictureIntent() {
-        buttonTakePic.setOnClickListener(v -> {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            try {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            } catch (ActivityNotFoundException e) {
-                // display error state to the user
-            }
-        });
-    }
-
-    //    private void galleryAddPic() {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        File f = new File(currentPhotoPath);
-//        Uri contentUri = Uri.fromFile(f);
-//        mediaScanIntent.setData(contentUri);
-//        this.sendBroadcast(mediaScanIntent);
-//    }
 }

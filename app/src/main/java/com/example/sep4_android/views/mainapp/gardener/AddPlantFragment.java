@@ -94,7 +94,6 @@ public class AddPlantFragment extends Fragment {
         if(plantId != -1){
             plant.setPlantID(plantId);
         }
-
         return plant;
     }
 }
