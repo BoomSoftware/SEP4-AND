@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -71,8 +72,6 @@ public class PlantOverviewFragment extends DialogFragment {
         prepareOnClickEvents();
         loadData();
         registerOnActivityResultListener();
-        createDialog();
-        dispatchTakePictureIntent();
         return view;
     }
 
@@ -109,17 +108,11 @@ public class PlantOverviewFragment extends DialogFragment {
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
-        UploadTask uploadTask = storageReference.putBytes(data);
-        uploadTask.addOnFailureListener(exception -> {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXX error");
-        }).addOnSuccessListener(taskSnapshot -> {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX success");
-        });
+        storageReference.putBytes(data);
     }
 
     private void prepareOnClickEvents() {
-        statisticsButton.setOnClickListener(v -> createDialog());
-
+        statisticsButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_plantOverviewFragment_to_statisticsFragment));
         buttonTakePic.setOnClickListener(v -> {
             Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 pictureActivity.launch(pictureIntent);
@@ -165,28 +158,15 @@ public class PlantOverviewFragment extends DialogFragment {
         });
     }
 
-    private void createDialog() {
-        selectedItems = new ArrayList<>();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        viewModel.loadMeasurements(plantID, FrequencyTypes.LATEST, MeasurementTypes.ALL);
-        builder.setTitle(R.string.measurements)
-                .setItems(R.array.measurements_entries, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedItems.add(which);
-                        navController.navigate(R.id.action_plantOverviewFragment_to_statisticsFragment);
-                    }
-                });
-        builder.create();
-    }
-
-    private void dispatchTakePictureIntent() {
-        buttonTakePic.setOnClickListener(v -> {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            try {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            } catch (ActivityNotFoundException e) {
-                // display error state to the user
-            }
-        });
-    }
+//    private void createDialog() {
+//        selectedItems = new ArrayList<>();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        viewModel.loadMeasurements(plantID, FrequencyTypes.LATEST, MeasurementTypes.ALL);
+//        builder.setTitle(R.string.measurements)
+//                .setItems(R.array.measurements_entries, (dialog, which) -> {
+//                    selectedItems.add(which);
+//                    navController.navigate(R.id.action_plantOverviewFragment_to_statisticsFragment);
+//                });
+//        builder.create();
+//    }
 }

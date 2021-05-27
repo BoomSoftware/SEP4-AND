@@ -57,10 +57,11 @@
     <string name="plant_garden_location">Garden location</string>
     <string name="plant_update">Update</string>
 
-    <!--    Sensors-->
-    <string name="light_sensor">Light sensor ID</string>
-    <string name="co2_sensor">CO2 sensor ID</string>
-    <string name="temp_sensor">Temperature and humidity sensor ID</string>
+    <!--    Measurements-->
+    <string name="light">light</string>
+    <string name="co2">co2</string>
+    <string name="humidity">humidity</string>
+    <string name="temperature">temperature</string>
 
     <!--    Messages-->
     <string name="no_garden">First create garden!</string>
