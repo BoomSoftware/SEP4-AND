@@ -4,13 +4,18 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Garden;
+import com.example.sep4_android.util.NumericKeyBoardTransformationMethod;
 import com.example.sep4_android.viewmodels.gardener.AddNewGardenViewModel;
 
 import es.dmoral.toasty.Toasty;
@@ -34,6 +39,7 @@ public class AddGardenFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(AddNewGardenViewModel.class);
         view = inflater.inflate(R.layout.fragment_add_garden, container, false);
         prepareUI();
+        setInputTypes();
         prepareOnClickEvents();
         return view;
     }
@@ -49,10 +55,37 @@ public class AddGardenFragment extends Fragment {
 
     private void prepareOnClickEvents(){
         confirm.setOnClickListener(v -> {
+            if(gardenName == null || gardenName.getText().toString().equals("")) {
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+                return;
+            }
+            if(gardenLand.getText().toString().equals("") || Double.parseDouble(gardenLand.getText().toString()) < 0) {
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+                return;
+            }
+            if(gardenStreet == null || gardenStreet.getText().toString().equals("")) {
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+                return;
+            }
+            if(gardenNumber == null || gardenNumber.getText().toString().equals("")) {
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+                return;
+            }
+            if(gardenCity == null || gardenCity.getText().toString().equals("")) {
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+                return;
+            }
             viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
                 viewModel.addNewGarden(new Garden(gardenName.getText().toString(), Double.parseDouble(gardenLand.getText().toString()), gardenCity.getText().toString(), gardenStreet.getText().toString(), gardenNumber.getText().toString(), user.getUid()));
                 Toasty.success(view.getContext(), view.getContext().getString(R.string.success_garden), Toasty.LENGTH_SHORT, true).show();
             });
         });
+    }
+
+    private void setInputTypes(){
+        gardenLand.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        gardenLand.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+        gardenNumber.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+        gardenNumber.setTransformationMethod(new NumericKeyBoardTransformationMethod());
     }
 }

@@ -18,6 +18,12 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 
+    <!--    Menu -->
+    <string name="logout">Logout</string>
+    <string name="remove_account">Remove account</string>
+    <string name="nav_switch">Switch mode</string>
+
+
     <!-- Main app -->
     <string name="settings">Settings</string>
     <string name="view_garden">View Garden</string>
@@ -66,19 +72,17 @@
     <string name="channel_description">Channed description</string>
 
     <!-- Data to display in the dialog box-->
-    <string name="light_measurement">114 lux</string>
-    <string name="co2_measurement">123 ppm</string>
-    <string name="humidity_measurement">1000 mPa</string>
-    <string name="temperature_measurement">20</string>
     <string name="measurements">Measurements</string>
+    <string name="no_data_text">Empty</string>
 
     <!-- Garden Info-->
     <string name="area">Area:</string>
     <string name="address">Address:</string>
     <string name="assistant_no">All assistants:</string>
-    
-    <string-array name="numbers">
-        <item>One</item>
-        <item>Two</item>
-    </string-array>
+
+    <!-- Empty field-->
+    <string name="empty_field">Empty field</string>
+
+    <string name="settings_remove">Remove account</string>
+    <string name="settings_remove_summary">This action will permanently remove your account and all related information</string>
 </resources>

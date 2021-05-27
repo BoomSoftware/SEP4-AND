@@ -17,20 +17,26 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.MainActivityViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private NavigationView navigationView;
     private MainActivityViewModel viewModel;
     private final String CHANNEL_ID = "misc";
+    private MenuItem switchItem;
+    private boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +54,57 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         switch (item.getItemId()) {
             case R.id.nav_item_logout: {
                 viewModel.signOut();
+                break;
+            }
+            case R.id.nav_item_delete: {
+                removeAccount();
+                break;
+            }
+            case R.id.nav_switch: {
+                viewModel.updateUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid(), !status);
+                status = !status;
+                break;
             }
         }
         return true;
+    }
+
+    private void removeAccount(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        viewModel.removeUserFromOtherGardens(user.getUid());
+        viewModel.getOwnGarden(user.getUid()).observe(this, garden -> {
+            if(garden != null){
+                viewModel.getPlantsForGarden(garden.getName()).observe(this, plants -> {
+                    for(Plant plant : plants){
+                        viewModel.removePlant(plant.getPlantID());
+                    }
+                    viewModel.removeUserStatus(user.getUid());
+                    viewModel.removeGarden(garden.getName());
+                });
+            }
+            else{
+                viewModel.removeUserStatus(user.getUid());
+                viewModel.removeUser();
+                viewModel.signOut();
+            }
+        });
     }
 
     private void checkIfSignedIn() {
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
                 viewModel.getUserStatus(user.getUid()).observe(this, status -> {
+                    if(status == null){
+                        startActivity(new Intent(this, LoginActivity.class));
+                        return;
+                    }
                     prepareToolbar(status.isStatus());
                     setNavigationHeader();
                 });
 
-            } else
+            } else{
                 startActivity(new Intent(this, LoginActivity.class));
+            }
         });
     }
 
@@ -72,8 +114,10 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_app_graph);
         if (status) {
             navGraph.setStartDestination(R.id.gardenerHomepageFragment);
+            status = false;
         } else {
             navGraph.setStartDestination(R.id.assistantHomepageFragment);
+            status = true;
         }
 
         navController.setGraph(navGraph);

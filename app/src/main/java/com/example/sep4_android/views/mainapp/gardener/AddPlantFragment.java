@@ -4,14 +4,21 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Plant;
+import com.example.sep4_android.util.NumericKeyBoardTransformationMethod;
 import com.example.sep4_android.viewmodels.gardener.AddPlantViewModel;
+
+import es.dmoral.toasty.Toasty;
 
 public class AddPlantFragment extends Fragment {
 
@@ -36,7 +43,9 @@ public class AddPlantFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_plant, container, false);
         plantId = getArguments().getInt("plantId", -1);
         prepareUI();
+        setInputTypes();
         prepareOnClickEvents();
+        validation();
         return view;
     }
 
@@ -95,5 +104,42 @@ public class AddPlantFragment extends Fragment {
             plant.setPlantID(plantId);
         }
         return plant;
+    }
+
+    private void setInputTypes(){
+       plantHeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+       plantHeight.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+       soilVolume.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL);
+       soilVolume.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+    }
+
+    private void validation() {
+        if(plantHeight.getText().toString().equals("") || Integer.parseInt(plantHeight.getText().toString()) < 0) {
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if(stageGrowth == null || stageGrowth.getText().toString().equals("")) {
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if(soilType == null || soilType.getText().toString().equals("")) {
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if(soilVolume.getText().toString().equals("") || Integer.parseInt(soilVolume.getText().toString()) < 0) {
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if(commonPlantName == null || commonPlantName.getText().toString().equals("")) {
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if(categoryName == null || categoryName.getText().toString().equals("")) {
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            return;
+        }
+        if(gardenLocation == null || gardenLocation.getText().toString().equals("")) {
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+        }
     }
 }

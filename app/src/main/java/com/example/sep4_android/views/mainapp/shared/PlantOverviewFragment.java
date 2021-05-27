@@ -2,6 +2,7 @@ package com.example.sep4_android.views.mainapp.shared;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -34,6 +36,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PlantOverviewFragment extends DialogFragment {
@@ -51,7 +55,10 @@ public class PlantOverviewFragment extends DialogFragment {
     private Button statisticsButton;
     private Button buttonTakePic;
     private int plantID;
+    private NavController navController;
+    private List<Integer> selectedItems;
     private ActivityResultLauncher<Intent> pictureActivity;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +71,8 @@ public class PlantOverviewFragment extends DialogFragment {
         prepareOnClickEvents();
         loadData();
         registerOnActivityResultListener();
+        createDialog();
+        dispatchTakePictureIntent();
         return view;
     }
 
@@ -157,11 +166,27 @@ public class PlantOverviewFragment extends DialogFragment {
     }
 
     private void createDialog() {
+        selectedItems = new ArrayList<>();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        viewModel.loadMeasurements(plantID, FrequencyTypes.LATEST, MeasurementTypes.ALL);
         builder.setTitle(R.string.measurements)
-                .setItems(R.array.measurements_entries, (dialog, which) -> {
-
+                .setItems(R.array.measurements_entries, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedItems.add(which);
+                        navController.navigate(R.id.action_plantOverviewFragment_to_statisticsFragment);
+                    }
                 });
         builder.create();
+    }
+
+    private void dispatchTakePictureIntent() {
+        buttonTakePic.setOnClickListener(v -> {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            try {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            } catch (ActivityNotFoundException e) {
+                // display error state to the user
+            }
+        });
     }
 }

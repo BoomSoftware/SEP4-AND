@@ -27,7 +27,6 @@ import java.util.concurrent.Executors;
 public class GardenRepository {
     private static GardenRepository instance;
     private GardenDAO gardenDAO;
-    private DatabaseReference myRef;
     private ExecutorService executorService;
     private GardenLiveData garden;
 
@@ -35,7 +34,6 @@ public class GardenRepository {
     private GardenRepository(Application application) {
         GardenDatabase database = GardenDatabase.getInstance(application);
         gardenDAO = database.gardenDAO();
-        myRef = FirebaseDatabase.getInstance().getReference().child("gardens");
         executorService = Executors.newFixedThreadPool(2);
     }
 
@@ -64,7 +62,7 @@ public class GardenRepository {
     }
 
     public void createGarden(Garden garden){
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("gardens").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean result = true;
@@ -75,7 +73,7 @@ public class GardenRepository {
                     }
                 }
                 if(result){
-                    myRef.child(garden.getName()).setValue(garden);
+                    FirebaseDatabase.getInstance().getReference().child("gardens").child(garden.getName()).setValue(garden);
                     addGardenToLocalDatabase(garden);
                 }
             }
@@ -87,17 +85,16 @@ public class GardenRepository {
     }
 
     public void removeGarden(String gardenName) {
-        myRef = FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName);
-        myRef.removeValue();
+        FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).removeValue();
         executorService.execute(() -> gardenDAO.removeGarden(gardenName));
     }
 
     public Query getAllGardens(){
-        return myRef;
+        return FirebaseDatabase.getInstance().getReference().child("gardens");
     }
 
     public void initializeGarden(String gardenName){
-        garden = new GardenLiveData(myRef.child(gardenName));
+        garden = new GardenLiveData(FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName));
     }
 
     public GardenLiveData getLiveGarden(){
@@ -109,21 +106,20 @@ public class GardenRepository {
         String assistantGoogleId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Map<String, Object> map = new HashMap<>();
         map.put(assistantGoogleId, false);
-        myRef.child(gardenName).child("assistantList").updateChildren(map);
+        FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).child("assistantList").updateChildren(map);
     }
 
     public void approveAssistant(String gardenName, String assistantGoogleId){
         Map<String, Object> map = new HashMap<>();
         map.put(assistantGoogleId, true);
-        myRef.child(gardenName).child("assistantList").updateChildren(map);
+        FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).child("assistantList").updateChildren(map);
     }
 
     public void removeAssistant(String gardenName, String assistantGoogleId){
-        myRef.child(gardenName).child("assistantList").child(assistantGoogleId).removeValue();
+        FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).child("assistantList").child(assistantGoogleId).removeValue();
     }
 
     private void addGardenToLocalDatabase(Garden garden){
         executorService.execute(() -> gardenDAO.createGarden(garden));
     }
-
 }
