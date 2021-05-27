@@ -62,6 +62,7 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
             }
             else{
                 addPlantButton.setVisibility(View.VISIBLE);
+                plantAdapter.setAccess(true);
                 setSwipeEvent();
             }
         });
@@ -103,6 +104,13 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         Bundle bundle = new Bundle();
         bundle.putInt("plantId", plantId);
         Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_plantOverviewFragment, bundle);
+    }
+
+    @Override
+    public void onEdit(int plantId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("plantId", plantId);
+        Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_addPlantFragment, bundle);
     }
 
     private void setSwipeEvent(){

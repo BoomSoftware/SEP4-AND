@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,10 +20,12 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
 
     private List<Plant> plants;
     private OnClickListener onClickListener;
+    private boolean access;
 
     public PlantAdapter(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
         plants = new ArrayList<>();
+        access = false;
     }
 
     @NonNull
@@ -41,6 +44,15 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         holder.viewPlant.setOnClickListener(v -> {
             onClickListener.onClick(currentPlant.getPlantID());
         });
+
+        holder.editPlant.setOnClickListener(v -> {
+            onClickListener.onEdit(currentPlant.getPlantID());
+        });
+
+
+        if(access){
+            holder.editPlant.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -53,6 +65,11 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public void setAccess(boolean access){
+        this.access = access;
+        notifyDataSetChanged();
+    }
+
     public Plant getItemAt(int position){
         return plants.get(position);
     }
@@ -60,6 +77,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView plantName;
         TextView plantLocation;
+        ImageView editPlant;
         Button viewPlant;
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,10 +85,12 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
             plantName = itemView.findViewById(R.id.text_plant_item_name);
             viewPlant = itemView.findViewById(R.id.button_item_plant_view);
             plantLocation = itemView.findViewById(R.id.text_item_plant_location);
+            editPlant = itemView.findViewById(R.id.img_item_plant_edit);
         }
     }
 
     public interface OnClickListener {
         void onClick(int plantId);
+        void onEdit(int plantId);
     }
 }

@@ -10,7 +10,7 @@ import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.models.UserStatus;
 
-@Database(entities = {Plant.class, Garden.class, UserStatus.class}, version = 8)
+@Database(entities = {Plant.class, Garden.class, UserStatus.class}, version = 9)
 public abstract class GardenDatabase extends RoomDatabase {
     private static GardenDatabase instance;
     public abstract PlantDAO plantDAO();

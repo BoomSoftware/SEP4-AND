@@ -236,18 +236,6 @@
         app:layout_constraintTop_toBottomOf="@+id/text_plant_temp" />
 
     <Button
-        android:id="@+id/button_plant_load_pic"
-        style="@style/green_button"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:text="Load image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/img_plant"
-        app:layout_constraintTop_toBottomOf="@+id/button_plant_take_pic" />
-
-    <Button
         android:id="@+id/button_plant_statistics"
         style="@style/green_button"
         android:layout_width="160dp"
