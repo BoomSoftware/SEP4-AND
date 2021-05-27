@@ -52,14 +52,14 @@ public class OwnGardenListFragment extends Fragment implements OwnGardenAdapter.
 
     @Override
     public void onOpenGarden(String gardenName) {
-        viewModel.synchronizePlants(gardenName);
+//        viewModel.synchronizePlants(gardenName);
         Bundle bundle = new Bundle();
         bundle.putString("gardenName", gardenName);
         Navigation.findNavController(view).navigate(R.id.action_ownGardenListFragment_to_plantListFragment ,bundle);
     }
 
-    @Override
-    public void synchronizeGarden(Garden garden) {
-        viewModel.synchronizeGarden(garden);
-    }
+//    @Override
+//    public void synchronizeGarden(Garden garden) {
+//        viewModel.synchronizeGarden(garden);
+//    }
 }

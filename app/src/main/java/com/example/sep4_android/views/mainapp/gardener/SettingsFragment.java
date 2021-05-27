@@ -1,5 +1,6 @@
 package com.example.sep4_android.views.mainapp.gardener;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
@@ -9,23 +10,31 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.EditTextPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.util.AlertReceiver;
+import com.example.sep4_android.viewmodels.shared.SettingsViewModel;
 
 import java.util.Calendar;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-//    private EditText textContent;
+    private SettingsViewModel viewModel;
+    private Preference synchronizeButton;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+        preparePreferences();
+        preparePreferencesOnClick();
 
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this.requireContext());
@@ -69,6 +78,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             }
         });
+    }
+
+
+    private void preparePreferences(){
+        synchronizeButton = findPreference(getString(R.string.settings_synchronize));
+    }
+
+    private void preparePreferencesOnClick(){
+        synchronizeButton.setOnPreferenceClickListener(v -> {
+            viewModel.synchronizeGarden();
+            viewModel.getSynchronizedGardenName().observe(getViewLifecycleOwner(), name -> {
+                if(name != null){
+                    viewModel.loadPlantsForGardenLive(name);
+                    viewModel.getPlantsForGardenLive().observe(getViewLifecycleOwner(), plants  -> {
+                        for(Plant plant : plants){
+                            viewModel.addPlant(plant);
+                        }
+                    });
+                }
+            });
+            return true;
+        });
+
     }
 
     private void startAlarm(int hour, int minute, String text) {

@@ -42,7 +42,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         holder.plantLocation.setText(currentPlant.getGardenLocation());
         holder.plantName.setText(currentPlant.getCategoryName());
         holder.viewPlant.setOnClickListener(v -> {
-            onClickListener.onClick(currentPlant.getPlantID());
+            onClickListener.onClick(currentPlant);
         });
 
         holder.editPlant.setOnClickListener(v -> {
@@ -90,7 +90,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
     }
 
     public interface OnClickListener {
-        void onClick(int plantId);
+        void onClick(Plant plant);
         void onEdit(int plantId);
     }
 }

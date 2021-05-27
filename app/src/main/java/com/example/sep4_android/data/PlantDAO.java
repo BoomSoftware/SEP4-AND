@@ -29,4 +29,7 @@ public interface PlantDAO {
 
     @Query("SELECT * FROM Plant WHERE gardenName=:gardenName")
     LiveData<List<Plant>> getPlantsForGarden(String gardenName);
+
+    @Query("SELECT EXISTS(SELECT * FROM Plant WHERE plantID=:plantId)")
+    boolean checkIfPlantExist(int plantId);
 }

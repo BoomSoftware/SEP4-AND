@@ -11,7 +11,6 @@ import com.example.sep4_android.models.FrequencyTypes;
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
 import com.example.sep4_android.models.Plant;
-import com.example.sep4_android.models.Sensor;
 import com.example.sep4_android.networking.PlantApi;
 import com.example.sep4_android.networking.ServiceGenerator;
 
@@ -29,10 +28,13 @@ public class PlantRepository {
     private final ExecutorService executorService;
     private final PlantApi plantApi;
     private final MutableLiveData<List<Measurement>> measurements;
+    private final MutableLiveData<List<Plant>> plants;
+    private Plant selectedPlant;
 
     private PlantRepository(Application application) {
         GardenDatabase database = GardenDatabase.getInstance(application);
         measurements = new MutableLiveData<>();
+        plants = new MutableLiveData<>();
         plantDAO = database.plantDAO();
         plantApi = ServiceGenerator.getPlantApi();
         executorService = Executors.newFixedThreadPool(2);
@@ -50,27 +52,47 @@ public class PlantRepository {
         return plants;
     }
 
-    public void synchronizePlants(String gardenName){
+//    public void synchronizePlants(String gardenName){
+//        Call<List<Plant>> call = plantApi.getPlantsForGarden(gardenName);
+//        call.enqueue(new Callback<List<Plant>>() {
+//            @Override
+//            public void onResponse(Call<List<Plant>> call, Response<List<Plant>> response) {
+//                if(response.isSuccessful() && response.body() != null){
+//                    executorService.execute(() -> {
+//                        plantDAO.removeAllPlants(gardenName);
+//                        List<Plant> plants = response.body();
+//                        for(Plant plant : plants){
+//                            plantDAO.addPlant(plant);
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Plant>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+
+    public void loadPlantsForGardenLive(String gardenName){
         Call<List<Plant>> call = plantApi.getPlantsForGarden(gardenName);
         call.enqueue(new Callback<List<Plant>>() {
             @Override
             public void onResponse(Call<List<Plant>> call, Response<List<Plant>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    executorService.execute(() -> {
-                        plantDAO.removeAllPlants(gardenName);
-                        List<Plant> plants = response.body();
-                        for(Plant plant : plants){
-                            plantDAO.addPlant(plant);
-                        }
-                    });
+                  List<Plant> plantList = response.body();
+                  plants.postValue(plantList);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Plant>> call, Throwable t) {
-
-            }
+            public void onFailure(Call<List<Plant>> call, Throwable t) {}
         });
+    }
+
+    public MutableLiveData<List<Plant>> getPlantsForGardenLive(){
+        return plants;
     }
 
     public MutableLiveData<List<Measurement>> getLoadedMeasurements(){
@@ -88,12 +110,28 @@ public class PlantRepository {
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if(response.isSuccessful() && response.body() != null && response.body() != -1){
                     plant.setPlantID(response.body());
-                    executorService.execute(() -> plantDAO.addPlant(plant));
+                    addPlantToLocalDatabase(plant);
                 }
             }
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {}
         });
+    }
+
+    public void addPlantToLocalDatabase(Plant plant){
+        executorService.execute(() -> {
+            if(!plantDAO.checkIfPlantExist(plant.getPlantID())){
+                plantDAO.addPlant(plant);
+            }
+        });
+    }
+
+    public Plant getSelectedPlant() {
+        return selectedPlant;
+    }
+
+    public void setSelectedPlant(Plant selectedPlant) {
+        this.selectedPlant = selectedPlant;
     }
 
     public void loadAllMeasurements(int plantId, FrequencyTypes frequencyType, MeasurementTypes measurementType){
@@ -132,7 +170,6 @@ public class PlantRepository {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs");
                     executorService.execute(() -> plantDAO.updatePlant(plant));
                 }
             }
@@ -142,7 +179,7 @@ public class PlantRepository {
         });
     }
 
-    public void removePlantFromLocalDatabase(int plantId){
+    private void removePlantFromLocalDatabase(int plantId){
         executorService.execute(() -> plantDAO.removePlant(plantId));
     }
 }

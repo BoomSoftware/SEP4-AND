@@ -1,20 +1,14 @@
 package com.example.sep4_android.views.mainapp.shared;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -30,15 +24,14 @@ import com.example.sep4_android.R;
 import com.example.sep4_android.models.FrequencyTypes;
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
+import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.shared.PlantOverviewViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PlantOverviewFragment extends DialogFragment {
@@ -56,10 +49,7 @@ public class PlantOverviewFragment extends DialogFragment {
     private Button statisticsButton;
     private Button buttonTakePic;
     private int plantID;
-    private NavController navController;
-    private List<Integer> selectedItems;
     private ActivityResultLauncher<Intent> pictureActivity;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -126,13 +116,25 @@ public class PlantOverviewFragment extends DialogFragment {
             System.out.println(uri.toString());
             Glide.with(view).load(uri).into(plantImg);
         }).addOnFailureListener(exception -> {
-            // Handle any errors
         });
-        viewModel.loadPlant(plantID).observe(getViewLifecycleOwner(), plant -> {
+
+
+        viewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), status -> {
+            if(status.isStatus()){
+                viewModel.loadPlant(plantID).observe(getViewLifecycleOwner(), plant -> {
+                    plantName.setText(plant.getCategoryName());
+                    plantLocation.setText(plant.getGardenLocation());
+                    loadMeasurements();
+                });
+                return;
+            }
+            Plant plant = viewModel.getSelectedPlant();
             plantName.setText(plant.getCategoryName());
             plantLocation.setText(plant.getGardenLocation());
             loadMeasurements();
         });
+
+
     }
     private void loadMeasurements(){
         viewModel.loadMeasurements(plantID, FrequencyTypes.LATEST, MeasurementTypes.ALL);
@@ -158,15 +160,4 @@ public class PlantOverviewFragment extends DialogFragment {
         });
     }
 
-//    private void createDialog() {
-//        selectedItems = new ArrayList<>();
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        viewModel.loadMeasurements(plantID, FrequencyTypes.LATEST, MeasurementTypes.ALL);
-//        builder.setTitle(R.string.measurements)
-//                .setItems(R.array.measurements_entries, (dialog, which) -> {
-//                    selectedItems.add(which);
-//                    navController.navigate(R.id.action_plantOverviewFragment_to_statisticsFragment);
-//                });
-//        builder.create();
-//    }
 }
