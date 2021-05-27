@@ -61,7 +61,7 @@
         <EditText
             android:id="@+id/input_land_area"
             style="@style/input"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             />
 
 
@@ -105,7 +105,7 @@
             android:id="@+id/input_street_number"
             style="@style/input"
             android:layout_marginTop="4dp"
-            android:inputType="numberDecimal" />
+            android:inputType="textPersonName" />
 
 
     </LinearLayout>
