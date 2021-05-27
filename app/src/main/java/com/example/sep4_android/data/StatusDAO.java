@@ -14,4 +14,10 @@ public interface StatusDAO {
 
     @Query("SELECT * FROM UserStatus WHERE userGoogleId=:userGoogleId")
     LiveData<UserStatus> getStatusForUser(String userGoogleId);
+
+    @Query("DELETE FROM UserStatus WHERE userGoogleId=:userGoogleId")
+    void removeUserStatus(String userGoogleId);
+
+    @Query("UPDATE UserStatus SET status=:status WHERE userGoogleId=:userGoogleId")
+    void updateStatus(String userGoogleId, boolean status);
 }

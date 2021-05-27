@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.gardener.GardenerHomepageViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -68,50 +69,64 @@ public class GardenerHomepageFragment extends Fragment {
     }
 
     private void loadValues() {
-        viewModel.getGarden(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), garden -> {
-            if (garden != null) {
-                viewModel.initializeGarden(garden.getName());
-                viewModel.getLiveGarden().observe(getViewLifecycleOwner(), liveGarden -> {
-                    if(liveGarden != null){
-                        int notifications = 0;
-                        for (Map.Entry<String, Boolean> entry : liveGarden.getAssistantList().entrySet()) {
-                            if (!entry.getValue()) {
-                                notifications++;
+        viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+            if(user != null){
+                viewModel.getGarden(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
+                    if (garden != null) {
+                        viewModel.initializeGarden(garden.getName());
+                        viewModel.getLiveGarden().observe(getViewLifecycleOwner(), liveGarden -> {
+                            if(liveGarden != null){
+                                int notifications = 0;
+                                for (Map.Entry<String, Boolean> entry : liveGarden.getAssistantList().entrySet()) {
+                                    if (!entry.getValue()) {
+                                        notifications++;
+                                    }
+                                }
+                                notificationNumber.setText(String.valueOf(notifications));
                             }
-                        }
-                        notificationNumber.setText(String.valueOf(notifications));
+                        });
                     }
                 });
             }
         });
+
     }
 
     private void prepareOnClickEvents() {
         viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-            viewModel.getGarden(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
-                buttonViewGarden.setOnClickListener(v -> {
-                    if (garden != null) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("gardenName", garden.getName());
-                        Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_gardenListFragment, bundle);
+            if(user != null){
+                viewModel.getGarden(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
+                    buttonViewGarden.setOnClickListener(v -> {
+                        if (garden != null) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("gardenName", garden.getName());
+                            Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_gardenListFragment, bundle);
+                            return;
+                        }
+                        Toasty.error(view.getContext(), view.getContext().getString(R.string.no_garden), Toasty.LENGTH_SHORT, true).show();
+                    });
+
+                    if (garden == null) {
+                        addGardenTextView.setText(getString(R.string.add_garden));
+                        addGardenImageView.setImageResource(R.drawable.ic_baseline_addchart_24);
+                        buttonAddGarden.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_addGardenFragment));
                         return;
                     }
-                    Toasty.error(view.getContext(), view.getContext().getString(R.string.no_garden), Toasty.LENGTH_SHORT, true).show();
+                    String description = garden.getStreet() + " " + garden.getNumber() + "\n" + garden.getCity();
+                    addGardenImageView.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);
+                    descriptionTextView.setText(description);
+                    gardenNameTextView.setText(garden.getName());
+                    addGardenTextView.setText(getString(R.string.remove_garden));
+                    buttonAddGarden.setOnClickListener(v -> {
+                        viewModel.removeGarden(garden.getName());
+                        viewModel.getPlantsForGarden(garden.getName()).observe(getViewLifecycleOwner(), plants -> {
+                            for(Plant plant : plants){
+                                viewModel.removePlant(plant.getPlantID());
+                            }
+                        });
+                    });
                 });
-
-                if (garden == null) {
-                    addGardenTextView.setText(getString(R.string.add_garden));
-                    addGardenImageView.setImageResource(R.drawable.ic_baseline_addchart_24);
-                    buttonAddGarden.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_addGardenFragment));
-                    return;
-                }
-                String description = garden.getStreet() + " " + garden.getNumber() + "\n" + garden.getCity();
-                addGardenImageView.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);
-                descriptionTextView.setText(description);
-                gardenNameTextView.setText(garden.getName());
-                addGardenTextView.setText(getString(R.string.remove_garden));
-                buttonAddGarden.setOnClickListener(v -> viewModel.removeGarden(garden.getName()));
-            });
+            }
             buttonSettings.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_settingsFragment));
         });
 

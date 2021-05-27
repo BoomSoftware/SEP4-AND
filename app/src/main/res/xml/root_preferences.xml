@@ -2,8 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="User Preferences">
-
-
         <SwitchPreferenceCompat
             android:icon="@drawable/ic_notifications_black_24dp"
             app:key="notifications"
@@ -25,11 +23,13 @@
             app:useSimpleSummaryProvider="true"
             android:defaultValue="insert text" />
 
-
-
-
-
-
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="User setting">
+    <Preference
+        android:title="@string/settings_remove"
+        android:key="@string/settings_remove"
+        android:summary="@string/settings_remove_summary"
+        />
+    </PreferenceCategory>
 </PreferenceScreen>

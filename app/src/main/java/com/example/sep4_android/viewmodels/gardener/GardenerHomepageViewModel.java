@@ -8,18 +8,24 @@ import androidx.lifecycle.LiveData;
 
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.GardenLiveData;
+import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.repositories.GardenRepository;
+import com.example.sep4_android.repositories.PlantRepository;
 import com.example.sep4_android.repositories.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 public class GardenerHomepageViewModel extends AndroidViewModel {
-    private GardenRepository gardenRepository;
-    private UserRepository userRepository;
+    private final GardenRepository gardenRepository;
+    private final UserRepository userRepository;
+    private final PlantRepository plantRepository;
 
     public GardenerHomepageViewModel(@NonNull Application application) {
         super(application);
         userRepository = UserRepository.getInstance(application);
         gardenRepository = GardenRepository.getInstance(application);
+        plantRepository = PlantRepository.getInstance(application);
     }
 
     public LiveData<Garden> getGarden(String userGoogleId){
@@ -40,6 +46,14 @@ public class GardenerHomepageViewModel extends AndroidViewModel {
 
     public GardenLiveData getLiveGarden(){
         return gardenRepository.getLiveGarden();
+    }
+
+    public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
+        return plantRepository.getPlantsForGarden(gardenName);
+    }
+
+    public void removePlant(int plantId){
+        plantRepository.removePlantFromGarden(plantId);
     }
 
 
