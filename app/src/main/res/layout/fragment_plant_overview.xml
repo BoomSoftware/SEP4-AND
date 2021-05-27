@@ -19,22 +19,25 @@
 
         <TextView
             android:id="@+id/text_plant_name"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textAllCaps="true"
-            android:layout_marginStart="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plant name" />
+            android:layout_marginStart="15dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Plant name"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            />
 
         <TextView
             android:id="@+id/text_plant_location"
-            android:textSize="22sp"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_height="wrap_content"
-            android:text="Garden Location" />
+            android:layout_marginStart="15dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Garden Location"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -49,9 +52,10 @@
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_plant"
-        app:layout_constraintVertical_bias="0.2">
+        app:layout_constraintVertical_bias="0.432">
 
 
         <LinearLayout
@@ -79,7 +83,7 @@
                     android:id="@+id/text_plant_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="114 lux"
+                    android:text="@string/no_data_text"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -127,7 +131,7 @@
                     android:id="@+id/text_plant_co2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/co2_measurement"
+                    android:text="@string/no_data_text"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -173,7 +177,7 @@
                     android:id="@+id/text_plant_humidity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/humidity_measurement"
+                    android:text="@string/no_data_text"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -201,8 +205,7 @@
         android:id="@+id/img_plant"
         android:layout_width="160dp"
         android:layout_height="190dp"
-
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="100dp"
         android:foreground="@drawable/rounded_image"
         android:scaleType="centerCrop"
@@ -212,12 +215,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:background="@drawable/rounded_temperature"
+        android:backgroundTint="@color/contrast_green"
+        app:layout_constraintBottom_toTopOf="@+id/button_plant_take_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toEndOf="@+id/img_plant"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
     <TextView
         android:id="@+id/text_plant_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="20\u00B0C"
+        android:layout_marginTop="118dp"
+        android:text="@string/no_data_text"
         android:textColor="@color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -227,11 +243,15 @@
     <Button
         android:id="@+id/button_plant_take_pic"
         style="@style/green_button"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="28dp"
+        android:drawableTop="@drawable/ic_baseline_camera_alt_24"
         android:text="Take a picture"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.914"
         app:layout_constraintStart_toEndOf="@+id/img_plant"
         app:layout_constraintTop_toBottomOf="@+id/text_plant_temp" />
 
@@ -239,9 +259,10 @@
         android:id="@+id/button_plant_statistics"
         style="@style/green_button"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:drawableTop="@drawable/ic_baseline_statistics"
         android:text="Statistics"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_plant" />

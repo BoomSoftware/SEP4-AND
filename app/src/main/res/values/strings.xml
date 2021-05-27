@@ -66,14 +66,14 @@
     <string name="channel_description">Channed description</string>
 
     <!-- Data to display in the dialog box-->
-    <string name="light_measurement">114 lux</string>
-    <string name="co2_measurement">123 ppm</string>
-    <string name="humidity_measurement">1000 mPa</string>
-    <string name="temperature_measurement">20</string>
     <string name="measurements">Measurements</string>
+    <string name="no_data_text">Empty</string>
 
     <!-- Garden Info-->
     <string name="area">Area:</string>
     <string name="address">Address:</string>
     <string name="assistant_no">All assistants:</string>
+
+    <!-- Empty field-->
+    <string name="empty_field">Empty field</string>
 </resources>

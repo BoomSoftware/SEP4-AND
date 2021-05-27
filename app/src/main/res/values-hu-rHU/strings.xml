@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SEP4-Android</string>
+    <string name="garden_city">Miasto</string>
+    <string name="garden_land_area">Powierzchnia</string>
+    <string name="garden_name">Nazwa Ogrodu</string>
+    <string name="assistant">Asystent</string>
+    <string name="gardener">Ogrodnik</string>
+    <string name="garden_street">Ulica</string>
+    <string name="garden_street_number">Numer Ulicy</string>
+    <string name="plant_garden_name">Nazwa Ogrodu</string>
+    <string name="plant_height">Wysokość Rośliny</string>
+    <string name="plant_growth_stage">Etap Wzorstu</string>
+    <string name="plant_soil_type">Rodzaj Gleby</string>
+    <string name="plant_soil_volume">Pojemność Gleby Własnej</string>
+    <string name="plant_common_name">Powszechna Nazwa Rośliny</string>
+    <string name="no_garden">Najpierw utwórz ogród!</string>
+    <string name="empty_garden">Nie dodano żadnej rośliny. Naciśnij przycisk i dodaj nową.</string>
+    <string name="success_garden">Nowy ogród został pomyślnie utworzony.</string>
+    <string name="remove_plant">Roślina została pomyślnie usunięta.</string>
+    <string name="welcome">Witaj</string>
+    <string name="channel_name">Nazwa kanału</string>
+    <string name="channel_description">Opis</string>
+    <string name="measurements">Pomiary</string>
+    <string name="no_data_text">Puste pole</string>
+    <string name="area">Powierzchnia</string>
+    <string name="address">Adres</string>
+    <string name="assistant_no">Wszyscy asystenci</string>
+    <string name="empty_field">Puste pole</string>
+    <string name="plant_garden_location">Lokalizacja Ogrodu</string>
+    <string name="plant_update">Zaaktualizuj</string>
+    <string name="plant_width">Szerokość Rośliny</string>
+    <string name="no_garden_added">Nie dodano żadnego ogrodu.</string>
+    <string name="add_plant">Dodaj roślinę</string>
+    <string name="remove_garden">Usuń ogród</string>
+    <string name="add_garden">Dodaj ogród</string>
+    <string name="settings">Ustawienia</string>
+    <string name="view_garden">Sprawdź ogród</string>
+</resources>
