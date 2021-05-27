@@ -22,7 +22,6 @@ import java.util.Calendar;
 public class SettingsFragment extends PreferenceFragmentCompat {
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-//    private EditText textContent;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -31,10 +30,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this.requireContext());
 
+      //  sharedPreferences.getString("garden_address","address");
+
+
         EditTextPreference notificationText = findPreference("notification_text");
-        notificationText.setOnBindEditTextListener(p -> {
-            notificationText.setText("insert text");
-        });
+        notificationText.setOnBindEditTextListener(p -> notificationText.setText("insert text"));
 
         EditTextPreference notificationsTime = findPreference("notifications_time");
         notificationsTime.setOnPreferenceClickListener(p -> {
@@ -48,13 +48,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         sharedPreferences.registerOnSharedPreferenceChangeListener((sp, key) -> {
             if (key.equals("notifications")) {
                 boolean isShowNotifications = sp.getBoolean(key, false);
-                Log.i("pref", "Changed " + isShowNotifications);
+
                 if (isShowNotifications) {
                     int hour = Integer.parseInt(sp.getString("notifications_time", "").split(":")[0]);
                     int minute = Integer.parseInt(sp.getString("notifications_time", "").split(":")[1]);
                     String text = sp.getString("notification_text", "");
                     startAlarm(hour, minute, text);
-                    Log.i("pref", "Started alarm at " + hour + " " + minute);
+
                 } else {
                     setUp();
                     Log.i("pref", "Canceled alarm");
@@ -66,10 +66,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     int minute = Integer.parseInt(sp.getString("notifications_time", "").split(":")[1]);
                     String text = sp.getString("notification_text", "");
                     startAlarm(hour, minute, text);
-                    Log.i("pref", "Started alarm at " + hour + " " + minute);
                 }
             }
-        });
+                });
+
+//        sharedPreferences.registerOnSharedPreferenceChangeListener((sp, key) -> {
+//            if (key.equals("location")) {
+//                boolean isShoowLocation = sp.getBoolean(key, false);
+//                if (isShoowLocation) {
+//                    String text = sp.getString("garden_address", "");
+//                    setLocation(text);
+//
+//
+//                } else if (key.equals("garden_address")) {
+//                    if (sp.getBoolean("garden_address", false)) {
+//                        String text = sp.getString("garden_address", "");
+//                        setLocation(text);
+//                    }
+//                }
+//            }
+//        });
+    }
+
+    private void setLocation(String location) {
     }
 
     private void startAlarm(int hour, int minute, String text) {
@@ -92,4 +111,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private String convertDayMonthToString(int value) {
         return value < 10 ? "0" + value : "" + value;
     }
+
+
 }

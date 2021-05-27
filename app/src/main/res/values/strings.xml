@@ -75,4 +75,9 @@
     <string name="area">Area:</string>
     <string name="address">Address:</string>
     <string name="assistant_no">All assistants:</string>
+    
+    <string-array name="numbers">
+        <item>One</item>
+        <item>Two</item>
+    </string-array>
 </resources>
