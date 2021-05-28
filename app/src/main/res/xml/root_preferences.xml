@@ -3,7 +3,6 @@
 
     <PreferenceCategory app:title="User Preferences">
         <SwitchPreferenceCompat
-            android:icon="@drawable/ic_notifications_black_24dp"
             app:key="notifications"
             app:title="Allow Notifications"
             android:defaultValue="false"/>
