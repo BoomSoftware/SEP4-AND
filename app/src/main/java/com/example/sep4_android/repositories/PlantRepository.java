@@ -108,13 +108,16 @@ public class PlantRepository {
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
+                System.out.println(response.body());
                 if(response.isSuccessful() && response.body() != null && response.body() != -1){
                     plant.setPlantID(response.body());
                     addPlantToLocalDatabase(plant);
                 }
             }
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {}
+            public void onFailure(Call<Integer> call, Throwable t) {
+                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXX" + t.getMessage());
+            }
         });
     }
 

@@ -107,6 +107,8 @@ public class AddPlantFragment extends Fragment {
                 gardenLocation.getText().toString()
         );
 
+        System.out.println("XXXXXXXXXXXXXXXXXXXXX" + plant);
+
         if(plantId != -1){
             plant.setPlantID(plantId);
         }

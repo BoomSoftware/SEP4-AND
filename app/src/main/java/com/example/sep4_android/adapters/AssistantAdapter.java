@@ -45,10 +45,6 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
             holder.assistantName.setText(assistant.getName());
         });
 
-//        Glide.with(holder.itemView).load(assistants.get(position).getAvatarUrl()).into(holder.assistantAvatar);
-//        holder.assistantName.setText(assistants.get(position).getName());
-
-
         holder.approveButton.setOnClickListener(v -> {
             listener.approveAssistant(assistants.get(position));
         });
