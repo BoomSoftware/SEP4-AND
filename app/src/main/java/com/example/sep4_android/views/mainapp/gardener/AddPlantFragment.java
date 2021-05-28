@@ -1,16 +1,14 @@
 package com.example.sep4_android.views.mainapp.gardener;
-
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
@@ -24,8 +22,8 @@ public class AddPlantFragment extends Fragment {
     private AddPlantViewModel viewModel;
     private Button confirm;
     private EditText plantHeight;
-    private EditText stageGrowth;
-    private EditText soilType;
+    private Spinner stageGrowth;
+    private Spinner soilType;
     private EditText soilVolume;
     private EditText commonPlantName;
     private EditText categoryName;
@@ -60,15 +58,20 @@ public class AddPlantFragment extends Fragment {
             loadPlantValues();
             confirm.setText(getString(R.string.plant_update));
         }
-    }
 
+        ArrayAdapter<String> spinnerStageAdapter = new ArrayAdapter<>(view.getContext(), R.layout.item_stage_spinner, getResources().getStringArray(R.array.stage_of_growth));
+        stageGrowth.setAdapter(spinnerStageAdapter);
+
+        ArrayAdapter<String> spinnerSoilAdapter = new ArrayAdapter<>(view.getContext(), R.layout.item_stage_spinner, getResources().getStringArray(R.array.soil_types));
+        soilType.setAdapter(spinnerSoilAdapter);
+    }
 
     private void loadPlantValues(){
         viewModel.getPlant(plantId).observe(getViewLifecycleOwner(), plant -> {
             gardenName = plant.getGardenName();
             plantHeight.setText(String.valueOf(plant.getHeight()));
-            stageGrowth.setText(plant.getStageOfGrowth());
-            soilType.setText(plant.getSoilType());
+            selectDefaultValueForStage(plant.getStageOfGrowth());
+            selectDefaultValueForSoil(plant.getSoilType());
             soilVolume.setText(String.valueOf(plant.getOwnSoilVolume()));
             commonPlantName.setText(plant.getCommonPlantName());
             categoryName.setText(plant.getCategoryName());
@@ -99,15 +102,13 @@ public class AddPlantFragment extends Fragment {
         Plant plant =  new Plant(
                 gardenName,
                 Integer.parseInt(plantHeight.getText().toString()),
-                stageGrowth.getText().toString(),
-                soilType.getText().toString(),
+                stageGrowth.getSelectedItem().toString(),
+                soilType.getSelectedItem().toString(),
                 Integer.parseInt(soilVolume.getText().toString()),
                 commonPlantName.getText().toString(),
                 categoryName.getText().toString(),
                 gardenLocation.getText().toString()
         );
-
-        System.out.println("XXXXXXXXXXXXXXXXXXXXX" + plant);
 
         if(plantId != -1){
             plant.setPlantID(plantId);
@@ -120,11 +121,11 @@ public class AddPlantFragment extends Fragment {
             Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_plant_height), Toast.LENGTH_SHORT, true).show();
             return false;
         }
-        if(stageGrowth == null || stageGrowth.getText().toString().equals("")) {
+        if(stageGrowth == null) {
             Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_stage_growth), Toast.LENGTH_SHORT, true).show();
             return false;
         }
-        if(soilType == null || soilType.getText().toString().equals("")) {
+        if(soilType == null) {
             Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_soil_type), Toast.LENGTH_SHORT, true).show();
             return false;
         }
@@ -145,5 +146,19 @@ public class AddPlantFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    private void selectDefaultValueForStage(String stage){
+        for(int i = 0; i < getResources().getStringArray(R.array.stage_of_growth).length; i++){
+            if(stage.equals(getResources().getStringArray(R.array.stage_of_growth)[i]))
+            stageGrowth.setSelection(i);
+        }
+    }
+
+    private void selectDefaultValueForSoil(String soil){
+        for(int i = 0; i < getResources().getStringArray(R.array.soil_types).length; i++){
+            if(soil.equals(getResources().getStringArray(R.array.soil_types)[i]))
+                soilType.setSelection(i);
+        }
     }
 }

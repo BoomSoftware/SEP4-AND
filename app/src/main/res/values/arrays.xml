@@ -1,5 +1,4 @@
 <resources>
-    <!-- Reply Preference -->
     <string-array name="reply_entries">
         <item>Reply</item>
         <item>Reply to all</item>
@@ -10,11 +9,22 @@
         <item>reply_all</item>
     </string-array>
 
-    <!-- Measurements dialog -->
-    <string-array name="measurements_entries">
-        <item>light</item>
-        <item>co2</item>
-        <item>humidity</item>
-        <item>temperature</item>
+  <string-array name="stage_of_growth">
+      <item>Sprout</item>
+      <item>Seedling</item>
+      <item>Seedling</item>
+      <item>Vegetative</item>
+      <item>Budding</item>
+      <item>Flowering</item>
+      <item>Ripening</item>
+  </string-array>
+
+    <string-array name="soil_types">
+        <item>Loam Soil</item>
+        <item>Clay Soil</item>
+        <item>Sandy soil</item>
+        <item>Chalk Soil</item>
+        <item>Silt Soil</item>
+        <item>Peat Soil</item>
     </string-array>
 </resources>

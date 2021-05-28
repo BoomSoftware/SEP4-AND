@@ -39,10 +39,11 @@
             android:layout_marginEnd="30dp"
             android:text="@string/plant_growth_stage" />
 
-        <EditText
+        <Spinner
             android:id="@+id/input_plant_stage_growth"
+            android:layout_width="match_parent"
             style="@style/input"
-            android:layout_marginTop="4dp" />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/text_plant_soil_type"
@@ -51,10 +52,11 @@
             android:layout_marginEnd="30dp"
             android:text="@string/plant_soil_type" />
 
-        <EditText
+        <Spinner
             android:id="@+id/input_plant_soil_type"
             style="@style/input"
-            android:layout_marginTop="4dp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/text_plant_soil_volume"
