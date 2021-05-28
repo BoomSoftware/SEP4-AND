@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavInflater;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -27,15 +29,21 @@ import com.bumptech.glide.Glide;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.MainActivityViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Map;
 
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private NavigationView navigationView;
     private MainActivityViewModel viewModel;
     private final String CHANNEL_ID = "misc";
-    private MenuItem switchItem;
+    private NavController navController;
+    private BadgeDrawable badgeDrawable;
+    private MaterialToolbar toolbar;
     private boolean status;
 
     @Override
@@ -67,6 +75,61 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
             }
         }
         return true;
+    }
+
+    @SuppressLint("UnsafeOptInUsageError")
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        viewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, status -> {
+            if(status.isStatus()){
+                menu.clear();
+                getMenuInflater().inflate(R.menu.main_menu, menu);
+                badgeDrawable = BadgeDrawable.create(this);
+                BadgeUtils.attachBadgeDrawable(badgeDrawable, toolbar, R.id.action_notification);
+                loadValues();
+            }
+        });
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Bundle bundle = new Bundle();
+        switch (item.getItemId()) {
+            case R.id.action_notification:
+                bundle.putString("listType", "requests");
+                navController.navigate(R.id.assistantListFragment, bundle);
+                return true;
+            case R.id.action_users:
+                bundle.putString("listType", "all");
+                navController.navigate(R.id.assistantListFragment, bundle);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void loadValues() {
+        viewModel.getCurrentUser().observe(this, user -> {
+            if (user != null) {
+                viewModel.getGarden(user.getUid()).observe(this, garden -> {
+                    if (garden != null) {
+                        viewModel.initializeGarden(garden.getName());
+                        viewModel.getLiveGarden().observe(this, liveGarden -> {
+                            if (liveGarden != null) {
+                                int notifications = 0;
+                                for (Map.Entry<String, Boolean> entry : liveGarden.getAssistantList().entrySet()) {
+                                    if (!entry.getValue()) {
+                                        notifications++;
+                                    }
+                                }
+                                badgeDrawable.setNumber(notifications);
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     private void removeAccount(){
@@ -110,7 +173,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
 
     private void prepareToolbar(boolean status) {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_fragment_main);
-        NavController navController = navHostFragment.getNavController();
+        navController = navHostFragment.getNavController();
         NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_app_graph);
         if (status) {
             navGraph.setStartDestination(R.id.gardenerHomepageFragment);
@@ -126,7 +189,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).setOpenableLayout(drawerLayout).build();
 
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 

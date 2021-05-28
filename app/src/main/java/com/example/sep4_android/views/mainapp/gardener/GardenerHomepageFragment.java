@@ -28,9 +28,6 @@ public class GardenerHomepageFragment extends Fragment {
 
     private View view;
     private GardenerHomepageViewModel viewModel;
-    private ImageView assistantsButton;
-    private ImageView notificationButton;
-    private TextView notificationNumber;
     private TextView gardenNameTextView;
     private TextView descriptionTextView;
     private TextView addGardenTextView;
@@ -51,7 +48,6 @@ public class GardenerHomepageFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(GardenerHomepageViewModel.class);
         prepareUI();
         prepareOnClickEvents();
-        loadValues();
         return view;
     }
 
@@ -63,33 +59,6 @@ public class GardenerHomepageFragment extends Fragment {
         descriptionTextView = view.findViewById(R.id.text_own_garden_info);
         addGardenImageView = view.findViewById(R.id.img_main_add_garden);
         addGardenTextView = view.findViewById(R.id.text_main_add_garden);
-        notificationButton = view.findViewById(R.id.img_main_notification);
-        assistantsButton = view.findViewById(R.id.img_main_assistant);
-        notificationNumber = view.findViewById(R.id.text_main_notifications);
-    }
-
-    private void loadValues() {
-        viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-            if(user != null){
-                viewModel.getGarden(user.getUid()).observe(getViewLifecycleOwner(), garden -> {
-                    if (garden != null) {
-                        viewModel.initializeGarden(garden.getName());
-                        viewModel.getLiveGarden().observe(getViewLifecycleOwner(), liveGarden -> {
-                            if(liveGarden != null){
-                                int notifications = 0;
-                                for (Map.Entry<String, Boolean> entry : liveGarden.getAssistantList().entrySet()) {
-                                    if (!entry.getValue()) {
-                                        notifications++;
-                                    }
-                                }
-                                notificationNumber.setText(String.valueOf(notifications));
-                            }
-                        });
-                    }
-                });
-            }
-        });
-
     }
 
     private void prepareOnClickEvents() {
@@ -128,18 +97,6 @@ public class GardenerHomepageFragment extends Fragment {
                 });
             }
             buttonSettings.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_settingsFragment));
-        });
-
-        notificationButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("listType", "requests");
-            Navigation.findNavController(view).navigate(R.id.action_gardenerHomepageFragment_to_assistantListFragment, bundle);
-        });
-
-        assistantsButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("listType", "all");
-            Navigation.findNavController(view).navigate(R.id.action_gardenerHomepageFragment_to_assistantListFragment, bundle);
         });
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.sep4_android.models.Garden;
+import com.example.sep4_android.models.GardenLiveData;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.models.UserStatus;
 import com.example.sep4_android.repositories.GardenRepository;
@@ -17,8 +18,8 @@ import java.util.List;
 
 public class MainActivityViewModel extends AndroidViewModel {
     private final UserRepository userRepository;
-    private GardenRepository gardenRepository;
-    private PlantRepository plantRepository;
+    private final GardenRepository gardenRepository;
+    private final PlantRepository plantRepository;
 
     public MainActivityViewModel(Application app){
         super(app);
@@ -33,6 +34,18 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public LiveData<UserStatus> getUserStatus(String userGoogleID) {
         return userRepository.getStatus(userGoogleID);
+    }
+
+    public void initializeGarden(String gardenName){
+        gardenRepository.initializeGarden(gardenName);
+    }
+
+    public LiveData<Garden> getGarden(String userGoogleId){
+        return gardenRepository.getOwnGarden(userGoogleId);
+    }
+
+    public GardenLiveData getLiveGarden(){
+        return gardenRepository.getLiveGarden();
     }
 
     public void signOut() {

@@ -80,6 +80,8 @@
     <string name="area">Area:</string>
     <string name="address">Address:</string>
     <string name="assistant_no">All assistants:</string>
+    <string name="assistants">Assistants</string>
+    <string name="notifications">Notifications</string>
 
     <!-- Empty field Garden-->
     <string name="empty_field_garden_name">Empty Garden Name Field</string>

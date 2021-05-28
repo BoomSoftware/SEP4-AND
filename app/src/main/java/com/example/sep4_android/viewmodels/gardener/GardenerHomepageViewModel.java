@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.sep4_android.models.Garden;
-import com.example.sep4_android.models.GardenLiveData;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.repositories.GardenRepository;
 import com.example.sep4_android.repositories.PlantRepository;
@@ -38,14 +37,6 @@ public class GardenerHomepageViewModel extends AndroidViewModel {
 
     public void removeGarden(String gardenName){
         gardenRepository.removeGarden(gardenName);
-    }
-
-    public void initializeGarden(String gardenName){
-        gardenRepository.initializeGarden(gardenName);
-    }
-
-    public GardenLiveData getLiveGarden(){
-        return gardenRepository.getLiveGarden();
     }
 
     public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
