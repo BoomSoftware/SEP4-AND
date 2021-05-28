@@ -22,6 +22,7 @@
     <string name="logout">Logout</string>
     <string name="remove_account">Remove account</string>
     <string name="nav_switch">Switch mode</string>
+    <string name="login">Login</string>
 
 
     <!-- Main app -->
@@ -108,4 +109,6 @@
     <string name="remove_garden_confirmation">This action will permanently delete the garden along with all plants.</string>
     <string name="connection_error">Connection error. Try again later</string>
     <string name="not_unique_name">There is a garden with the given name</string>
+    <string name="default_role">Welcome in GardenManager app. Select your default role. It will be possible to change this choice later.</string>
+    <string name="login_info">Log in using your google account or e-mail and start your adventure with comfortable garden management</string>
 </resources>
