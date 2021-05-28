@@ -63,23 +63,23 @@ public class AddGardenFragment extends Fragment {
 
     private boolean validation(){
         if(gardenName == null || gardenName.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_name), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(gardenLand.getText().toString().equals("") || Double.parseDouble(gardenLand.getText().toString()) < 0) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_land), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(gardenStreet == null || gardenStreet.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_street), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(gardenNumber == null || gardenNumber.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_number), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(gardenCity == null || gardenCity.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_city), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         return true;

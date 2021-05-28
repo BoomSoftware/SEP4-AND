@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -60,6 +61,7 @@ public class StatisticsFragment extends Fragment {
     private Button hum;
     private Button light;
     private AnyChartView anyChartView;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,16 +85,24 @@ public class StatisticsFragment extends Fragment {
 
     private void prepareOnClickEvents() {
         co2.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(720, FrequencyTypes.HISTORY, MeasurementTypes.CO2);
+            progressBar.setVisibility(View.GONE);
         });
         temp.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(720, FrequencyTypes.HISTORY, MeasurementTypes.TEMP);
+            progressBar.setVisibility(View.GONE);
         });
         hum.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(720, FrequencyTypes.HISTORY, MeasurementTypes.HUM);
+            progressBar.setVisibility(View.GONE);
         });
         light.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(720, FrequencyTypes.HISTORY, MeasurementTypes.LIGHT);
+            progressBar.setVisibility(View.GONE);
         });
     }
 

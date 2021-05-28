@@ -81,8 +81,21 @@
     <string name="address">Address:</string>
     <string name="assistant_no">All assistants:</string>
 
-    <!-- Empty field-->
-    <string name="empty_field">Empty field</string>
+    <!-- Empty field Garden-->
+    <string name="empty_field_garden_name">Empty Garden Name Field</string>
+    <string name="empty_field_garden_land">Empty Garden Land Field</string>
+    <string name="empty_field_garden_street">Empty Garden Street Field</string>
+    <string name="empty_field_garden_number">Empty Garden Number Field</string>
+    <string name="empty_field_garden_city">Empty Garden City Field</string>
+
+    <!-- Empty field Plant-->
+    <string name="empty_field_plant_height">Empty Plant Height Field</string>
+    <string name="empty_field_stage_growth">Empty Stage Growth Field</string>
+    <string name="empty_field_soil_type">Empty Soil Type Field</string>
+    <string name="empty_field_soil_volume">Empty Soil Volume Field</string>
+    <string name="empty_field_common_plant_name">Empty Common Plant Name Field</string>
+    <string name="empty_field_category_name">Empty Category Name Field</string>
+    <string name="empty_field_common_garden_location">Empty Common Garden Location Field</string>
 
     <string name="settings_remove">Remove account</string>
     <string name="settings_synchronize">Synchronize data</string>

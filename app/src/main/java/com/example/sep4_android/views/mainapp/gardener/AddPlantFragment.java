@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
@@ -114,31 +115,31 @@ public class AddPlantFragment extends Fragment {
 
     private boolean validation() {
         if(plantHeight.getText().toString().equals("") || Integer.parseInt(plantHeight.getText().toString()) < 0) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_plant_height), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(stageGrowth == null || stageGrowth.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_stage_growth), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(soilType == null || soilType.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_soil_type), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(soilVolume.getText().toString().equals("") || Integer.parseInt(soilVolume.getText().toString()) < 0) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_soil_volume), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(commonPlantName == null || commonPlantName.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_common_plant_name), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(categoryName == null || categoryName.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_category_name), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         if(gardenLocation == null || gardenLocation.getText().toString().equals("")) {
-            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field), Toast.LENGTH_SHORT, true).show();
+            Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_common_garden_location), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         return true;
