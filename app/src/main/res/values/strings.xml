@@ -45,6 +45,8 @@
     <string name="garden_city">City</string>
     <string name="garden_street">Street</string>
     <string name="garden_street_number">Street Number</string>
+    <string name="create_garden">Create garden</string>
+    <string name="create_garden_description">Fill the form and enjoy your garden. This will allow you to manage all plants and add assistants.</string>
 
     <!-- Add plant form -->
     <string name="plant_garden_name">Garden Name</string>

@@ -86,9 +86,12 @@ public class GardenerHomepageFragment extends Fragment {
                         buttonAddGarden.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_addGardenFragment));
                         return;
                     }
-                    String description = garden.getStreet() + " " + garden.getNumber() + "\n" + garden.getCity();
+                    String gardenInfo =
+                            getString(R.string.address) + " " + garden.getStreet() + " " + garden.getNumber() + "\n" +
+                            getString(R.string.area) + " " + garden.getLandArea() + "\n" +
+                            getString(R.string.assistant_no) + " " + garden.getAssistantList().size() + "\n";
                     addGardenImageView.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);
-                    descriptionTextView.setText(description);
+                    descriptionTextView.setText(gardenInfo);
                     gardenNameTextView.setText(garden.getName());
                     addGardenTextView.setText(getString(R.string.remove_garden));
                     buttonAddGarden.setOnClickListener(v -> {

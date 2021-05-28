@@ -7,43 +7,36 @@
     android:background="@color/dark_green"
     tools:context=".views.mainapp.gardener.AddGardenFragment">
 
-    <ImageView
-        android:id="@+id/image_view_plants"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/plant"
+
+    <TextView
+        android:id="@+id/add_garden"
+        style="@style/title2"
+        android:text="@string/create_garden"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/garden_add_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button_add_garden"
+    <TextView
+        android:id="@+id/textView8"
+        style="@style/sub_title"
+        android:text="@string/create_garden_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_view_plants">
+        app:layout_constraintTop_toBottomOf="@+id/add_garden" />
 
-        <TextView
-            android:id="@+id/add_garden"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="Add Your Garden"
-            android:textColor="@color/white"
-            android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/garden_add_layout"
+        style="@style/box_with_inputs"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <TextView
             android:id="@+id/text_garden_name"
             style="@style/input_title"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="30dp"
             android:text="@string/garden_name" />
 
         <EditText
@@ -54,24 +47,18 @@
         <TextView
             android:id="@+id/text_land_area"
             style="@style/input_title"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="30dp"
             android:text="@string/garden_land_area" />
 
         <EditText
             android:id="@+id/input_land_area"
             style="@style/input"
-            android:inputType="number"
-            />
+            android:inputType="number" />
 
 
         <TextView
             android:id="@+id/text_city"
             style="@style/input_title"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="30dp"
-            android:text="@string/garden_city"
-            />
+            android:text="@string/garden_city" />
 
         <EditText
             android:id="@+id/input_city"
@@ -82,10 +69,7 @@
         <TextView
             android:id="@+id/text_street"
             style="@style/input_title"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="30dp"
-            android:text="@string/garden_street"
-            />
+            android:text="@string/garden_street" />
 
         <EditText
             android:id="@+id/input_street"
@@ -96,10 +80,7 @@
         <TextView
             android:id="@+id/text_street_number"
             style="@style/input_title"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            android:text="@string/garden_street_number"
-            />
+            android:text="@string/garden_street_number" />
 
         <EditText
             android:id="@+id/input_street_number"
@@ -108,17 +89,13 @@
             android:inputType="textPersonName" />
 
 
+        <Button
+            android:id="@+id/button_add_garden"
+            android:layout_marginTop="10dp"
+            style="@style/select_button_dark"
+            android:text="@string/add_garden"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/garden_add_layout" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button_add_garden"
-        style="@style/green_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/add_garden"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
