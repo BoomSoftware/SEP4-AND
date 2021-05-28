@@ -15,6 +15,7 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreference;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Plant;
@@ -65,7 +66,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     Log.i("pref", "Started alarm at " + hour + " " + minute);
                 } else {
                     setUp();
-                    Log.i("pref", "Canceled alarm");
                     alarmManager.cancel(pendingIntent);
                 }
             } else if (key.equals("notifications_time")) {
@@ -102,6 +102,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
     }
+
 
     private void startAlarm(int hour, int minute, String text) {
         Calendar calendar = Calendar.getInstance();

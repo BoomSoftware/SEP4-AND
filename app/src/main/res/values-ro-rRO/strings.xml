@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SEP4-Android</string>
+    <string name="garden_city">Oraș</string>
+    <string name="garden_land_area">Suprafața grădinii</string>
+    <string name="garden_name">Numele grădinii</string>
+    <string name="assistant">Asistent</string>
+    <string name="gardener">Gradinar</string>
+    <string name="garden_street">Strada</string>
+    <string name="garden_street_number">Numarul străzii</string>
+    <string name="plant_garden_name">Numele grădinii</string>
+    <string name="plant_height">Inalțimea plantei</string>
+    <string name="plant_growth_stage">Starea actuala a creșterii</string>
+    <string name="plant_soil_type">Tipul solului</string>
+    <string name="plant_soil_volume">Capacitatea proprie a solului</string>
+    <string name="plant_common_name">Denumirea comună a plantei</string>
+    <string name="no_garden">Creați mai întâi o grădină!</string>
+    <string name="empty_garden">Nu s-a adăugat nicio plantă. Apăsați butonul și adăugați una.</string>
+    <string name="success_garden">Noua grădină a fost creată cu succes</string>
+    <string name="remove_plant">Planta a fost înlăturată cu succes.</string>
+    <string name="welcome">Bine ați venit!</string>
+    <string name="channel_name">Numele canalului</string>
+    <string name="channel_description">Descriere</string>
+    <string name="measurements">Măsuratori</string>
+    <string name="no_data_text">Câmp gol</string>
+    <string name="area">Suprafaţă</string>
+    <string name="address">Adresă </string>
+    <string name="assistant_no">Toți asistenții</string>
+    <string name="empty_field">Câmp gol</string>
+    <string name="plant_garden_location">Locatia gradinii</string>
+    <string name="plant_update">Actualizați</string>
+    <string name="plant_width">Lățimea plantei</string>
+    <string name="no_garden_added">Nu a fost adăugată nicio grădină</string>
+    <string name="add_plant">Adăugați o plantă</string>
+    <string name="remove_garden">Ștergeți grădina</string>
+    <string name="add_garden">Adăugați o grădină</string>
+    <string name="settings">Setări</string>
+    <string name="view_garden">Vedeți grădina</string>
 </resources>
