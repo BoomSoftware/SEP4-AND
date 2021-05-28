@@ -21,12 +21,4 @@ public class OwnGardenListViewModel extends AndroidViewModel {
     public Query getOwnGardens(){
         return gardenRepository.getAllGardens();
     }
-
-//    public void synchronizePlants(String gardenName){
-//        plantRepository.synchronizePlants(gardenName);
-//    }
-
-//    public void synchronizeGarden(Garden garden){
-//        gardenRepository.synchronizeGarden(garden);
-//    }
 }

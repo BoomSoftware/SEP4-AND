@@ -89,7 +89,7 @@ public class GardenRepository {
     }
 
     public Query getAllGardens(){
-        return FirebaseDatabase.getInstance().getReference().child("gardens");
+        return FirebaseDatabase.getInstance().getReference().child("gardens").orderByChild("assistantList/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).equalTo(true);
     }
 
     public void initializeGarden(String gardenName){

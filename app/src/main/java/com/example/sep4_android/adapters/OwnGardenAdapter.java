@@ -28,7 +28,6 @@ public class OwnGardenAdapter extends FirebaseRecyclerAdapter<Garden, OwnGardenA
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Garden model) {
-        if(model.getAssistantList().containsKey(FirebaseAuth.getInstance().getCurrentUser().getUid()) && model.getAssistantList().get(FirebaseAuth.getInstance().getCurrentUser().getUid())){
             holder.gardenName.setText(model.getName());
             String gardenInfo = holder.itemView.getContext().getString(R.string.area) + " " + model.getLandArea() + "\n" +
                     holder.itemView.getContext().getString(R.string.address) + " " + model.getStreet() + " " + model.getStreet() + " " + model.getCity() + "\n" +
@@ -37,10 +36,6 @@ public class OwnGardenAdapter extends FirebaseRecyclerAdapter<Garden, OwnGardenA
             holder.viewGardenButton.setOnClickListener(v -> {
                 listener.onOpenGarden(model.getName());
             });
-        }
-        else {
-            holder.itemView.setVisibility(View.GONE);
-        }
     }
 
     @NonNull
