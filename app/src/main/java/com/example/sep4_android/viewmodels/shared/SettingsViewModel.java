@@ -27,35 +27,23 @@ public class SettingsViewModel extends AndroidViewModel {
         plantRepository = PlantRepository.getInstance(application);
     }
 
-    public void removeUser(){
-        userRepository.removeUser();
-    }
+   public void synchronizeGarden(){
+        gardenRepository.synchronizeGarden();
+   }
 
-    public void removePlant(int plantId){
-        plantRepository.removePlantFromGarden(plantId);
-    }
+   public void addPlant(Plant plant){
+        plantRepository.addPlantToLocalDatabase(plant);
+   }
 
-    public void removeGarden(String gardenName){
-        gardenRepository.removeGarden(gardenName);
-    }
+   public void loadPlantsForGardenLive(String gardenName){
+        plantRepository.loadPlantsForGardenLive(gardenName);
+   }
 
-    public LiveData<Garden> getOwnGarden(String userGoogleId){
-        return gardenRepository.getOwnGarden(userGoogleId);
-    }
+   public LiveData<List<Plant>> getPlantsForGardenLive(){
+        return plantRepository.getPlantsForGardenLive();
+   }
 
-    public void signOut(){
-        userRepository.signOut();
-    }
-
-    public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
-        return plantRepository.getPlantsForGarden(gardenName);
-    }
-
-    public void removeUserStatus(String userGoogleId){
-        userRepository.removeUserStatus(userGoogleId);
-    }
-
-    public void removeUserFromOtherGardens(String userGoogleId){
-        userRepository.removeUserFromOtherGardens(userGoogleId);
-    }
+   public LiveData<String> getSynchronizedGardenName(){
+        return gardenRepository.getSynchronizedGardenName();
+   }
 }

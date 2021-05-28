@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.models.UserStatus;
@@ -16,13 +18,11 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.List;
 
 public class PlantListViewModel extends AndroidViewModel {
-    private final GardenRepository gardenRepository;
     private final PlantRepository plantRepository;
     private final UserRepository userRepository;
 
     public PlantListViewModel(@NonNull Application application) {
         super(application);
-        gardenRepository = GardenRepository.getInstance(application);
         plantRepository = PlantRepository.getInstance(application);
         userRepository = UserRepository.getInstance(application);
     }
@@ -35,6 +35,14 @@ public class PlantListViewModel extends AndroidViewModel {
         return plantRepository.getPlantsForGarden(gardenName);
     }
 
+    public LiveData<List<Plant>> getPlantsForGardenLive(){
+        return plantRepository.getPlantsForGardenLive();
+    }
+
+    public void loadPlantsForGardenLive(String gardenName){
+        plantRepository.loadPlantsForGardenLive(gardenName);
+    }
+
     public LiveData<UserStatus> getUserStatus(String userGoogleId){
         return userRepository.getStatus(userGoogleId);
     }
@@ -43,7 +51,7 @@ public class PlantListViewModel extends AndroidViewModel {
         plantRepository.removePlantFromGarden(plantId);
     }
 
-    public LiveData<Garden> getGardenInfo(String gardenName){
-        return gardenRepository.getGarden(gardenName);
+    public void setSelectedPlant(Plant plant){
+        plantRepository.setSelectedPlant(plant);
     }
 }

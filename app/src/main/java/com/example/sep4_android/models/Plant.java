@@ -3,21 +3,33 @@ package com.example.sep4_android.models;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDate;
 
 @Entity
 public class Plant {
+    @SerializedName("plant_ID")
     @PrimaryKey
     private int plantID;
+    @SerializedName("garden_name")
     private String gardenName;
     private int height;
+    @SerializedName("stage_of_growth")
     private String stageOfGrowth;
+    @SerializedName("soil_type")
     private String soilType;
+    @SerializedName("own_soil_volume")
     private int ownSoilVolume;
+    @SerializedName("garden_location")
     private String gardenLocation;
+    @SerializedName("common_plant_name")
     private String commonPlantName;
+    @SerializedName("category_name")
     private String categoryName;
+    @SerializedName("seeded_at")
     private String seededAt;
+    @SerializedName("harvested_at")
     private String harvestedAt;
 
     public Plant(String gardenName, int height, String stageOfGrowth, String soilType, int ownSoilVolume, String commonPlantName, String categoryName, String gardenLocation) {
@@ -119,4 +131,5 @@ public class Plant {
     public void setHarvestedAt(String harvestedAt) {
         this.harvestedAt = harvestedAt;
     }
+
 }

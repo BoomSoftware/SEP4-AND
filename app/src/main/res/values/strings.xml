@@ -85,5 +85,6 @@
     <string name="empty_field">Empty field</string>
 
     <string name="settings_remove">Remove account</string>
-    <string name="settings_remove_summary">This action will permanently remove your account and all related information</string>
+    <string name="settings_synchronize">Synchronize data</string>
+    <string name="settings_synchronize_summary">This action loads all your data which is stored on the sever</string>
 </resources>

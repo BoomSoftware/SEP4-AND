@@ -27,9 +27,9 @@
 
     <PreferenceCategory app:title="User setting">
     <Preference
-        android:title="@string/settings_remove"
-        android:key="@string/settings_remove"
-        android:summary="@string/settings_remove_summary"
+        android:title="@string/settings_synchronize"
+        android:key="@string/settings_synchronize"
+        android:summary="@string/settings_synchronize_summary"
         />
     </PreferenceCategory>
 </PreferenceScreen>

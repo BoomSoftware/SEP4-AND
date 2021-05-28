@@ -18,9 +18,12 @@ import android.widget.Toast;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.PlantAdapter;
+import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.shared.PlantListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
@@ -55,12 +58,11 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         emptyGarden.setVisibility(View.GONE);
     }
 
-    private void personalizeView(){
+    private void personalizeView() {
         gardenViewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), status -> {
-            if(!status.isStatus()){
+            if (!status.isStatus()) {
                 addPlantButton.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 addPlantButton.setVisibility(View.VISIBLE);
                 plantAdapter.setAccess(true);
                 setSwipeEvent();
@@ -80,30 +82,41 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
     private void prepareRecyclerView() {
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-
         plantAdapter = new PlantAdapter(this);
         gardenViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-            gardenViewModel.getGardenInfo(gardenName).observe(getViewLifecycleOwner(), garden -> {
-                if(garden != null){
-                    gardenViewModel.getPlantsForGarden(garden.getName()).observe(getViewLifecycleOwner(), plants -> {
-                        if(!plants.isEmpty()){
-                            emptyGarden.setVisibility(View.GONE);
-                            plantAdapter.setPlants(plants);
-                            return;
-                        }
-                        emptyGarden.setVisibility(View.VISIBLE);
-                    });
+            gardenViewModel.getUserStatus(user.getUid()).observe(getViewLifecycleOwner(), status -> {
+                if(status.isStatus()){
+                    gardenViewModel.getPlantsForGarden(gardenName).observe(getViewLifecycleOwner(), this::displayInformation);
+                    return;
                 }
+                    gardenViewModel.loadPlantsForGardenLive(gardenName);
+                    gardenViewModel.getPlantsForGardenLive().observe(getViewLifecycleOwner(), this::displayInformation);
             });
         });
         recyclerView.setAdapter(plantAdapter);
     }
 
+    private void displayInformation(List<Plant> plants){
+        if (!plants.isEmpty()) {
+            emptyGarden.setVisibility(View.GONE);
+            System.out.println(plants);
+            plantAdapter.setPlants(plants);
+            return;
+        }
+        emptyGarden.setVisibility(View.VISIBLE);
+    }
+
     @Override
-    public void onClick(int plantId) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("plantId", plantId);
-        Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_plantOverviewFragment, bundle);
+    public void onClick(Plant plant) {
+        gardenViewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), status -> {
+            if(!status.isStatus()){
+                gardenViewModel.setSelectedPlant(plant);
+            }
+            Bundle bundle = new Bundle();
+            bundle.putInt("plantId", plant.getPlantID());
+            Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_plantOverviewFragment, bundle);
+        });
+
     }
 
     @Override
@@ -113,7 +126,7 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         Navigation.findNavController(view).navigate(R.id.action_gardenListFragment_to_addPlantFragment, bundle);
     }
 
-    private void setSwipeEvent(){
+    private void setSwipeEvent() {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override

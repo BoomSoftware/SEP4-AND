@@ -22,11 +22,11 @@ public class OwnGardenListViewModel extends AndroidViewModel {
         return gardenRepository.getAllGardens();
     }
 
-    public void synchronizePlants(String gardenName){
-        plantRepository.synchronizePlants(gardenName);
-    }
+//    public void synchronizePlants(String gardenName){
+//        plantRepository.synchronizePlants(gardenName);
+//    }
 
-    public void synchronizeGarden(Garden garden){
-        gardenRepository.synchronizeGarden(garden);
-    }
+//    public void synchronizeGarden(Garden garden){
+//        gardenRepository.synchronizeGarden(garden);
+//    }
 }
