@@ -54,11 +54,12 @@
     <string name="plant_width">Plant Width</string>
     <string name="plant_growth_stage">Stage Of Growth</string>
     <string name="plant_soil_type">Soil Type</string>
-    <string name="plant_soil_volume">Own Soil Volume</string>
+    <string name="plant_soil_volume">Volume</string>
     <string name="plant_common_name">Common Plant Name</string>
     <string name="plant_category_name">Category Name</string>
     <string name="plant_garden_location">Garden location</string>
     <string name="plant_update">Update</string>
+    <string name="add_plant_description">By adding a plant to the garden it will be possible to receive measurements related with it</string>
 
     <!--    Measurements-->
     <string name="light">light</string>
