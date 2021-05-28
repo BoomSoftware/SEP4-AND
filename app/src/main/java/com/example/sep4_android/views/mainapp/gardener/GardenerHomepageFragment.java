@@ -1,6 +1,5 @@
 package com.example.sep4_android.views.mainapp.gardener;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -20,9 +19,6 @@ import android.widget.TextView;
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.gardener.GardenerHomepageViewModel;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
@@ -56,10 +52,10 @@ public class GardenerHomepageFragment extends Fragment {
 
     private void prepareUI() {
         buttonAddGarden = view.findViewById(R.id.button_main_add_garden);
-        buttonViewGarden = view.findViewById(R.id.button_own_garden_open);
+        buttonViewGarden = view.findViewById(R.id.button_garden_item_request);
         buttonSettings = view.findViewById(R.id.button_main_settings);
-        gardenNameTextView = view.findViewById(R.id.text_own_garden_name);
-        descriptionTextView = view.findViewById(R.id.text_own_garden_info);
+        gardenNameTextView = view.findViewById(R.id.text_garden_item_name);
+        descriptionTextView = view.findViewById(R.id.text_garden_item_info);
         addGardenImageView = view.findViewById(R.id.img_main_add_garden);
         addGardenTextView = view.findViewById(R.id.text_main_add_garden);
     }
@@ -88,8 +84,7 @@ public class GardenerHomepageFragment extends Fragment {
                     }
                     String gardenInfo =
                             getString(R.string.address) + " " + garden.getStreet() + " " + garden.getNumber() + "\n" +
-                            getString(R.string.area) + " " + garden.getLandArea() + "\n" +
-                            getString(R.string.assistant_no) + " " + garden.getAssistantList().size() + "\n";
+                            getString(R.string.area) + " " + garden.getLandArea() + "\n";
                     addGardenImageView.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);
                     descriptionTextView.setText(gardenInfo);
                     gardenNameTextView.setText(garden.getName());

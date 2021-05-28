@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/contrast_green"
+    android:background="@color/dark_green"
     android:layout_height="match_parent"
     tools:context=".views.mainapp.assistant.GardenListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/garden_recycler"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

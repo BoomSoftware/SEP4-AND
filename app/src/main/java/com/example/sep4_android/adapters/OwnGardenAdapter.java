@@ -13,7 +13,6 @@ import com.example.sep4_android.R;
 import com.example.sep4_android.models.Garden;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.annotations.NotNull;
 
 public class OwnGardenAdapter extends FirebaseRecyclerAdapter<Garden, OwnGardenAdapter.ViewHolder> {
@@ -28,14 +27,15 @@ public class OwnGardenAdapter extends FirebaseRecyclerAdapter<Garden, OwnGardenA
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Garden model) {
-            holder.gardenName.setText(model.getName());
-            String gardenInfo = holder.itemView.getContext().getString(R.string.area) + " " + model.getLandArea() + "\n" +
-                    holder.itemView.getContext().getString(R.string.address) + " " + model.getStreet() + " " + model.getStreet() + " " + model.getCity() + "\n" +
-                    holder.itemView.getContext().getString(R.string.assistant_no) + " " + model.getAssistantList().size();
-            holder.gardenInfo.setText(gardenInfo);
-            holder.viewGardenButton.setOnClickListener(v -> {
-                listener.onOpenGarden(model.getName());
-            });
+        holder.gardenName.setText(model.getName());
+        String gardenInfo =
+                holder.itemView.getContext().getString(R.string.address) + " " + model.getStreet() + " " + model.getNumber() + "\n" +
+                        holder.itemView.getContext().getString(R.string.area) + " " + model.getLandArea() + "\n" +
+                        holder.itemView.getContext().getString(R.string.assistant_no) + " " + model.getAssistantList().size() + "\n";
+        holder.gardenInfo.setText(gardenInfo);
+        holder.viewGardenButton.setOnClickListener(v -> {
+            listener.onOpenGarden(model.getName());
+        });
     }
 
     @NonNull
@@ -51,11 +51,11 @@ public class OwnGardenAdapter extends FirebaseRecyclerAdapter<Garden, OwnGardenA
         TextView gardenInfo;
         Button viewGardenButton;
 
-        public ViewHolder(@NotNull View itemView){
+        public ViewHolder(@NotNull View itemView) {
             super(itemView);
-            gardenName = itemView.findViewById(R.id.text_own_garden_name);
-            gardenInfo = itemView.findViewById(R.id.text_own_garden_info);
-            viewGardenButton = itemView.findViewById(R.id.button_own_garden_open);
+            gardenName = itemView.findViewById(R.id.text_garden_item_name);
+            gardenInfo = itemView.findViewById(R.id.text_garden_item_info);
+            viewGardenButton = itemView.findViewById(R.id.button_garden_item_request);
         }
     }
 
