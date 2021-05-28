@@ -35,6 +35,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
 import java.util.Map;
 
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -204,11 +206,13 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     private void setNavigationHeader() {
         View header = navigationView.getHeaderView(0);
         TextView headerName = header.findViewById(R.id.nav_header_name);
+        TextView headerEmail = header.findViewById(R.id.nav_header_email);
         ImageView headerAvatar = header.findViewById(R.id.nav_header_avatar);
 
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
                 headerName.setText(user.getDisplayName());
+                headerEmail.setText(user.getEmail());
                 Glide.with(this).load(user.getPhotoUrl()).into(headerAvatar);
             }
         });
