@@ -102,4 +102,10 @@
     <string name="settings_remove">Remove account</string>
     <string name="settings_synchronize">Synchronize data</string>
     <string name="settings_synchronize_summary">This action loads all your data which is stored on the sever</string>
+
+
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="remove_garden_confirmation">This action will permanently delete the garden along with all plants.</string>
+    <string name="connection_error">Connection error. Try again later</string>
+    <string name="not_unique_name">There is a garden with the given name</string>
 </resources>

@@ -20,6 +20,5 @@
     </style>
 
     <style name="Theme.TravelPad.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="Theme.TravelPad.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

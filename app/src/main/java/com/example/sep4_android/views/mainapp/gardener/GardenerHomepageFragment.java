@@ -1,8 +1,10 @@
 package com.example.sep4_android.views.mainapp.gardener;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -48,6 +50,7 @@ public class GardenerHomepageFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(GardenerHomepageViewModel.class);
         prepareUI();
         prepareOnClickEvents();
+        checkConnectionStatus();
         return view;
     }
 
@@ -77,6 +80,8 @@ public class GardenerHomepageFragment extends Fragment {
 
                     if (garden == null) {
                         addGardenTextView.setText(getString(R.string.add_garden));
+                        gardenNameTextView.setText(getResources().getString(R.string.no_garden_added));
+                        descriptionTextView.setText("");
                         addGardenImageView.setImageResource(R.drawable.ic_baseline_addchart_24);
                         buttonAddGarden.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_addGardenFragment));
                         return;
@@ -87,16 +92,42 @@ public class GardenerHomepageFragment extends Fragment {
                     gardenNameTextView.setText(garden.getName());
                     addGardenTextView.setText(getString(R.string.remove_garden));
                     buttonAddGarden.setOnClickListener(v -> {
-                        viewModel.removeGarden(garden.getName());
-                        viewModel.getPlantsForGarden(garden.getName()).observe(getViewLifecycleOwner(), plants -> {
-                            for(Plant plant : plants){
-                                viewModel.removePlant(plant.getPlantID());
-                            }
-                        });
+                       showConfirmation(garden.getName());
                     });
                 });
             }
             buttonSettings.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_settingsFragment));
+        });
+    }
+
+
+    private void showConfirmation(String gardenName){
+        new AlertDialog.Builder(getContext())
+                .setTitle(getString(R.string.are_you_sure))
+                .setMessage(getString(R.string.remove_garden_confirmation))
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
+                    removeGarden(gardenName);
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    private void removeGarden(String gardenName){
+        viewModel.removeGarden(gardenName);
+        viewModel.getPlantsForGarden(gardenName).observe(getViewLifecycleOwner(), plants -> {
+            if(plants != null){
+                for(Plant plant : plants){
+                    viewModel.removePlant(plant.getPlantID());
+                }
+            }
+        });
+    }
+
+    private void checkConnectionStatus(){
+        viewModel.getConnectionStatus().observe(getViewLifecycleOwner(), status -> {
+                if(!status){
+                    Toasty.error(view.getContext(), view.getContext().getString(R.string.connection_error), Toasty.LENGTH_SHORT, true).show();
+                }
         });
     }
 }

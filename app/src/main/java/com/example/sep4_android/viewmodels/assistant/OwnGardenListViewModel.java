@@ -19,6 +19,6 @@ public class OwnGardenListViewModel extends AndroidViewModel {
     }
 
     public Query getOwnGardens(){
-        return gardenRepository.getAllGardens();
+        return gardenRepository.getAllOwnsGardens();
     }
 }

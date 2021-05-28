@@ -20,6 +20,10 @@ public class AddNewGardenViewModel extends AndroidViewModel {
         gardenRepository = GardenRepository.getInstance(application);
     }
 
+    public LiveData<Boolean> getCreationStatus(){
+        return gardenRepository.getCreatingStatus();
+    }
+
     public void addNewGarden(Garden garden){
         gardenRepository.createGarden(garden);
     }

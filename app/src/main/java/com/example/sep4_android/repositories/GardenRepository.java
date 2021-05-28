@@ -3,14 +3,17 @@ package com.example.sep4_android.repositories;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.sep4_android.R;
 import com.example.sep4_android.data.GardenDAO;
 import com.example.sep4_android.data.GardenDatabase;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.GardenLiveData;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,18 +28,23 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import es.dmoral.toasty.Toasty;
+
 public class GardenRepository {
     private static GardenRepository instance;
     private GardenDAO gardenDAO;
     private ExecutorService executorService;
     private final MutableLiveData<String> synchronizedGardenName;
+    private final MutableLiveData<Boolean> connectionStatus;
+    private final MutableLiveData<Boolean> creationStatus;
     private GardenLiveData garden;
-
 
     private GardenRepository(Application application) {
         GardenDatabase database = GardenDatabase.getInstance(application);
         gardenDAO = database.gardenDAO();
         synchronizedGardenName = new MutableLiveData<>();
+        connectionStatus = new MutableLiveData<>();
+        creationStatus = new MutableLiveData<>();
         executorService = Executors.newFixedThreadPool(2);
     }
 
@@ -51,8 +59,16 @@ public class GardenRepository {
         return gardenDAO.getGarden(gardenName);
     }
 
+    public LiveData<Boolean> getConnectionStatus(){
+        return connectionStatus;
+    }
+
     public LiveData<Garden> getOwnGarden(String userGoogleId){
         return gardenDAO.getOwnGarden(userGoogleId);
+    }
+
+    public LiveData<Boolean> getCreatingStatus(){
+        return creationStatus;
     }
 
     public MutableLiveData<String> getSynchronizedGardenName(){
@@ -66,14 +82,16 @@ public class GardenRepository {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean result = true;
                 for(DataSnapshot gardenFromFirebase: snapshot.getChildren()){
-                    if(gardenFromFirebase.getValue().equals(garden.getName())){
+                    if(gardenFromFirebase.getKey().equals(garden.getName())){
                         result = false;
+                        creationStatus.setValue(false);
                         break;
                     }
                 }
                 if(result){
                     FirebaseDatabase.getInstance().getReference().child("gardens").child(garden.getName()).setValue(garden);
                     addGardenToLocalDatabase(garden);
+                    creationStatus.postValue(true);
                 }
             }
 
@@ -84,12 +102,22 @@ public class GardenRepository {
     }
 
     public void removeGarden(String gardenName) {
-        FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).removeValue();
+        FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).removeValue((error, ref) -> {
+            if(error != null){
+                connectionStatus.setValue(false);
+                return;
+            }
+        });
         executorService.execute(() -> gardenDAO.removeGarden(gardenName));
     }
 
     public Query getAllGardens(){
+        return FirebaseDatabase.getInstance().getReference().child("gardens");
+    }
+
+    public Query getAllOwnsGardens(){
         return FirebaseDatabase.getInstance().getReference().child("gardens").orderByChild("assistantList/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).equalTo(true);
+
     }
 
     public void initializeGarden(String gardenName){
@@ -122,7 +150,6 @@ public class GardenRepository {
         });
     }
 
-
     public void sendAssistantRequest(String gardenName){
         String assistantGoogleId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Map<String, Object> map = new HashMap<>();
@@ -147,4 +174,5 @@ public class GardenRepository {
             }
         });
     }
+
 }

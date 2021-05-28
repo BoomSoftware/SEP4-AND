@@ -52,29 +52,6 @@ public class PlantRepository {
         return plants;
     }
 
-//    public void synchronizePlants(String gardenName){
-//        Call<List<Plant>> call = plantApi.getPlantsForGarden(gardenName);
-//        call.enqueue(new Callback<List<Plant>>() {
-//            @Override
-//            public void onResponse(Call<List<Plant>> call, Response<List<Plant>> response) {
-//                if(response.isSuccessful() && response.body() != null){
-//                    executorService.execute(() -> {
-//                        plantDAO.removeAllPlants(gardenName);
-//                        List<Plant> plants = response.body();
-//                        for(Plant plant : plants){
-//                            plantDAO.addPlant(plant);
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Plant>> call, Throwable t) {
-//
-//            }
-//        });
-//    }
-
     public void loadPlantsForGardenLive(String gardenName){
         Call<List<Plant>> call = plantApi.getPlantsForGarden(gardenName);
         call.enqueue(new Callback<List<Plant>>() {
@@ -116,7 +93,6 @@ public class PlantRepository {
             }
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
-                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXX" + t.getMessage());
             }
         });
     }

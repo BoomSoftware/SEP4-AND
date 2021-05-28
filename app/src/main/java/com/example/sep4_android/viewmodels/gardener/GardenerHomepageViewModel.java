@@ -31,6 +31,10 @@ public class GardenerHomepageViewModel extends AndroidViewModel {
         return gardenRepository.getOwnGarden(userGoogleId);
     }
 
+    public LiveData<Boolean> getConnectionStatus(){
+        return gardenRepository.getConnectionStatus();
+    }
+
     public LiveData<FirebaseUser> getCurrentUser(){
         return userRepository.getCurrentUser();
     }

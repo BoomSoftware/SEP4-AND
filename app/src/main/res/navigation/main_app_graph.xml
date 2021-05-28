@@ -28,7 +28,11 @@
         android:id="@+id/addGardenFragment"
         android:name="com.example.sep4_android.views.mainapp.gardener.AddGardenFragment"
         android:label=""
-        tools:layout="@layout/fragment_add_garden" />
+        tools:layout="@layout/fragment_add_garden" >
+        <action
+            android:id="@+id/action_addGardenFragment_to_gardenerHomepageFragment"
+            app:destination="@id/gardenerHomepageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/plantListFragment"
         android:name="com.example.sep4_android.views.mainapp.shared.PlantListFragment"

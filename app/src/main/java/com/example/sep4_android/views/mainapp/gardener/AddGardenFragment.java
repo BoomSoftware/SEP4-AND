@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class AddGardenFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_garden, container, false);
         prepareUI();
         prepareOnClickEvents();
+        checkCreationStatus();
         return view;
     }
 
@@ -55,7 +57,6 @@ public class AddGardenFragment extends Fragment {
            if(validation()) {
                viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
                    viewModel.addNewGarden(new Garden(gardenName.getText().toString(), Double.parseDouble(gardenLand.getText().toString()), gardenCity.getText().toString(), gardenStreet.getText().toString(), gardenNumber.getText().toString(), user.getUid()));
-                   Toasty.success(view.getContext(), view.getContext().getString(R.string.success_garden), Toasty.LENGTH_SHORT, true).show();
                });
            }
         });
@@ -83,5 +84,16 @@ public class AddGardenFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    private void checkCreationStatus(){
+        viewModel.getCreationStatus().observe(getViewLifecycleOwner(), status -> {
+            if(!status){
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.not_unique_name), Toasty.LENGTH_SHORT, true).show();
+                return;
+            }
+            Toasty.success(view.getContext(), view.getContext().getString(R.string.success_garden), Toasty.LENGTH_SHORT, true).show();
+            Navigation.findNavController(view).navigate(R.id.action_addGardenFragment_to_gardenerHomepageFragment);
+        });
     }
 }
