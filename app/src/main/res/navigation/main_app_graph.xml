@@ -87,7 +87,7 @@
     <fragment
         android:id="@+id/ownGardenListFragment"
         android:name="com.example.sep4_android.views.mainapp.assistant.OwnGardenListFragment"
-        android:label="fragment_own_garden_list"
+        android:label=""
         tools:layout="@layout/fragment_own_garden_list" >
         <action
             android:id="@+id/action_ownGardenListFragment_to_plantListFragment"
@@ -96,6 +96,6 @@
     <fragment
         android:id="@+id/assistantListFragment"
         android:name="com.example.sep4_android.views.mainapp.gardener.AssistantListFragment"
-        android:label="fragment_assistant_list"
+        android:label=""
         tools:layout="@layout/fragment_assistant_list" />
 </navigation>

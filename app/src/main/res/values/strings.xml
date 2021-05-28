@@ -114,4 +114,8 @@
     <string name="not_unique_name">There is a garden with the given name</string>
     <string name="default_role">Welcome in GardenManager app. Select your default role. It will be possible to change this choice later.</string>
     <string name="login_info">Log in using your google account or e-mail and start your adventure with comfortable garden management</string>
+
+    <string name="browse_gardens">Browse</string>
+    <string name="my_gardens">My gardens</string>
+    <string name="assistant_description">Browse the gardens you want to join and look after the gardens you are an assistant</string>
 </resources>

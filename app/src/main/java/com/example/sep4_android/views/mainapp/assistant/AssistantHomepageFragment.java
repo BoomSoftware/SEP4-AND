@@ -2,6 +2,7 @@ package com.example.sep4_android.views.mainapp.assistant;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -15,8 +16,8 @@ import com.example.sep4_android.R;
 public class AssistantHomepageFragment extends Fragment {
 
     private View view;
-    private Button browseGardenButton;
-    private Button ownGardensButton;
+    private ConstraintLayout browseGardenButton;
+    private ConstraintLayout ownGardensButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
