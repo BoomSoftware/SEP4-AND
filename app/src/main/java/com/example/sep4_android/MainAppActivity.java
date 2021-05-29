@@ -25,8 +25,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.MainActivityViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -39,6 +41,8 @@ import com.google.firebase.auth.FirebaseUser;
 import org.w3c.dom.Text;
 
 import java.util.Map;
+
+import es.dmoral.toasty.Toasty;
 
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private NavigationView navigationView;
@@ -57,25 +61,29 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         checkIfSignedIn();
         setNavigationViewListener();
         createNotificationChannel();
+        checkConnectionStatus();
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_item_logout: {
+            case R.id.nav_item_logout:
                 viewModel.signOut();
                 break;
-            }
-            case R.id.nav_item_delete: {
+            case R.id.nav_item_delete:
                 showConfirmation();
                 break;
-            }
-            case R.id.nav_switch: {
+            case R.id.nav_switch:
                 viewModel.updateUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid(), !status);
                 status = !status;
                 break;
-            }
+            case R.id.nav_open_window:
+                viewModel.windowAction(true);
+                break;
+            case R.id.nav_close_window:
+                viewModel.windowAction(false);
+                break;
         }
         return true;
     }
@@ -238,5 +246,16 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
             notificationManager.createNotificationChannel(channel);
 
         }
+    }
+
+    private void checkConnectionStatus(){
+        viewModel.getConnectionStatus().observe(this, status -> {
+            if(status.equals(ConnectionStatus.ERROR)){
+                Toasty.error(this, getString(R.string.connection_error), Toast.LENGTH_SHORT, true).show();
+            }
+            if(status.equals(ConnectionStatus.SUCCESS)){
+                Toasty.success(this, getString(R.string.action_success), Toast.LENGTH_SHORT, true).show();
+            }
+        });
     }
 }

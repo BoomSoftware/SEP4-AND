@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.viewmodels.gardener.AddNewGardenViewModel;
 
@@ -88,12 +89,13 @@ public class AddGardenFragment extends Fragment {
 
     private void checkCreationStatus(){
         viewModel.getCreationStatus().observe(getViewLifecycleOwner(), status -> {
-            if(!status){
+            if(status.equals(ConnectionStatus.ERROR)){
                 Toasty.error(view.getContext(), view.getContext().getString(R.string.not_unique_name), Toasty.LENGTH_SHORT, true).show();
-                return;
             }
-            Toasty.success(view.getContext(), view.getContext().getString(R.string.success_garden), Toasty.LENGTH_SHORT, true).show();
-            Navigation.findNavController(view).navigate(R.id.action_addGardenFragment_to_gardenerHomepageFragment);
+            if(status.equals(ConnectionStatus.SUCCESS)) {
+                Toasty.success(view.getContext(), view.getContext().getString(R.string.success_garden), Toasty.LENGTH_SHORT, true).show();
+                Navigation.findNavController(view).navigate(R.id.action_addGardenFragment_to_gardenerHomepageFragment);
+            }
         });
     }
 }

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.repositories.GardenRepository;
 import com.example.sep4_android.repositories.UserRepository;
@@ -20,7 +21,7 @@ public class AddNewGardenViewModel extends AndroidViewModel {
         gardenRepository = GardenRepository.getInstance(application);
     }
 
-    public LiveData<Boolean> getCreationStatus(){
+    public LiveData<ConnectionStatus> getCreationStatus(){
         return gardenRepository.getCreatingStatus();
     }
 

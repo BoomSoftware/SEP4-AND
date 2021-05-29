@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.repositories.GardenRepository;
@@ -31,7 +32,7 @@ public class GardenerHomepageViewModel extends AndroidViewModel {
         return gardenRepository.getOwnGarden(userGoogleId);
     }
 
-    public LiveData<Boolean> getConnectionStatus(){
+    public LiveData<ConnectionStatus> getConnectionStatus(){
         return gardenRepository.getConnectionStatus();
     }
 

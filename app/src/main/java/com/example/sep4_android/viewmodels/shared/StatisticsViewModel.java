@@ -22,8 +22,12 @@ public class StatisticsViewModel extends AndroidViewModel {
         plantRepository = PlantRepository.getInstance(application);
     }
 
-    public MutableLiveData<List<Measurement>> getLoadedMeasurements(){
-        return plantRepository.getLoadedMeasurements();
+    public MutableLiveData<List<Measurement>> getHistoricalMeasurements(){
+        return plantRepository.getHistoricalMeasurements();
+    }
+
+    public void clearHistoricalMeasurements(){
+        plantRepository.clearHistoricalMeasurements();
     }
 
     public void loadMeasurements(int plantId, FrequencyTypes frequencyType, MeasurementTypes measurementType){

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.GardenLiveData;
 import com.example.sep4_android.models.Plant;
@@ -30,6 +31,10 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public LiveData<FirebaseUser> getCurrentUser(){
         return userRepository.getCurrentUser();
+    }
+
+    public void windowAction(boolean status){
+        gardenRepository.windowAction(status);
     }
 
     public LiveData<UserStatus> getUserStatus(String userGoogleID) {
@@ -82,5 +87,9 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public void updateUserStatus(String userGoogleId, boolean status){
         userRepository.updateUserStatus(userGoogleId, status);
+    }
+
+    public LiveData<ConnectionStatus> getConnectionStatus(){
+        return gardenRepository.getConnectionStatus();
     }
 }

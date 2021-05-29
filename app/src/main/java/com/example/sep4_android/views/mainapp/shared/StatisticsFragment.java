@@ -36,6 +36,7 @@ public class StatisticsFragment extends Fragment {
     private TextView emptyChart;
     private Button light;
     private AnyChartView anyChartView;
+    private int plantId;
     private ProgressBar progressBar;
 
     @Override
@@ -44,6 +45,8 @@ public class StatisticsFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_statistics, container, false);
         viewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
+        viewModel.clearHistoricalMeasurements();
+        plantId = getArguments().getInt("plantID");
         prepareUI();
         prepareOnClickEvents();
         loadData();
@@ -65,38 +68,42 @@ public class StatisticsFragment extends Fragment {
         co2.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-            viewModel.loadMeasurements(720, FrequencyTypes.HISTORY, MeasurementTypes.CO2);
+            viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.CO2);
         });
         temp.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-            viewModel.loadMeasurements(720, FrequencyTypes.HISTORY, MeasurementTypes.TEMP);
+            viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.TEMP);
         });
         hum.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-            viewModel.loadMeasurements(720, FrequencyTypes.HISTORY, MeasurementTypes.HUM);
+            viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.HUM);
         });
         light.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-            viewModel.loadMeasurements(720, FrequencyTypes.HISTORY, MeasurementTypes.LIGHT);
+            viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.LIGHT);
         });
     }
 
     private void loadData() {
-        viewModel.getLoadedMeasurements().observe(getViewLifecycleOwner(), measurements -> {
-            Cartesian bar = AnyChart.column();
-            List<DataEntry> data = new ArrayList<>();
-            for (Measurement measurement : measurements) {
-                data.add(new ValueDataEntry(measurement.getDate(), measurement.getMeasurementValue()));
+        viewModel.getHistoricalMeasurements().observe(getViewLifecycleOwner(), measurements -> {
+            if(measurements != null) {
+                Cartesian bar = AnyChart.column();
+                List<DataEntry> data = new ArrayList<>();
+                for (Measurement measurement : measurements) {
+                    data.add(new ValueDataEntry(measurement.getDate(), measurement.getMeasurementValue()));
+                }
+                bar.column(data);
+                bar.getSeries(0).normal().fill("#739F62");
+                bar.getSeries(0).normal().stroke("#739F62", 0, "solid", "0", "0");
+                bar.background().fill("#22483E");
+                anyChartView.setChart(bar);
+                anyChartView.setVisibility(View.VISIBLE);
+                emptyChart.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
-            bar.column(data);
-            bar.getSeries(0).normal().fill("#739F62");
-            bar.getSeries(0).normal().stroke("#739F62", 0, "solid", "0", "0");
-            bar.background().fill("#22483E");
-            anyChartView.setChart(bar);
-            progressBar.setVisibility(View.GONE);
         });
     }
 }

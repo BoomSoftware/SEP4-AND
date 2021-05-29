@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.FrequencyTypes;
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
@@ -40,8 +41,16 @@ public class PlantOverviewViewModel extends AndroidViewModel {
         return userRepository.getStatus(userGoogleId);
     }
 
+    public LiveData<ConnectionStatus> getConnectionStatus(){
+        return plantRepository.getConnectionStatus();
+    }
+
     public MutableLiveData<List<Measurement>> getLoadedMeasurements(){
         return plantRepository.getLoadedMeasurements();
+    }
+
+    public void clearMeasurements(){
+        plantRepository.clearMeasurements();
     }
 
     public void loadMeasurements(int plantId, FrequencyTypes frequencyType, MeasurementTypes measurementType){

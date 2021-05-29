@@ -10,8 +10,13 @@ public class ServiceGenerator {
 
     private static Retrofit retrofit = retrofitBuilder.build();
     private static PlantApi plantApi = retrofit.create(PlantApi.class);
+    private static GardenApi gardenApi = retrofit.create(GardenApi.class);
 
     public static PlantApi getPlantApi() {
         return  plantApi;
+    }
+
+    public static GardenApi getGardenApi() {
+        return gardenApi;
     }
 }

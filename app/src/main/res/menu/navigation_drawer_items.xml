@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
+        <item android:id="@+id/nav_open_window"
+            android:title="@string/open_window"
+            android:icon="@drawable/ic_baseline_sensor_window_24"/>
+        <item android:id="@+id/nav_close_window"
+            android:title="@string/close_window"
+            android:icon="@drawable/ic_baseline_sensor_window_24"/>
         <item android:id="@+id/nav_switch"
             android:title="@string/nav_switch"
             android:icon="@drawable/ic_baseline_swipe_24"/>

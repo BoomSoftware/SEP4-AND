@@ -3,40 +3,38 @@ package com.example.sep4_android.repositories;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
-import com.example.sep4_android.R;
 import com.example.sep4_android.data.GardenDAO;
 import com.example.sep4_android.data.GardenDatabase;
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.GardenLiveData;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnFailureListener;
+import com.example.sep4_android.networking.GardenApi;
+import com.example.sep4_android.networking.ServiceGenerator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GardenRepository {
     private static GardenRepository instance;
-    private GardenDAO gardenDAO;
-    private ExecutorService executorService;
+    private final GardenDAO gardenDAO;
+    private final GardenApi gardenApi;
+    private final ExecutorService executorService;
     private final MutableLiveData<String> synchronizedGardenName;
-    private final MutableLiveData<Boolean> connectionStatus;
-    private final MutableLiveData<Boolean> creationStatus;
+    private final MutableLiveData<ConnectionStatus> connectionStatus;
+    private final MutableLiveData<ConnectionStatus> creationStatus;
     private GardenLiveData garden;
 
     private GardenRepository(Application application) {
@@ -45,6 +43,7 @@ public class GardenRepository {
         synchronizedGardenName = new MutableLiveData<>();
         connectionStatus = new MutableLiveData<>();
         creationStatus = new MutableLiveData<>();
+        gardenApi = ServiceGenerator.getGardenApi();
         executorService = Executors.newFixedThreadPool(2);
     }
 
@@ -55,11 +54,7 @@ public class GardenRepository {
         return instance;
     }
 
-    public LiveData<Garden> getGarden(String gardenName){
-        return gardenDAO.getGarden(gardenName);
-    }
-
-    public LiveData<Boolean> getConnectionStatus(){
+    public LiveData<ConnectionStatus> getConnectionStatus(){
         return connectionStatus;
     }
 
@@ -67,7 +62,7 @@ public class GardenRepository {
         return gardenDAO.getOwnGarden(userGoogleId);
     }
 
-    public LiveData<Boolean> getCreatingStatus(){
+    public LiveData<ConnectionStatus> getCreatingStatus(){
         return creationStatus;
     }
 
@@ -84,19 +79,42 @@ public class GardenRepository {
                 for(DataSnapshot gardenFromFirebase: snapshot.getChildren()){
                     if(gardenFromFirebase.getKey().equals(garden.getName())){
                         result = false;
-                        creationStatus.setValue(false);
+                        creationStatus.setValue(ConnectionStatus.ERROR);
+                        creationStatus.setValue(ConnectionStatus.NONE);
                         break;
                     }
                 }
                 if(result){
                     FirebaseDatabase.getInstance().getReference().child("gardens").child(garden.getName()).setValue(garden);
                     addGardenToLocalDatabase(garden);
-                    creationStatus.postValue(true);
+                    creationStatus.setValue(ConnectionStatus.SUCCESS);
+                    creationStatus.setValue(ConnectionStatus.NONE);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
+            }
+        });
+    }
+
+    public void windowAction(boolean status){
+        Call<Void> call = gardenApi.windowAction(status);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    connectionStatus.setValue(ConnectionStatus.SUCCESS);
+                    connectionStatus.setValue(ConnectionStatus.NONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
             }
         });
     }
@@ -104,7 +122,8 @@ public class GardenRepository {
     public void removeGarden(String gardenName) {
         FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).removeValue((error, ref) -> {
             if(error != null){
-                connectionStatus.setValue(false);
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
                 return;
             }
         });
@@ -146,7 +165,10 @@ public class GardenRepository {
                 }
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
+            }
         });
     }
 

@@ -57,14 +57,7 @@ public class SettingsFragment extends Fragment {
             viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
             preparePreferences();
             preparePreferencesOnClick();
-
-            SharedPreferences sharedPreferences =
-                    PreferenceManager.getDefaultSharedPreferences(this.requireContext());
-
-            notificationText.setOnBindEditTextListener(p -> {
-                notificationText.setText("");
-            });
-
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.requireContext());
             sharedPreferences.registerOnSharedPreferenceChangeListener((sp, key) -> {
                 if (key.equals("notifications")) {
                     boolean isShowNotifications = sp.getBoolean(key, false);
@@ -89,8 +82,10 @@ public class SettingsFragment extends Fragment {
                     }
                 }
             });
+            notificationText.setOnBindEditTextListener(p -> {
+                notificationText.setText("");
+            });
         }
-
 
         private void preparePreferences(){
             synchronizeButton = findPreference(getString(R.string.settings_synchronize));

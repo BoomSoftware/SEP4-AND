@@ -15,8 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.gardener.GardenerHomepageViewModel;
 
@@ -123,9 +125,12 @@ public class GardenerHomepageFragment extends Fragment {
 
     private void checkConnectionStatus(){
         viewModel.getConnectionStatus().observe(getViewLifecycleOwner(), status -> {
-                if(!status){
-                    Toasty.error(view.getContext(), view.getContext().getString(R.string.connection_error), Toasty.LENGTH_SHORT, true).show();
-                }
+            if(status.equals(ConnectionStatus.ERROR)){
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.connection_error), Toast.LENGTH_SHORT, true).show();
+            }
+            if(status.equals(ConnectionStatus.SUCCESS)){
+                Toasty.success(view.getContext(), view.getContext().getString(R.string.action_success), Toast.LENGTH_SHORT, true).show();
+            }
         });
     }
 }

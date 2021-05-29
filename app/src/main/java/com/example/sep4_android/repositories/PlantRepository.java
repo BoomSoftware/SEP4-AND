@@ -29,6 +29,7 @@ public class PlantRepository {
     private final ExecutorService executorService;
     private final PlantApi plantApi;
     private final MutableLiveData<List<Measurement>> measurements;
+    private final MutableLiveData<List<Measurement>> historicalMeasurements;
     private final MutableLiveData<List<Plant>> plants;
     private final MutableLiveData<ConnectionStatus> connectionStatus;
     private Plant selectedPlant;
@@ -36,6 +37,7 @@ public class PlantRepository {
     private PlantRepository(Application application) {
         GardenDatabase database = GardenDatabase.getInstance(application);
         measurements = new MutableLiveData<>();
+        historicalMeasurements = new MutableLiveData<>();
         plants = new MutableLiveData<>();
         connectionStatus = new MutableLiveData<>();
         plantDAO = database.plantDAO();
@@ -120,6 +122,10 @@ public class PlantRepository {
         return selectedPlant;
     }
 
+    public MutableLiveData<List<Measurement>> getHistoricalMeasurements() {
+        return historicalMeasurements;
+    }
+
     public void setSelectedPlant(Plant selectedPlant) {
         this.selectedPlant = selectedPlant;
     }
@@ -130,13 +136,31 @@ public class PlantRepository {
             @Override
             public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
                 if(response.isSuccessful() && response.body() != null) {
-                    measurements.setValue(response.body());
+                    if(frequencyType.equals(FrequencyTypes.HISTORY)){
+                        historicalMeasurements.setValue(response.body());
+                    }else{
+                        measurements.setValue(response.body());
+                    }
+
+                    connectionStatus.setValue(ConnectionStatus.SUCCESS);
+                    connectionStatus.setValue(ConnectionStatus.NONE);
                 }
             }
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
             }
         });
+    }
+
+
+    public void clearMeasurements(){
+        measurements.setValue(null);
+    }
+
+    public void clearHistoricalMeasurements(){
+        historicalMeasurements.setValue(null);
     }
 
     public void removePlantFromGarden(int plantID){

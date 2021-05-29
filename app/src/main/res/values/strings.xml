@@ -130,4 +130,8 @@
     <string name="view_plant">View plant</string>
     <string name="remove_plant_description">This action will permanently remove the selected plant</string>
     <string name="empty_chart">No data. Select the measurement</string>
+    <string name="open_window">Open window</string>
+    <string name="close_window">Close window</string>
+    <string name="measurement_success">Measurements has been successfully loaded</string>
+    <string name="measurements_error">Loading measurements error. Try again later</string>
 </resources>
