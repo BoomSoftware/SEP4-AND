@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Garden;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.models.UserStatus;
@@ -33,6 +34,10 @@ public class PlantListViewModel extends AndroidViewModel {
 
     public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
         return plantRepository.getPlantsForGarden(gardenName);
+    }
+
+    public LiveData<ConnectionStatus> getConnectionStatus(){
+        return plantRepository.getConnectionStatus();
     }
 
     public LiveData<List<Plant>> getPlantsForGardenLive(){

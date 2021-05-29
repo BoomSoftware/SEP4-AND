@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.repositories.PlantRepository;
 
@@ -27,5 +28,9 @@ public class AddPlantViewModel extends AndroidViewModel {
 
     public void updatePlantInGarden(Plant plant) {
         plantRepository.updatePlantInGarden(plant);
+    }
+
+    public LiveData<ConnectionStatus> getConnectionStatus(){
+        return plantRepository.getConnectionStatus();
     }
 }

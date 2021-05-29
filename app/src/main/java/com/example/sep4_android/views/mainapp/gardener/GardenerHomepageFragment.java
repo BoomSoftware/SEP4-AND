@@ -103,7 +103,7 @@ public class GardenerHomepageFragment extends Fragment {
         new AlertDialog.Builder(getContext())
                 .setTitle(getString(R.string.are_you_sure))
                 .setMessage(getString(R.string.remove_garden_confirmation))
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_baseline_warning_24)
                 .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
                     removeGarden(gardenName);
                 })

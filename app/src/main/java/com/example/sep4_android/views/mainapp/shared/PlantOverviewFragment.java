@@ -42,6 +42,7 @@ public class PlantOverviewFragment extends DialogFragment {
     private TextView co2Value;
     private TextView lightValue;
     private TextView humidityValue;
+    private TextView plantInfo;
     private TextView plantName;
     private TextView plantLocation;
     private ImageView plantImg;
@@ -72,6 +73,7 @@ public class PlantOverviewFragment extends DialogFragment {
         humidityValue = view.findViewById(R.id.text_plant_humidity);
         humidityValue = view.findViewById(R.id.text_plant_humidity);
         plantLocation = view.findViewById(R.id.text_plant_location);
+        plantInfo = view.findViewById(R.id.text_plant_info);
         plantName = view.findViewById(R.id.text_plant_name);
         plantImg = view.findViewById(R.id.img_plant);
         statisticsButton = view.findViewById(R.id.button_plant_statistics);
@@ -124,6 +126,13 @@ public class PlantOverviewFragment extends DialogFragment {
                 viewModel.loadPlant(plantID).observe(getViewLifecycleOwner(), plant -> {
                     plantName.setText(plant.getCategoryName());
                     plantLocation.setText(plant.getGardenLocation());
+                    String plantInfoText =
+                            getString(R.string.plant_height) + ": " + plant.getHeight() + "\n\n" +
+                            getString(R.string.plant_category_name) + ": " + plant.getCategoryName() + "\n\n" +
+                            getString(R.string.plant_soil_type) + ": " + plant.getSoilType() + "\n\n" +
+                            getString(R.string.plant_soil_volume) + ": " + plant.getOwnSoilVolume() + "\n\n" +
+                            getString(R.string.plant_growth_stage) + ": " + plant.getStageOfGrowth() + "\n\n";
+                    plantInfo.setText(plantInfoText);
                     loadMeasurements();
                 });
                 return;

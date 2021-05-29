@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.sep4_android.data.GardenDatabase;
 import com.example.sep4_android.data.PlantDAO;
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.FrequencyTypes;
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
@@ -29,12 +30,14 @@ public class PlantRepository {
     private final PlantApi plantApi;
     private final MutableLiveData<List<Measurement>> measurements;
     private final MutableLiveData<List<Plant>> plants;
+    private final MutableLiveData<ConnectionStatus> connectionStatus;
     private Plant selectedPlant;
 
     private PlantRepository(Application application) {
         GardenDatabase database = GardenDatabase.getInstance(application);
         measurements = new MutableLiveData<>();
         plants = new MutableLiveData<>();
+        connectionStatus = new MutableLiveData<>();
         plantDAO = database.plantDAO();
         plantApi = ServiceGenerator.getPlantApi();
         executorService = Executors.newFixedThreadPool(2);
@@ -50,6 +53,10 @@ public class PlantRepository {
     public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
         LiveData<List<Plant>> plants = plantDAO.getPlantsForGarden(gardenName);
         return plants;
+    }
+
+    public MutableLiveData<ConnectionStatus> getConnectionStatus() {
+        return connectionStatus;
     }
 
     public void loadPlantsForGardenLive(String gardenName){
@@ -89,10 +96,14 @@ public class PlantRepository {
                 if(response.isSuccessful() && response.body() != null && response.body() != -1){
                     plant.setPlantID(response.body());
                     addPlantToLocalDatabase(plant);
+                    connectionStatus.setValue(ConnectionStatus.SUCCESS);
+                    connectionStatus.setValue(ConnectionStatus.NONE);
                 }
             }
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
             }
         });
     }
@@ -135,11 +146,16 @@ public class PlantRepository {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
                     removePlantFromLocalDatabase(plantID);
+                    connectionStatus.setValue(ConnectionStatus.SUCCESS);
+                    connectionStatus.setValue(ConnectionStatus.NONE);
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {}
+            public void onFailure(Call<Void> call, Throwable t) {
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
+            }
         });
     }
 
@@ -150,10 +166,14 @@ public class PlantRepository {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
                     executorService.execute(() -> plantDAO.updatePlant(plant));
+                    connectionStatus.setValue(ConnectionStatus.SUCCESS);
+                    connectionStatus.setValue(ConnectionStatus.NONE);
                 }
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
             }
         });
     }

@@ -11,31 +11,48 @@
     android:layout_marginTop="20dp"
     >
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_item_plant"
-        android:layout_width="103dp"
-        android:layout_height="104dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/gardening"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/plant_item"
+        app:civ_border_color="@color/contrast_green"
+        app:civ_border_width="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:tint="@color/contrast_green" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/img_item_plant"-->
+<!--        android:layout_width="103dp"-->
+<!--        android:layout_height="104dp"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:src="@drawable/gardening"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.024"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <TextView
         android:id="@+id/text_plant_item_name"
         android:layout_width="152dp"
         android:layout_height="33dp"
-        android:textAllCaps="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/img_item_plant"
         android:text="name"
+        android:textAllCaps="true"
         android:textColor="@color/contrast_green"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -49,23 +66,24 @@
         style="@style/green_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:text="View plant"
+        android:layout_marginStart="20dp"
+        android:text="@string/view_plant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/img_item_plant"
-        app:layout_constraintTop_toBottomOf="@+id/text_item_plant_location" />
+        app:layout_constraintTop_toBottomOf="@+id/text_plant_item_name" />
 
     <TextView
-        android:id="@+id/text_item_plant_location"
-        android:textColor="@color/contrast_green"
+        android:id="@+id/text_item_plant_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/img_item_plant"
-        app:layout_constraintTop_toBottomOf="@+id/text_plant_item_name" />
+        android:textColor="@color/contrast_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_item_plant_view" />
 
     <ImageView
         android:id="@+id/img_item_plant_edit"

@@ -37,14 +37,14 @@
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Garden Location"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/rounded_bg"
         android:backgroundTint="@color/contrast_green"
@@ -205,66 +205,57 @@
         android:id="@+id/img_plant"
         android:layout_width="160dp"
         android:layout_height="190dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="100dp"
-        android:foreground="@drawable/rounded_image"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
+        android:tint="@color/contrast_green"
         android:src="@drawable/gardening"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:background="@drawable/rounded_temperature"
-        android:backgroundTint="@color/contrast_green"
-        app:layout_constraintBottom_toTopOf="@+id/button_plant_take_pic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toEndOf="@+id/img_plant"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintTop_toBottomOf="@+id/text_plant_temp" />
 
     <TextView
         android:id="@+id/text_plant_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="118dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="64dp"
         android:text="@string/no_data_text"
         android:textColor="@color/white"
         android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_plant"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/button_plant_take_pic"
         style="@style/green_button"
         android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="28dp"
-        android:drawableTop="@drawable/ic_baseline_camera_alt_24"
-        android:text="Take a picture"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/photo"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
-        app:layout_constraintStart_toEndOf="@+id/img_plant"
-        app:layout_constraintTop_toBottomOf="@+id/text_plant_temp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_plant_statistics" />
 
     <Button
         android:id="@+id/button_plant_statistics"
         style="@style/green_button"
         android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="28dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
-        android:drawableTop="@drawable/ic_baseline_statistics"
-        android:text="Statistics"
+        android:text="@string/statistics"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_plant" />
+
+    <TextView
+        android:id="@+id/text_plant_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/img_plant"
+        app:layout_constraintTop_toBottomOf="@+id/text_plant_temp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

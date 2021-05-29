@@ -7,73 +7,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.mainapp.shared.StatisticsFragment">
 
-<!--    <com.github.mikephil.charting.charts.BarChart-->
-<!--        android:id="@+id/bar_chart"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
     <com.anychart.AnyChartView
         android:id="@+id/any_chart_view"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="60dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <TextView
+        android:id="@+id/empty_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:text="@string/empty_chart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+    android:id="@+id/progress"
+    style="?android:attr/progressBarStyle"
+    android:layout_width="match_parent"
+    android:visibility="gone"
+    android:layout_height="match_parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="42dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent">
 
 
         <Button
             android:id="@+id/button_statisctis_co2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="10sp"
             android:layout_margin="2dp"
-            android:text="@string/co2" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/contrast_green"
+            android:text="@string/co2"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/button_statisctis_temp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="10sp"
             android:layout_margin="2dp"
-            android:text="@string/temperature" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/contrast_green"
+            android:text="@string/temperature"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="10dp">
 
         <Button
             android:id="@+id/button_statisctis_hum"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="10sp"
             android:layout_margin="2dp"
-            android:text="@string/humidity" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/contrast_green"
+            android:text="@string/humidity"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/button_statisctis_light"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="10sp"
             android:layout_margin="2dp"
-            android:text="@string/light" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/contrast_green"
+            android:text="@string/light"
+            android:textSize="12sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

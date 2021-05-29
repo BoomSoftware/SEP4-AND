@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.PlantAdapter;
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.shared.PlantListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +48,7 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         prepareRecyclerView();
         prepareOnClickEvents();
         personalizeView();
+        checkConnectionStatus();
         return view;
     }
 
@@ -99,7 +101,6 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
     private void displayInformation(List<Plant> plants){
         if (!plants.isEmpty()) {
             emptyGarden.setVisibility(View.GONE);
-            System.out.println(plants);
             plantAdapter.setPlants(plants);
             return;
         }
@@ -137,8 +138,18 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 gardenViewModel.removePlantFromGarden(plantAdapter.getItemAt(viewHolder.getAdapterPosition()).getPlantID());
-                Toasty.success(view.getContext(), view.getContext().getString(R.string.remove_plant), Toast.LENGTH_SHORT, true).show();
             }
         }).attachToRecyclerView(recyclerView);
+    }
+
+    private void checkConnectionStatus(){
+        gardenViewModel.getConnectionStatus().observe(getViewLifecycleOwner(), status -> {
+            if(status.equals(ConnectionStatus.ERROR)){
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.connection_error), Toast.LENGTH_SHORT, true).show();
+            }
+            if(status.equals(ConnectionStatus.SUCCESS)){
+                Toasty.success(view.getContext(), view.getContext().getString(R.string.action_success), Toast.LENGTH_SHORT, true).show();
+            }
+        });
     }
 }

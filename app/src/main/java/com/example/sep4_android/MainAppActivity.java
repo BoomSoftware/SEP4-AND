@@ -1,6 +1,7 @@
 package com.example.sep4_android;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -67,7 +68,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                 break;
             }
             case R.id.nav_item_delete: {
-                removeAccount();
+                showConfirmation();
                 break;
             }
             case R.id.nav_switch: {
@@ -134,6 +135,17 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         });
     }
 
+    private void showConfirmation(){
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.are_you_sure))
+                .setMessage(getString(R.string.remove_account_confirmation))
+                .setIcon(R.drawable.ic_baseline_warning_24)
+                .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
+                    removeAccount();
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
     private void removeAccount(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         viewModel.removeUserFromOtherGardens(user.getUid());
@@ -163,7 +175,8 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                         startActivity(new Intent(this, LoginActivity.class));
                         return;
                     }
-                    prepareToolbar(status.isStatus());
+                    this.status = status.isStatus();
+                    prepareToolbar();
                     setNavigationHeader();
                 });
 
@@ -173,20 +186,16 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         });
     }
 
-    private void prepareToolbar(boolean status) {
+    private void prepareToolbar() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_fragment_main);
         navController = navHostFragment.getNavController();
         NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_app_graph);
         if (status) {
             navGraph.setStartDestination(R.id.gardenerHomepageFragment);
-            status = false;
         } else {
             navGraph.setStartDestination(R.id.assistantHomepageFragment);
-            status = true;
         }
-
         navController.setGraph(navGraph);
-
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).setOpenableLayout(drawerLayout).build();

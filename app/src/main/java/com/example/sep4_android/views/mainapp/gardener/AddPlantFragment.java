@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.sep4_android.R;
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.gardener.AddPlantViewModel;
 
@@ -40,6 +41,7 @@ public class AddPlantFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_plant, container, false);
         plantId = getArguments().getInt("plantId", -1);
         prepareUI();
+        checkConnectionStatus();
         prepareOnClickEvents();
         return view;
     }
@@ -160,5 +162,16 @@ public class AddPlantFragment extends Fragment {
             if(soil.equals(getResources().getStringArray(R.array.soil_types)[i]))
                 soilType.setSelection(i);
         }
+    }
+
+    private void checkConnectionStatus(){
+        viewModel.getConnectionStatus().observe(getViewLifecycleOwner(), status -> {
+            if(status.equals(ConnectionStatus.ERROR)){
+                Toasty.error(view.getContext(), view.getContext().getString(R.string.connection_error), Toast.LENGTH_SHORT, true).show();
+            }
+            if(status.equals(ConnectionStatus.SUCCESS)){
+                Toasty.success(view.getContext(), view.getContext().getString(R.string.action_success), Toast.LENGTH_SHORT, true).show();
+            }
+        });
     }
 }

@@ -2,6 +2,7 @@ package com.example.sep4_android.views.mainapp.gardener;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
@@ -11,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.AssistantAdapter;
 import com.example.sep4_android.models.GardenLiveData;
+import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.models.User;
 import com.example.sep4_android.models.UserLiveData;
 import com.example.sep4_android.viewmodels.gardener.AssistantListViewModel;
@@ -30,6 +33,7 @@ public class AssistantListFragment extends Fragment implements AssistantAdapter.
     private RecyclerView assistantList;
     private AssistantAdapter adapter;
     private String listType;
+    private TextView emptyAssistant;
     private String gardenName;
 
     @Override
@@ -38,6 +42,7 @@ public class AssistantListFragment extends Fragment implements AssistantAdapter.
         view = inflater.inflate(R.layout.fragment_assistant_list, container, false);
         viewModel = new ViewModelProvider(this).get(AssistantListViewModel.class);
         listType = getArguments().getString("listType");
+        emptyAssistant = view.findViewById(R.id.empty_assistant);
         loadData();
         return view;
     }
@@ -57,33 +62,36 @@ public class AssistantListFragment extends Fragment implements AssistantAdapter.
                     gardenName = garden.getName();
                     List<String> assistants = new ArrayList<>();
                     if (listType.equals("requests")) {
+                        adapter.setStatus(true);
                         for (Map.Entry<String, Boolean> entry : garden.getAssistantList().entrySet()) {
                             if (!entry.getValue()) {
                                 assistants.add(entry.getKey());
-//                                viewModel.getAssistant(entry.getKey()).observe(getViewLifecycleOwner(), assistant ->{
-//                                    assistants.add(assistant);
-//                                    adapter.setAssistants(assistants);
-//                                });
                             }
 
                         }
                     }
                     else{
+                        adapter.setStatus(false);
                         for (Map.Entry<String, Boolean> entry : garden.getAssistantList().entrySet()) {
                             if (entry.getValue()) {
                                 assistants.add(entry.getKey());
-//                                viewModel.getAssistant(entry.getKey()).observe(getViewLifecycleOwner(), assistant -> {
-//                                    assistants.add(assistant);
-//                                    adapter.setAssistants(assistants);
-//                                });
                             }
                         }
                     }
-                    adapter.setAssistants(assistants);
+                    displayInformation(assistants);
                 }
             });
         }
 
+    }
+
+    private void displayInformation(List<String> assistants){
+        if (!assistants.isEmpty()) {
+            emptyAssistant.setVisibility(View.GONE);
+            adapter.setAssistants(assistants);
+            return;
+        }
+        emptyAssistant.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,10 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.ViewHolder> {
 
     private List<String> assistants;
     private OnAssistantItemActionListener listener;
+    private boolean status;
 
     public AssistantAdapter(OnAssistantItemActionListener listener){
         assistants = new ArrayList<>();
@@ -42,15 +47,29 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         listener.loadAssistantInfo(assistants.get(position)).observe((LifecycleOwner) holder.itemView.getContext(), assistant -> {
             Glide.with(holder.itemView).load(assistant.getAvatarUrl()).into(holder.assistantAvatar);
-            holder.assistantName.setText(assistant.getName());
+            holder.assistantEmail.setText(assistant.getEmail());
         });
 
-        holder.approveButton.setOnClickListener(v -> {
-            listener.approveAssistant(assistants.get(position));
-        });
+
+        if(status){
+            holder.approveButton.setVisibility(View.VISIBLE);
+            holder.approveButton.setOnClickListener(v -> {
+                listener.approveAssistant(assistants.get(position));
+            });
+        }else{
+            holder.approveButton.setVisibility(View.GONE);
+        }
+
 
         holder.removeButton.setOnClickListener(v -> {
-            listener.removeAssistant(assistants.get(position));
+            new AlertDialog.Builder(holder.itemView.getContext())
+                    .setTitle(holder.itemView.getContext().getString(R.string.are_you_sure))
+                    .setMessage(holder.itemView.getContext().getString(R.string.remove_assistant))
+                    .setIcon(R.drawable.ic_baseline_warning_24)
+                    .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
+                        listener.removeAssistant(assistants.get(position));
+                    })
+                    .setNegativeButton(android.R.string.no, null).show();
         });
     }
 
@@ -64,19 +83,23 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
         notifyDataSetChanged();
     }
 
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView assistantName;
-        ImageView assistantAvatar;
-        ImageView approveButton;
-        ImageView removeButton;
+        TextView assistantEmail;
+        CircleImageView assistantAvatar;
+        ConstraintLayout approveButton;
+        ConstraintLayout removeButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            assistantName = itemView.findViewById(R.id.text_assistant_item_name);
             assistantAvatar = itemView.findViewById(R.id.img_assistant_item_avatar);
-            approveButton = itemView.findViewById(R.id.img_assistant_item_approve);
-            removeButton = itemView.findViewById(R.id.img_assistant_item_remove);
+            approveButton = itemView.findViewById(R.id.button_assistant_item_accept);
+            removeButton = itemView.findViewById(R.id.button_assistant_item_decline);
+            assistantEmail = itemView.findViewById(R.id.text_assistant_item_email);
         }
     }
 
