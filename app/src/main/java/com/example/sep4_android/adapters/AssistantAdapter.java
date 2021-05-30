@@ -3,7 +3,6 @@ package com.example.sep4_android.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,13 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.sep4_android.R;
-import com.example.sep4_android.models.User;
 import com.example.sep4_android.models.UserLiveData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -30,7 +26,7 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
     private OnAssistantItemActionListener listener;
     private boolean status;
 
-    public AssistantAdapter(OnAssistantItemActionListener listener){
+    public AssistantAdapter(OnAssistantItemActionListener listener) {
         assistants = new ArrayList<>();
         this.listener = listener;
     }
@@ -51,12 +47,12 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
         });
 
 
-        if(status){
+        if (status) {
             holder.approveButton.setVisibility(View.VISIBLE);
             holder.approveButton.setOnClickListener(v -> {
-                listener.approveAssistant(assistants.get(position));
+                listener.approveAssistant(assistants.get(position), position);
             });
-        }else{
+        } else {
             holder.approveButton.setVisibility(View.GONE);
         }
 
@@ -67,7 +63,7 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
                     .setMessage(holder.itemView.getContext().getString(R.string.remove_assistant))
                     .setIcon(R.drawable.ic_baseline_warning_24)
                     .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
-                        listener.removeAssistant(assistants.get(position));
+                        listener.removeAssistant(assistants.get(position), position);
                     })
                     .setNegativeButton(android.R.string.no, null).show();
         });
@@ -80,6 +76,11 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
 
     public void setAssistants(List<String> assistants) {
         this.assistants = assistants;
+        notifyDataSetChanged();
+    }
+
+    public void removeAssistantAtPosition(int position){
+        assistants.remove(position);
         notifyDataSetChanged();
     }
 
@@ -104,8 +105,10 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
     }
 
     public interface OnAssistantItemActionListener {
-        void approveAssistant(String assistantGoogleId);
-        void removeAssistant(String assistantGoogleId);
+        void approveAssistant(String assistantGoogleId, int position);
+
+        void removeAssistant(String assistantGoogleId, int position);
+
         UserLiveData loadAssistantInfo(String assistantGoogleId);
     }
 }

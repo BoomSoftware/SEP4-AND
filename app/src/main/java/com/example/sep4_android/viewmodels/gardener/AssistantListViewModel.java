@@ -10,7 +10,7 @@ import com.example.sep4_android.models.UserLiveData;
 import com.example.sep4_android.repositories.GardenRepository;
 import com.example.sep4_android.repositories.UserRepository;
 
-public class AssistantListViewModel extends AndroidViewModel{
+public class AssistantListViewModel extends AndroidViewModel {
     private final GardenRepository gardenRepository;
     private final UserRepository userRepository;
 
@@ -20,18 +20,19 @@ public class AssistantListViewModel extends AndroidViewModel{
         userRepository = UserRepository.getInstance(application);
     }
 
-    public GardenLiveData getLiveGarden(){
+    public GardenLiveData getLiveGarden() {
         return gardenRepository.getLiveGarden();
     }
 
-    public void approveAssistant(String gardenName ,String assistantGoogleId){
+    public void approveAssistant(String gardenName, String assistantGoogleId) {
         gardenRepository.approveAssistant(gardenName, assistantGoogleId);
     }
-    public void removeAssistant(String gardenName, String assistantGoogleId){
+
+    public void removeAssistant(String gardenName, String assistantGoogleId) {
         gardenRepository.removeAssistant(gardenName, assistantGoogleId);
     }
 
-    public UserLiveData getAssistant(String assistantGoogleId){
+    public UserLiveData getAssistant(String assistantGoogleId) {
         return userRepository.getUser(assistantGoogleId);
     }
 }

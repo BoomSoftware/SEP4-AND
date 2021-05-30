@@ -1,14 +1,13 @@
 package com.example.sep4_android.models;
 
-import android.net.Uri;
-
 public class User {
     private String name;
     private String avatarUrl;
     private String email;
     private String uid;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String name, String avatarUrl, String email, String uid) {
         this.name = name;

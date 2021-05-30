@@ -131,21 +131,4 @@ public class Plant {
     public void setHarvestedAt(String harvestedAt) {
         this.harvestedAt = harvestedAt;
     }
-
-    @Override
-    public String toString() {
-        return "Plant{" +
-                "plantID=" + plantID +
-                ", gardenName='" + gardenName + '\'' +
-                ", height=" + height +
-                ", stageOfGrowth='" + stageOfGrowth + '\'' +
-                ", soilType='" + soilType + '\'' +
-                ", ownSoilVolume=" + ownSoilVolume +
-                ", gardenLocation='" + gardenLocation + '\'' +
-                ", commonPlantName='" + commonPlantName + '\'' +
-                ", categoryName='" + categoryName + '\'' +
-                ", seededAt='" + seededAt + '\'' +
-                ", harvestedAt='" + harvestedAt + '\'' +
-                '}';
-    }
 }

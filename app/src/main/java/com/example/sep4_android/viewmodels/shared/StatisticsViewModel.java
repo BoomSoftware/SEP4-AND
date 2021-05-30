@@ -22,15 +22,15 @@ public class StatisticsViewModel extends AndroidViewModel {
         plantRepository = PlantRepository.getInstance(application);
     }
 
-    public MutableLiveData<List<Measurement>> getHistoricalMeasurements(){
+    public MutableLiveData<List<Measurement>> getHistoricalMeasurements() {
         return plantRepository.getHistoricalMeasurements();
     }
 
-    public void clearHistoricalMeasurements(){
+    public void clearHistoricalMeasurements() {
         plantRepository.clearHistoricalMeasurements();
     }
 
-    public void loadMeasurements(int plantId, FrequencyTypes frequencyType, MeasurementTypes measurementType){
+    public void loadMeasurements(int plantId, FrequencyTypes frequencyType, MeasurementTypes measurementType) {
         plantRepository.loadAllMeasurements(plantId, frequencyType, measurementType);
     }
 }

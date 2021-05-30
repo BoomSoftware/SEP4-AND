@@ -28,27 +28,27 @@ public class GardenerHomepageViewModel extends AndroidViewModel {
         plantRepository = PlantRepository.getInstance(application);
     }
 
-    public LiveData<Garden> getGarden(String userGoogleId){
+    public LiveData<Garden> getGarden(String userGoogleId) {
         return gardenRepository.getOwnGarden(userGoogleId);
     }
 
-    public LiveData<ConnectionStatus> getConnectionStatus(){
+    public LiveData<ConnectionStatus> getConnectionStatus() {
         return gardenRepository.getConnectionStatus();
     }
 
-    public LiveData<FirebaseUser> getCurrentUser(){
+    public LiveData<FirebaseUser> getCurrentUser() {
         return userRepository.getCurrentUser();
     }
 
-    public void removeGarden(String gardenName){
+    public void removeGarden(String gardenName) {
         gardenRepository.removeGarden(gardenName);
     }
 
-    public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
+    public LiveData<List<Plant>> getPlantsForGarden(String gardenName) {
         return plantRepository.getPlantsForGarden(gardenName);
     }
 
-    public void removePlant(int plantId){
+    public void removePlant(int plantId) {
         plantRepository.removePlantFromGarden(plantId);
     }
 

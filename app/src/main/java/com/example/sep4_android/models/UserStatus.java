@@ -3,8 +3,6 @@ package com.example.sep4_android.models;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.google.firebase.database.annotations.NotNull;
-
 @Entity
 public class UserStatus {
 

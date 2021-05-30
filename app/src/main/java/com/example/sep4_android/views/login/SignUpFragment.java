@@ -40,7 +40,7 @@ public class SignUpFragment extends Fragment {
 
     private void prepareOnClickEvents() {
         loginViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-            if(user != null){
+            if (user != null) {
                 buttonGardener.setOnClickListener(v -> {
                     loginViewModel.createUser(new UserStatus(user.getUid(), true));
                     openMainActivity();
@@ -53,7 +53,7 @@ public class SignUpFragment extends Fragment {
         });
     }
 
-    private void openMainActivity(){
+    private void openMainActivity() {
         Intent intent = new Intent(getContext(), MainAppActivity.class);
         startActivity(intent);
     }

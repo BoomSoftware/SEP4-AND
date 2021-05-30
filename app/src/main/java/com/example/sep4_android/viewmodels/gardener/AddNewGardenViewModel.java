@@ -12,8 +12,8 @@ import com.example.sep4_android.repositories.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AddNewGardenViewModel extends AndroidViewModel {
-    private GardenRepository gardenRepository;
-    private UserRepository userRepository;
+    private final GardenRepository gardenRepository;
+    private final UserRepository userRepository;
 
     public AddNewGardenViewModel(Application application) {
         super(application);
@@ -21,15 +21,15 @@ public class AddNewGardenViewModel extends AndroidViewModel {
         gardenRepository = GardenRepository.getInstance(application);
     }
 
-    public LiveData<ConnectionStatus> getCreationStatus(){
+    public LiveData<ConnectionStatus> getCreationStatus() {
         return gardenRepository.getCreatingStatus();
     }
 
-    public void addNewGarden(Garden garden){
+    public void addNewGarden(Garden garden) {
         gardenRepository.createGarden(garden);
     }
 
-    public LiveData<FirebaseUser> getCurrentUser(){
+    public LiveData<FirebaseUser> getCurrentUser() {
         return userRepository.getCurrentUser();
     }
 }

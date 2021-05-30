@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.ConnectionStatus;
@@ -32,12 +28,9 @@ import com.example.sep4_android.viewmodels.shared.PlantOverviewViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
-
 import es.dmoral.toasty.Toasty;
-
 
 public class PlantOverviewFragment extends DialogFragment {
 
@@ -130,39 +123,32 @@ public class PlantOverviewFragment extends DialogFragment {
         }).addOnFailureListener(exception -> {
         });
 
-
         viewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), status -> {
-
             if(status.isStatus()){
                 viewModel.loadPlant(plantID).observe(getViewLifecycleOwner(), plant -> {
-                    plantName.setText(plant.getCategoryName());
-                    plantLocation.setText(plant.getGardenLocation());
-                    String plantInfoText =
-                            getString(R.string.plant_height) + ": " + plant.getHeight() + "\n\n" +
-                            getString(R.string.plant_category_name) + ": " + plant.getCategoryName() + "\n\n" +
-                            getString(R.string.plant_soil_type) + ": " + plant.getSoilType() + "\n\n" +
-                            getString(R.string.plant_soil_volume) + ": " + plant.getOwnSoilVolume() + "\n\n" +
-                            getString(R.string.plant_growth_stage) + ": " + plant.getStageOfGrowth() + "\n\n";
-                    plantInfo.setText(plantInfoText);
+                    setPlantInfoText(plant);
                     loadMeasurements();
                 });
                 return;
             }
             Plant plant = viewModel.getSelectedPlant();
-            plantName.setText(plant.getCategoryName());
-            String plantInfoText =
-                    getString(R.string.plant_height) + ": " + plant.getHeight() + "\n\n" +
-                            getString(R.string.plant_category_name) + ": " + plant.getCategoryName() + "\n\n" +
-                            getString(R.string.plant_soil_type) + ": " + plant.getSoilType() + "\n\n" +
-                            getString(R.string.plant_soil_volume) + ": " + plant.getOwnSoilVolume() + "\n\n" +
-                            getString(R.string.plant_growth_stage) + ": " + plant.getStageOfGrowth() + "\n\n";
-            plantLocation.setText(plant.getGardenLocation());
-            plantInfo.setText(plantInfoText);
+            setPlantInfoText(plant);
             loadMeasurements();
         });
-
-
     }
+
+    private void setPlantInfoText(Plant plant){
+        String plantInfoText =
+                getString(R.string.plant_height) + ": " + plant.getHeight() + "\n\n" +
+                        getString(R.string.plant_category_name) + ": " + plant.getCategoryName() + "\n\n" +
+                        getString(R.string.plant_soil_type) + ": " + plant.getSoilType() + "\n\n" +
+                        getString(R.string.plant_soil_volume) + ": " + plant.getOwnSoilVolume() + "\n\n" +
+                        getString(R.string.plant_growth_stage) + ": " + plant.getStageOfGrowth() + "\n\n";
+        plantInfo.setText(plantInfoText);
+        plantName.setText(plant.getCategoryName());
+        plantLocation.setText(plant.getGardenLocation());
+    }
+
     private void loadMeasurements(){
         viewModel.loadMeasurements(plantID, FrequencyTypes.LATEST, MeasurementTypes.ALL);
         viewModel.getLoadedMeasurements().observe(getViewLifecycleOwner(), measurements -> {

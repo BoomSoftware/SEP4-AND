@@ -12,16 +12,16 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignUpViewModel extends AndroidViewModel {
     private final UserRepository userRepository;
 
-    public SignUpViewModel(Application application){
+    public SignUpViewModel(Application application) {
         super(application);
         userRepository = UserRepository.getInstance(application);
     }
 
-    public LiveData<FirebaseUser> getCurrentUser(){
+    public LiveData<FirebaseUser> getCurrentUser() {
         return userRepository.getCurrentUser();
     }
 
-    public void createUser(UserStatus status){
+    public void createUser(UserStatus status) {
         userRepository.createUser(status);
     }
 }

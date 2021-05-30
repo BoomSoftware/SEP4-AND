@@ -29,31 +29,31 @@ public class PlantOverviewViewModel extends AndroidViewModel {
         plantRepository = PlantRepository.getInstance(application);
     }
 
-    public LiveData<Plant> loadPlant(int plantId){
+    public LiveData<Plant> loadPlant(int plantId) {
         return plantRepository.loadPlant(plantId);
     }
 
-    public Plant getSelectedPlant(){
+    public Plant getSelectedPlant() {
         return plantRepository.getSelectedPlant();
     }
 
-    public LiveData<UserStatus> getUserStatus(String userGoogleId){
+    public LiveData<UserStatus> getUserStatus(String userGoogleId) {
         return userRepository.getStatus(userGoogleId);
     }
 
-    public LiveData<ConnectionStatus> getConnectionStatus(){
+    public LiveData<ConnectionStatus> getConnectionStatus() {
         return plantRepository.getConnectionStatus();
     }
 
-    public MutableLiveData<List<Measurement>> getLoadedMeasurements(){
+    public MutableLiveData<List<Measurement>> getLoadedMeasurements() {
         return plantRepository.getLoadedMeasurements();
     }
 
-    public void clearMeasurements(){
+    public void clearMeasurements() {
         plantRepository.clearMeasurements();
     }
 
-    public void loadMeasurements(int plantId, FrequencyTypes frequencyType, MeasurementTypes measurementType){
+    public void loadMeasurements(int plantId, FrequencyTypes frequencyType, MeasurementTypes measurementType) {
         plantRepository.loadAllMeasurements(plantId, frequencyType, measurementType);
     }
 }

@@ -2,20 +2,25 @@ package com.example.sep4_android.views.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import com.example.sep4_android.MainAppActivity;
 import com.example.sep4_android.R;
 import com.example.sep4_android.viewmodels.login.SignInViewModel;
 import com.firebase.ui.auth.AuthUI;
+
 import java.util.Arrays;
 import java.util.List;
+
 import es.dmoral.toasty.Toasty;
 
 import static android.app.Activity.RESULT_OK;
@@ -41,19 +46,19 @@ public class SignInFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN) {
+        if (requestCode == RC_SIGN_IN) {
             handleSignInRequest(resultCode);
         }
     }
 
-    private void checkIfSignedIn(){
+    private void checkIfSignedIn() {
         loginViewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-            if(user != null){
+            if (user != null) {
                 loginViewModel.getStatus(user.getUid()).observe(getViewLifecycleOwner(), status -> {
-                    if(status != null){
+                    if (status != null) {
                         Intent intent = new Intent(getContext(), MainAppActivity.class);
                         getContext().startActivity(intent);
-                    }else{
+                    } else {
                         Navigation.findNavController(view).navigate(R.id.action_signInFragment_to_signUpFragment);
                     }
                 });
@@ -71,7 +76,7 @@ public class SignInFragment extends Fragment {
         });
     }
 
-    private void signIn(){
+    private void signIn() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
@@ -84,18 +89,17 @@ public class SignInFragment extends Fragment {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void handleSignInRequest(int resultCode){
-        if(resultCode == RESULT_OK) {
+    private void handleSignInRequest(int resultCode) {
+        if (resultCode == RESULT_OK) {
             loginViewModel.getCurrentUser().observe(getActivity(), user -> {
                 loginViewModel.getStatus(user.getUid()).observe(getActivity(), status -> {
-                    if(status != null){
+                    if (status != null) {
                         Intent intent = new Intent(getContext(), MainAppActivity.class);
                         getContext().startActivity(intent);
                     }
                 });
             });
-        }
-        else{
+        } else {
             Toasty.error(getContext(), getContext().getString(R.string.invalid_auth), Toasty.LENGTH_SHORT).show();
         }
     }

@@ -13,7 +13,7 @@ public class ServiceGenerator {
     private static GardenApi gardenApi = retrofit.create(GardenApi.class);
 
     public static PlantApi getPlantApi() {
-        return  plantApi;
+        return plantApi;
     }
 
     public static GardenApi getGardenApi() {

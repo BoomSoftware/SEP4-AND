@@ -1,7 +1,6 @@
 package com.example.sep4_android;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class LoginActivity extends AppCompatActivity {

@@ -9,7 +9,6 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.sep4_android.R;
 
@@ -28,12 +27,12 @@ public class AssistantHomepageFragment extends Fragment {
         return view;
     }
 
-    private void prepareUI(){
+    private void prepareUI() {
         browseGardenButton = view.findViewById(R.id.button_assistant_browse);
         ownGardensButton = view.findViewById(R.id.button_assistant_own);
     }
 
-    private void prepareOnclickEvents(){
+    private void prepareOnclickEvents() {
         ownGardensButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_assistantHomepageFragment_to_ownGardenListFragment));
         browseGardenButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_assistantHomepageFragment_to_gardenListFragment));
     }

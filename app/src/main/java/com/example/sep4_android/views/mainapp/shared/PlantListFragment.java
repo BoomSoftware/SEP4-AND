@@ -14,19 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.sep4_android.R;
 import com.example.sep4_android.adapters.PlantAdapter;
-import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.shared.PlantListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.List;
-
-import es.dmoral.toasty.Toasty;
 
 public class PlantListFragment extends Fragment implements PlantAdapter.OnClickListener {
 
@@ -48,10 +42,8 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         prepareRecyclerView();
         prepareOnClickEvents();
         personalizeView();
-        checkConnectionStatus();
         return view;
     }
-
 
     private void prepareUI() {
         addPlantButton = view.findViewById(R.id.button_add_plant);
@@ -98,15 +90,6 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         recyclerView.setAdapter(plantAdapter);
     }
 
-    private void displayInformation(List<Plant> plants){
-        if (!plants.isEmpty()) {
-            emptyGarden.setVisibility(View.GONE);
-            plantAdapter.setPlants(plants);
-            return;
-        }
-        emptyGarden.setVisibility(View.VISIBLE);
-    }
-
     @Override
     public void onClick(Plant plant) {
         gardenViewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), status -> {
@@ -142,14 +125,12 @@ public class PlantListFragment extends Fragment implements PlantAdapter.OnClickL
         }).attachToRecyclerView(recyclerView);
     }
 
-    private void checkConnectionStatus(){
-        gardenViewModel.getConnectionStatus().observe(getViewLifecycleOwner(), status -> {
-            if(status.equals(ConnectionStatus.ERROR)){
-                Toasty.error(view.getContext(), view.getContext().getString(R.string.connection_error), Toast.LENGTH_SHORT, true).show();
-            }
-            if(status.equals(ConnectionStatus.SUCCESS)){
-                Toasty.success(view.getContext(), view.getContext().getString(R.string.action_success), Toast.LENGTH_SHORT, true).show();
-            }
-        });
+    private void displayInformation(List<Plant> plants){
+        if (!plants.isEmpty()) {
+            emptyGarden.setVisibility(View.GONE);
+            plantAdapter.setPlants(plants);
+            return;
+        }
+        emptyGarden.setVisibility(View.VISIBLE);
     }
 }

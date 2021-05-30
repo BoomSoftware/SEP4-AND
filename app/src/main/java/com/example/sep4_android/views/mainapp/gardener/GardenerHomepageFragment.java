@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.viewmodels.gardener.GardenerHomepageViewModel;
-
 import es.dmoral.toasty.Toasty;
 
 public class GardenerHomepageFragment extends Fragment {
@@ -99,7 +96,6 @@ public class GardenerHomepageFragment extends Fragment {
             buttonSettings.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_mainPageFragment_to_settingsFragment));
         });
     }
-
 
     private void showConfirmation(String gardenName){
         new AlertDialog.Builder(getContext())

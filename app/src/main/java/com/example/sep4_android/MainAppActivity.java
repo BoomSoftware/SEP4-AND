@@ -7,26 +7,21 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
-import androidx.navigation.NavInflater;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
@@ -37,11 +32,7 @@ import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
-
 import java.util.Map;
-
 import es.dmoral.toasty.Toasty;
 
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,7 +54,6 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         createNotificationChannel();
         checkConnectionStatus();
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -92,7 +82,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         viewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(this, status -> {
-            if(status.isStatus()){
+            if (status.isStatus()) {
                 menu.clear();
                 getMenuInflater().inflate(R.menu.main_menu, menu);
                 badgeDrawable = BadgeDrawable.create(this);
@@ -143,7 +133,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         });
     }
 
-    private void showConfirmation(){
+    private void showConfirmation() {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.are_you_sure))
                 .setMessage(getString(R.string.remove_account_confirmation))
@@ -154,20 +144,19 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    private void removeAccount(){
+    private void removeAccount() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         viewModel.removeUserFromOtherGardens(user.getUid());
         viewModel.getOwnGarden(user.getUid()).observe(this, garden -> {
-            if(garden != null){
+            if (garden != null) {
                 viewModel.getPlantsForGarden(garden.getName()).observe(this, plants -> {
-                    for(Plant plant : plants){
+                    for (Plant plant : plants) {
                         viewModel.removePlant(plant.getPlantID());
                     }
                     viewModel.removeUserStatus(user.getUid());
                     viewModel.removeGarden(garden.getName());
                 });
-            }
-            else{
+            } else {
                 viewModel.removeUserStatus(user.getUid());
                 viewModel.removeUser();
                 viewModel.signOut();
@@ -179,7 +168,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
                 viewModel.getUserStatus(user.getUid()).observe(this, status -> {
-                    if(status == null){
+                    if (status == null) {
                         startActivity(new Intent(this, LoginActivity.class));
                         return;
                     }
@@ -188,7 +177,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                     setNavigationHeader();
                 });
 
-            } else{
+            } else {
                 startActivity(new Intent(this, LoginActivity.class));
             }
         });
@@ -197,21 +186,17 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     private void prepareToolbar() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_fragment_main);
         navController = navHostFragment.getNavController();
-        NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_app_graph);
-        if (status) {
-            navGraph.setStartDestination(R.id.gardenerHomepageFragment);
-        } else {
-            navGraph.setStartDestination(R.id.assistantHomepageFragment);
-        }
-        navController.setGraph(navGraph);
 
+        NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_app_graph);
+        if (status) { navGraph.setStartDestination(R.id.gardenerHomepageFragment); }
+        else { navGraph.setStartDestination(R.id.assistantHomepageFragment); }
+        navController.setGraph(navGraph);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).setOpenableLayout(drawerLayout).build();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
-
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
     }
 
@@ -248,12 +233,12 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         }
     }
 
-    private void checkConnectionStatus(){
+    private void checkConnectionStatus() {
         viewModel.getConnectionStatus().observe(this, status -> {
-            if(status.equals(ConnectionStatus.ERROR)){
+            if (status.equals(ConnectionStatus.ERROR)) {
                 Toasty.error(this, getString(R.string.connection_error), Toast.LENGTH_SHORT, true).show();
             }
-            if(status.equals(ConnectionStatus.SUCCESS)){
+            if (status.equals(ConnectionStatus.SUCCESS)) {
                 Toasty.success(this, getString(R.string.action_success), Toast.LENGTH_SHORT, true).show();
             }
         });

@@ -5,8 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Garden;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -40,21 +42,21 @@ public class GardenAdapter extends FirebaseRecyclerAdapter<Garden, GardenAdapter
                 holder.itemView.getContext().getString(R.string.assistant_no) + " " + model.getAssistantList().size() + "\n";
         holder.gardenInfo.setText(gardenInfo);
         holder.requestStatus.setVisibility(View.GONE);
-        if(model.getAssistantList().containsKey(assistantGoogleId)){
-            if(!model.getAssistantList().get(assistantGoogleId)){
+        if (model.getAssistantList().containsKey(assistantGoogleId)) {
+            if (!model.getAssistantList().get(assistantGoogleId)) {
                 holder.requestStatus.setVisibility(View.VISIBLE);
                 holder.requestStatus.setText(holder.itemView.getContext().getString(R.string.waiting_for_approve));
-            }else{
+            } else {
                 holder.requestStatus.setVisibility(View.GONE);
             }
 
             holder.requestButton.setText(holder.itemView.getContext().getString(R.string.cancel));
-            holder.requestButton.setOnClickListener(v-> {
+            holder.requestButton.setOnClickListener(v -> {
                 listener.onCancelAssistance(model.getName(), assistantGoogleId);
             });
-        }else{
+        } else {
             holder.requestButton.setText(holder.itemView.getContext().getString(R.string.send_request));
-            holder.requestButton.setOnClickListener(v-> {
+            holder.requestButton.setOnClickListener(v -> {
                 listener.onSendRequestClick(model.getName());
             });
         }
@@ -66,7 +68,7 @@ public class GardenAdapter extends FirebaseRecyclerAdapter<Garden, GardenAdapter
         Button requestButton;
         TextView requestStatus;
 
-        public ViewHolder(@NotNull View itemView){
+        public ViewHolder(@NotNull View itemView) {
             super(itemView);
             gardenName = itemView.findViewById(R.id.text_garden_item_name);
             requestButton = itemView.findViewById(R.id.button_garden_item_request);
@@ -78,6 +80,7 @@ public class GardenAdapter extends FirebaseRecyclerAdapter<Garden, GardenAdapter
 
     public interface OnItemClickListener {
         void onSendRequestClick(String gardenName);
+
         void onCancelAssistance(String gardenName, String assistantGoogleId);
     }
 }

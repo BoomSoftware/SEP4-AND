@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
 import com.example.sep4_android.data.GardenDAO;
 import com.example.sep4_android.data.GardenDatabase;
 import com.example.sep4_android.models.ConnectionStatus;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,37 +56,36 @@ public class GardenRepository {
         return instance;
     }
 
-    public LiveData<ConnectionStatus> getConnectionStatus(){
+    public LiveData<ConnectionStatus> getConnectionStatus() {
         return connectionStatus;
     }
 
-    public LiveData<Garden> getOwnGarden(String userGoogleId){
+    public LiveData<Garden> getOwnGarden(String userGoogleId) {
         return gardenDAO.getOwnGarden(userGoogleId);
     }
 
-    public LiveData<ConnectionStatus> getCreatingStatus(){
+    public LiveData<ConnectionStatus> getCreatingStatus() {
         return creationStatus;
     }
 
-    public MutableLiveData<String> getSynchronizedGardenName(){
+    public MutableLiveData<String> getSynchronizedGardenName() {
         return synchronizedGardenName;
     }
 
-
-    public void createGarden(Garden garden){
+    public void createGarden(Garden garden) {
         FirebaseDatabase.getInstance().getReference().child("gardens").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean result = true;
-                for(DataSnapshot gardenFromFirebase: snapshot.getChildren()){
-                    if(gardenFromFirebase.getKey().equals(garden.getName())){
+                for (DataSnapshot gardenFromFirebase : snapshot.getChildren()) {
+                    if (gardenFromFirebase.getKey().equals(garden.getName())) {
                         result = false;
                         creationStatus.setValue(ConnectionStatus.ERROR);
                         creationStatus.setValue(ConnectionStatus.NONE);
                         break;
                     }
                 }
-                if(result){
+                if (result) {
                     FirebaseDatabase.getInstance().getReference().child("gardens").child(garden.getName()).setValue(garden);
                     addGardenToLocalDatabase(garden);
                     creationStatus.setValue(ConnectionStatus.SUCCESS);
@@ -100,12 +101,12 @@ public class GardenRepository {
         });
     }
 
-    public void windowAction(boolean status){
+    public void windowAction(boolean status) {
         Call<Void> call = gardenApi.windowAction(status);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     connectionStatus.setValue(ConnectionStatus.SUCCESS);
                     connectionStatus.setValue(ConnectionStatus.NONE);
                 }
@@ -121,7 +122,7 @@ public class GardenRepository {
 
     public void removeGarden(String gardenName) {
         FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).removeValue((error, ref) -> {
-            if(error != null){
+            if (error != null) {
                 connectionStatus.setValue(ConnectionStatus.ERROR);
                 connectionStatus.setValue(ConnectionStatus.NONE);
                 return;
@@ -130,29 +131,29 @@ public class GardenRepository {
         executorService.execute(() -> gardenDAO.removeGarden(gardenName));
     }
 
-    public Query getAllGardens(){
+    public Query getAllGardens() {
         return FirebaseDatabase.getInstance().getReference().child("gardens");
     }
 
-    public Query getAllOwnsGardens(){
-        return FirebaseDatabase.getInstance().getReference().child("gardens").orderByChild("assistantList/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).equalTo(true);
+    public Query getAllOwnsGardens() {
+        return FirebaseDatabase.getInstance().getReference().child("gardens").orderByChild("assistantList/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).equalTo(true);
 
     }
 
-    public void initializeGarden(String gardenName){
+    public void initializeGarden(String gardenName) {
         garden = new GardenLiveData(FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName));
     }
 
-    public GardenLiveData getLiveGarden(){
+    public GardenLiveData getLiveGarden() {
         return garden;
     }
 
-    public void synchronizeGarden(){
+    public void synchronizeGarden() {
         FirebaseDatabase.getInstance().getReference().child("gardens").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot gardenFromFirebase : snapshot.getChildren()){
-                    if(gardenFromFirebase.child("ownerGoogleId").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                for (DataSnapshot gardenFromFirebase : snapshot.getChildren()) {
+                    if (gardenFromFirebase.child("ownerGoogleId").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                         Garden newGarden = new Garden(gardenFromFirebase.child("name").getValue().toString(),
                                 Double.parseDouble(gardenFromFirebase.child("landArea").getValue().toString()),
                                 gardenFromFirebase.child("city").getValue().toString(),
@@ -164,6 +165,7 @@ public class GardenRepository {
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 connectionStatus.setValue(ConnectionStatus.ERROR);
@@ -172,26 +174,26 @@ public class GardenRepository {
         });
     }
 
-    public void sendAssistantRequest(String gardenName){
+    public void sendAssistantRequest(String gardenName) {
         String assistantGoogleId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Map<String, Object> map = new HashMap<>();
         map.put(assistantGoogleId, false);
         FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).child("assistantList").updateChildren(map);
     }
 
-    public void approveAssistant(String gardenName, String assistantGoogleId){
+    public void approveAssistant(String gardenName, String assistantGoogleId) {
         Map<String, Object> map = new HashMap<>();
         map.put(assistantGoogleId, true);
         FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).child("assistantList").updateChildren(map);
     }
 
-    public void removeAssistant(String gardenName, String assistantGoogleId){
+    public void removeAssistant(String gardenName, String assistantGoogleId) {
         FirebaseDatabase.getInstance().getReference().child("gardens").child(gardenName).child("assistantList").child(assistantGoogleId).removeValue();
     }
 
-    private void addGardenToLocalDatabase(Garden garden){
+    private void addGardenToLocalDatabase(Garden garden) {
         executorService.execute(() -> {
-            if(!gardenDAO.checkIfGardenExist(garden.getName())){
+            if (!gardenDAO.checkIfGardenExist(garden.getName())) {
                 gardenDAO.createGarden(garden);
             }
         });

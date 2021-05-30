@@ -23,7 +23,6 @@ import es.dmoral.toasty.Toasty;
 public class AddGardenFragment extends Fragment {
 
     private AddNewGardenViewModel viewModel;
-
     private Button confirm;
     private EditText gardenName;
     private EditText gardenLand;
@@ -44,7 +43,7 @@ public class AddGardenFragment extends Fragment {
         return view;
     }
 
-    private void prepareUI(){
+    private void prepareUI() {
         confirm = view.findViewById(R.id.button_add_garden);
         gardenName = view.findViewById(R.id.input_garden_name);
         gardenLand = view.findViewById(R.id.input_land_area);
@@ -53,46 +52,46 @@ public class AddGardenFragment extends Fragment {
         gardenCity = view.findViewById(R.id.input_city);
     }
 
-    private void prepareOnClickEvents(){
+    private void prepareOnClickEvents() {
         confirm.setOnClickListener(v -> {
-           if(validation()) {
-               viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
-                   viewModel.addNewGarden(new Garden(gardenName.getText().toString(), Double.parseDouble(gardenLand.getText().toString()), gardenCity.getText().toString(), gardenStreet.getText().toString(), gardenNumber.getText().toString(), user.getUid()));
-               });
-           }
+            if (validation()) {
+                viewModel.getCurrentUser().observe(getViewLifecycleOwner(), user -> {
+                    viewModel.addNewGarden(new Garden(gardenName.getText().toString(), Double.parseDouble(gardenLand.getText().toString()), gardenCity.getText().toString(), gardenStreet.getText().toString(), gardenNumber.getText().toString(), user.getUid()));
+                });
+            }
         });
     }
 
-    private boolean validation(){
-        if(gardenName == null || gardenName.getText().toString().equals("")) {
+    private boolean validation() {
+        if (gardenName == null || gardenName.getText().toString().equals("")) {
             Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_name), Toast.LENGTH_SHORT, true).show();
             return false;
         }
-        if(gardenLand.getText().toString().equals("") || Double.parseDouble(gardenLand.getText().toString()) < 0) {
+        if (gardenLand.getText().toString().equals("") || Double.parseDouble(gardenLand.getText().toString()) < 0) {
             Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_land), Toast.LENGTH_SHORT, true).show();
             return false;
         }
-        if(gardenStreet == null || gardenStreet.getText().toString().equals("")) {
+        if (gardenStreet == null || gardenStreet.getText().toString().equals("")) {
             Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_street), Toast.LENGTH_SHORT, true).show();
             return false;
         }
-        if(gardenNumber == null || gardenNumber.getText().toString().equals("")) {
+        if (gardenNumber == null || gardenNumber.getText().toString().equals("")) {
             Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_number), Toast.LENGTH_SHORT, true).show();
             return false;
         }
-        if(gardenCity == null || gardenCity.getText().toString().equals("")) {
+        if (gardenCity == null || gardenCity.getText().toString().equals("")) {
             Toasty.error(view.getContext(), view.getContext().getString(R.string.empty_field_garden_city), Toast.LENGTH_SHORT, true).show();
             return false;
         }
         return true;
     }
 
-    private void checkCreationStatus(){
+    private void checkCreationStatus() {
         viewModel.getCreationStatus().observe(getViewLifecycleOwner(), status -> {
-            if(status.equals(ConnectionStatus.ERROR)){
+            if (status.equals(ConnectionStatus.ERROR)) {
                 Toasty.error(view.getContext(), view.getContext().getString(R.string.not_unique_name), Toasty.LENGTH_SHORT, true).show();
             }
-            if(status.equals(ConnectionStatus.SUCCESS)) {
+            if (status.equals(ConnectionStatus.SUCCESS)) {
                 Toasty.success(view.getContext(), view.getContext().getString(R.string.success_garden), Toasty.LENGTH_SHORT, true).show();
                 Navigation.findNavController(view).navigate(R.id.action_addGardenFragment_to_gardenerHomepageFragment);
             }

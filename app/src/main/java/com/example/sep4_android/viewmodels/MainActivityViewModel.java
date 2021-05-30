@@ -22,18 +22,18 @@ public class MainActivityViewModel extends AndroidViewModel {
     private final GardenRepository gardenRepository;
     private final PlantRepository plantRepository;
 
-    public MainActivityViewModel(Application app){
+    public MainActivityViewModel(Application app) {
         super(app);
         userRepository = UserRepository.getInstance(app);
         gardenRepository = GardenRepository.getInstance(app);
         plantRepository = PlantRepository.getInstance(app);
     }
 
-    public LiveData<FirebaseUser> getCurrentUser(){
+    public LiveData<FirebaseUser> getCurrentUser() {
         return userRepository.getCurrentUser();
     }
 
-    public void windowAction(boolean status){
+    public void windowAction(boolean status) {
         gardenRepository.windowAction(status);
     }
 
@@ -41,15 +41,15 @@ public class MainActivityViewModel extends AndroidViewModel {
         return userRepository.getStatus(userGoogleID);
     }
 
-    public void initializeGarden(String gardenName){
+    public void initializeGarden(String gardenName) {
         gardenRepository.initializeGarden(gardenName);
     }
 
-    public LiveData<Garden> getGarden(String userGoogleId){
+    public LiveData<Garden> getGarden(String userGoogleId) {
         return gardenRepository.getOwnGarden(userGoogleId);
     }
 
-    public GardenLiveData getLiveGarden(){
+    public GardenLiveData getLiveGarden() {
         return gardenRepository.getLiveGarden();
     }
 
@@ -57,39 +57,39 @@ public class MainActivityViewModel extends AndroidViewModel {
         userRepository.signOut();
     }
 
-    public void removeUser(){
+    public void removeUser() {
         userRepository.removeUser();
     }
 
-    public void removePlant(int plantId){
+    public void removePlant(int plantId) {
         plantRepository.removePlantFromGarden(plantId);
     }
 
-    public void removeGarden(String gardenName){
+    public void removeGarden(String gardenName) {
         gardenRepository.removeGarden(gardenName);
     }
 
-    public LiveData<Garden> getOwnGarden(String userGoogleId){
+    public LiveData<Garden> getOwnGarden(String userGoogleId) {
         return gardenRepository.getOwnGarden(userGoogleId);
     }
 
-    public LiveData<List<Plant>> getPlantsForGarden(String gardenName){
+    public LiveData<List<Plant>> getPlantsForGarden(String gardenName) {
         return plantRepository.getPlantsForGarden(gardenName);
     }
 
-    public void removeUserStatus(String userGoogleId){
+    public void removeUserStatus(String userGoogleId) {
         userRepository.removeUserStatus(userGoogleId);
     }
 
-    public void removeUserFromOtherGardens(String userGoogleId){
+    public void removeUserFromOtherGardens(String userGoogleId) {
         userRepository.removeUserFromOtherGardens(userGoogleId);
     }
 
-    public void updateUserStatus(String userGoogleId, boolean status){
+    public void updateUserStatus(String userGoogleId, boolean status) {
         userRepository.updateUserStatus(userGoogleId, status);
     }
 
-    public LiveData<ConnectionStatus> getConnectionStatus(){
+    public LiveData<ConnectionStatus> getConnectionStatus() {
         return gardenRepository.getConnectionStatus();
     }
 }

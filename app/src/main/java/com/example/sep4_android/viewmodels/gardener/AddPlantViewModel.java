@@ -18,11 +18,11 @@ public class AddPlantViewModel extends AndroidViewModel {
         plantRepository = PlantRepository.getInstance(application);
     }
 
-    public void addNewPlantToGarden(Plant plant){
+    public void addNewPlantToGarden(Plant plant) {
         plantRepository.addPlantToGarden(plant);
     }
 
-    public LiveData<Plant> getPlant(int plantId){
+    public LiveData<Plant> getPlant(int plantId) {
         return plantRepository.loadPlant(plantId);
     }
 
@@ -30,7 +30,7 @@ public class AddPlantViewModel extends AndroidViewModel {
         plantRepository.updatePlantInGarden(plant);
     }
 
-    public LiveData<ConnectionStatus> getConnectionStatus(){
+    public LiveData<ConnectionStatus> getConnectionStatus() {
         return plantRepository.getConnectionStatus();
     }
 }

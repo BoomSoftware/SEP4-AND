@@ -154,7 +154,6 @@ public class PlantRepository {
         });
     }
 
-
     public void clearMeasurements(){
         measurements.setValue(null);
     }

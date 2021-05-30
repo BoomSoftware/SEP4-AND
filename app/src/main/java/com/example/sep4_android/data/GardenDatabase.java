@@ -13,12 +13,15 @@ import com.example.sep4_android.models.UserStatus;
 @Database(entities = {Plant.class, Garden.class, UserStatus.class}, version = 9)
 public abstract class GardenDatabase extends RoomDatabase {
     private static GardenDatabase instance;
+
     public abstract PlantDAO plantDAO();
+
     public abstract GardenDAO gardenDAO();
+
     public abstract StatusDAO statusDAO();
 
-    public static synchronized GardenDatabase getInstance(Context context){
-        if(instance == null) {
+    public static synchronized GardenDatabase getInstance(Context context) {
+        if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     GardenDatabase.class, "garden_database").fallbackToDestructiveMigration().build();
         }

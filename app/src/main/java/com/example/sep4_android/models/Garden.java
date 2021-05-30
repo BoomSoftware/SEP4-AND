@@ -20,7 +20,8 @@ public class Garden {
     @Ignore
     private Map<String, Boolean> assistantList = new HashMap<>();
 
-    public Garden(){}
+    public Garden() {
+    }
 
     public Garden(String name, double landArea, String city, String street, String number, String ownerGoogleId) {
         this.name = name;
@@ -98,15 +99,15 @@ public class Garden {
         this.assistantList = assistantList;
     }
 
-    public void addWaitingAssistant(String assistantGoogleId){
+    public void addWaitingAssistant(String assistantGoogleId) {
         this.assistantList.put(assistantGoogleId, false);
     }
 
-    public void approveAssistant(String assistantGoogleId){
+    public void approveAssistant(String assistantGoogleId) {
         this.assistantList.put(assistantGoogleId, true);
     }
 
-    public void removeAssistant(String assistantGoogleId){
+    public void removeAssistant(String assistantGoogleId) {
         this.assistantList.remove(assistantGoogleId);
     }
 }
