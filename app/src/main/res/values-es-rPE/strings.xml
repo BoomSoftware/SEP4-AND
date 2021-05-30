@@ -121,4 +121,5 @@
     <string name="measurement_success">Medidas cargadas satisfactoriamente</string>
     <string name="measurements_error">Error al cargar las medidas, inténtelo más tarde</string>
     <string name="no_gardens">Ningún jardín disponible</string>
+    <string name="empty_field">Campo vacío</string>
 </resources>

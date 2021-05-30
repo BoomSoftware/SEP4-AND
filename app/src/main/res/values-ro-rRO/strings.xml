@@ -119,4 +119,5 @@
     <string name="measurement_success">Masuratorile au fost incarcate cu succes.</string>
     <string name="measurements_error">Masuratorile nu au putut fi incarcate. Incercati mai tarziu.</string>
     <string name="no_gardens">Nu exista gradini disponibile.</string>
+    <string name="empty_field">Camp gol</string>
 </resources>

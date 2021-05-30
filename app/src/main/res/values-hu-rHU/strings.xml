@@ -121,4 +121,5 @@
     <string name="measurement_success">A mérés sikeresen be lett töltve</string>
     <string name="measurements_error">Mérés betöltése sikertelen. Próbálja újra később.</string>
     <string name="no_gardens">Egy kert sem elérhető</string>
+    <string name="empty_field">Üres mező</string>
 </resources>

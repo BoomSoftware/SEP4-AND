@@ -121,4 +121,5 @@
     <string name="measurement_success">Mērījumi veiksmīgi ielādēti.</string>
     <string name="measurements_error">Mērījumu ielādes kļūda. Mēģiniet vēlāk atkal.</string>
     <string name="no_gardens"> Nav pieejamu dārzu</string>
+    <string name="empty_field">Tukšs lauksd</string>
 </resources>
