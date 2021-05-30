@@ -22,6 +22,7 @@
             app:useSimpleSummaryProvider="true"
             android:defaultValue="insert text" />
 
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="User setting">
@@ -31,4 +32,5 @@
         android:summary="@string/settings_synchronize_summary"
         />
     </PreferenceCategory>
+
 </PreferenceScreen>
