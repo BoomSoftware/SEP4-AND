@@ -4,7 +4,7 @@
 
     <!--    Menu -->
     <string name="logout">Delogare</string>
-    <string name="remove_account">Sterge contul</string>
+    <string name="remove_account">Șterge contul</string>
     <string name="nav_switch">Schimba rolul</string>
     <string name="login">Logare</string>
 
@@ -13,111 +13,111 @@
     <string name="settings">Setari</string>
     <string name="view_garden">Vezi gradina</string>
     <string name="add_garden">Adauga gradina</string>
-    <string name="remove_garden">Stegre gradina</string>
+    <string name="remove_garden">Ștegre gradina</string>
     <string name="add_plant">Adauga planta</string>
     <string name="no_garden_added">Nu exista nicio gradina adaugata</string>
     <string name="main_title">GardenManager</string>
-    <string name="main_sub_title">Ai grija de gradina ta si verifica oricand statusul plantelor tale.</string>
+    <string name="main_sub_title">Ai grija de gradina ta și verifica oricând statusul plantelor tale.</string>
 
     <!-- Sign up -->
     <string name="gardener">Gradinar</string>
     <string name="assistant">Asistent</string>
 
     <!-- Add garden form -->
-    <string name="garden_name">Numele gradinii</string>
-    <string name="garden_land_area">Suprafata gradinii</string>
+    <string name="garden_name">Numele grădinii</string>
+    <string name="garden_land_area">Suprafaţa grădinii</string>
     <string name="garden_city">Oras</string>
     <string name="garden_street">Strada</string>
     <string name="garden_street_number">Numarul strazii</string>
-    <string name="create_garden">Creaza gradina</string>
-    <string name="create_garden_description"> Completeaza formularul si bucura-te de gradina ta. Vei putea administra toate plantele si asistentii gradinii tale.</string>
+    <string name="create_garden">Creaza grădina</string>
+    <string name="create_garden_description"> Completeaza formularul și bucura-te de grădina ta. Vei putea administra toate plantele și asistenţii grădinii tale.</string>
 
     <!-- Add plant form -->
-    <string name="plant_garden_name">Numele gradinii</string>
-    <string name="plant_height">Inaltimea plantei</string>
-    <string name="plant_width">Latimea plantei</string>
+    <string name="plant_garden_name">Numele grădinii</string>
+    <string name="plant_height">Inalţimea plantei</string>
+    <string name="plant_width">Laţimea plantei</string>
     <string name="plant_growth_stage">Stadiul cresterii</string>
     <string name="plant_soil_type">Tipul solului</string>
     <string name="plant_soil_volume">Volum</string>
-    <string name="plant_common_name">Denumirea comuna a plantei</string>
+    <string name="plant_common_name">Denumirea comună a plantei</string>
     <string name="plant_category_name">Numele categoriei</string>
-    <string name="plant_garden_location">Locatia gradinii</string>
+    <string name="plant_garden_location">Locaţia gradinii</string>
     <string name="plant_update">Actualizare</string>
-    <string name="add_plant_description"> Adaugand o planta gradinii vei putea primi masuratorile corespunzatoare.</string>
+    <string name="add_plant_description"> Adăugand o planta grădinii vei putea primi măsuratorile corespunzătoare.</string>
 
     <!--    Measurements-->
-    <string name="light">lumina</string>
+    <string name="light">lumină</string>
     <string name="co2">co2</string>
     <string name="humidity">umiditate</string>
-    <string name="temperature">temperatura</string>
+    <string name="temperature">temperatură</string>
 
     <!--    Messages-->
-    <string name="no_garden">Creaza o gradina!</string>
-    <string name="empty_garden">Nu a fost adaugata nicio planta.</string>
-    <string name="success_garden">O noua gradina a fost creata cu succes!</string>
-    <string name="remove_plant">Planta a fost stearsa cu succes!</string>
+    <string name="no_garden">Crează o grădina!</string>
+    <string name="empty_garden">Nu a fost adaugată nicio planta.</string>
+    <string name="success_garden">O noua grădina a fost creata cu succes!</string>
+    <string name="remove_plant">Planta a fost ștearsă cu succes!</string>
     <string name="welcome">Bine ati venit!</string>
     <string name="channel_name">Numele canalului</string>
     <string name="channel_description">Descrierea canalului</string>
 
     <!-- Data to display in the dialog box-->
-    <string name="measurements">Masuratori</string>
+    <string name="measurements">Măsuratori</string>
     <string name="no_data_text">Necompletat</string>
     <string name="statistics">Statistici</string>
     <string name="photo">Adauga fotografie</string>
 
     <!-- Garden Info-->
-    <string name="area">Suprafata:</string>
-    <string name="address">Adresa:</string>
-    <string name="assistant_no">Toti asistentii:</string>
-    <string name="assistants">Asistenti</string>
-    <string name="notifications">Notificatificari</string>
+    <string name="area">Suprafaţă:</string>
+    <string name="address">Adresă:</string>
+    <string name="assistant_no">Toţi asistenţii:</string>
+    <string name="assistants">Asistenţi</string>
+    <string name="notifications">Notificări</string>
 
     <!-- Empty field Garden-->
-    <string name="empty_field_garden_name">Numele gradinii nu a fost completat.</string>
-    <string name="empty_field_garden_land">Suprafata gradinii nu a fost completata.</string>
-    <string name="empty_field_garden_street">Strada gradinii nu a fost completata.</string>
+    <string name="empty_field_garden_name">Numele grădinii nu a fost completat.</string>
+    <string name="empty_field_garden_land">Suprafaţa grădinii nu a fost completată.</string>
+    <string name="empty_field_garden_street">Strada grădinii nu a fost completată.</string>
     <string name="empty_field_garden_number">Numarul strazii nu a fost completat.</string>
     <string name="empty_field_garden_city">Orasul nu a fost completat.</string>
 
     <!-- Empty field Plant-->
-    <string name="empty_field_plant_height">Inaltimea plantei nu a fost completata.</string>
+    <string name="empty_field_plant_height">Inalţimea plantei nu a fost completată.</string>
     <string name="empty_field_stage_growth">Stadiul cresterii plantei nu a fost completat.</string>
     <string name="empty_field_soil_type">Tipul solului nu a fost completat.</string>
     <string name="empty_field_soil_volume">Volumul nu a fost completat.</string>
-    <string name="empty_field_common_plant_name">Denumirea comuna a plantei nu a fost completata.</string>
+    <string name="empty_field_common_plant_name">Denumirea comuna a plantei nu a fost completată.</string>
     <string name="empty_field_category_name">Numele categoriei plantei nu a fost completat.</string>
-    <string name="empty_field_common_garden_location">Locatia gradinii nu a fost completata.</string>
+    <string name="empty_field_common_garden_location">Locatia grădinii nu a fost completată.</string>
 
-    <string name="settings_remove">Sterge contul.</string>
-    <string name="settings_synchronize">Sincrinizeaza-ti datele.</string>
-    <string name="settings_synchronize_summary">Aceasta optiune incarca datele dumneavoastra si le stocheaza in serverul nostru.</string>
+    <string name="settings_remove">Șterge contul.</string>
+    <string name="settings_synchronize">Sincrinizeaza-ţi datele.</string>
+    <string name="settings_synchronize_summary">Aceasta opţiune incarca datele dumneavoastră și le stochează in serverul nostru.</string>
 
 
-    <string name="are_you_sure">Esti sigur?</string>
-    <string name="remove_garden_confirmation"> Aceasta optiune va sterge permanent gradina si plantele acesteia.</string>
-    <string name="remove_assistant"> Aceasta opiune va sterge asistentul pentru gradina dumneavoastra.</string>
+    <string name="are_you_sure">Ești sigur?</string>
+    <string name="remove_garden_confirmation"> Aceasta opţiune va șterge permanent grădina și plantele acesteia.</string>
+    <string name="remove_assistant"> Aceasta opţiune va șterge asistentul pentru grădina dumneavoastra.</string>
     <string name="connection_error">Erroare la conectare. Incercati mai tarziu!</string>
-    <string name="not_unique_name">Exista deja o gradina cu acest nume.</string>
-    <string name="default_role"> Bine ati venit! Selectati-va modul implicit. Aceasta alegere va putea fi modificata ulterior.</string>
-    <string name="login_info">Logheaza-te folosind contul tau google sau de e-mail si incepe sa administrezi o gradina in cel mai comfortabil mod posibl.</string>
-    <string name="action_success">Actiunea a fost realizata cu succes!</string>
+    <string name="not_unique_name">Exista deja o gradină cu acest nume.</string>
+    <string name="default_role"> Bine aţi venit! Selectaţi-vă modul implicit. Aceasta alegere va putea fi modificată ulterior.</string>
+    <string name="login_info">Loghează-te folosind contul tău google sau de e-mail și incepe sa administrezi o grădina in cel mai comfortabil mod posibl.</string>
+    <string name="action_success">Acţiunea a fost realizată cu succes!</string>
 
-    <string name="browse_gardens">Cauta</string>
-    <string name="my_gardens">Gradinile mele</string>
-    <string name="assistant_description"> Cauta gradinile pentru care vrei sa devii asistent si vezi gradinile la care esti deja asistent.</string>
-    <string name="waiting_for_approve">Se asteapta acceptul.</string>
+    <string name="browse_gardens">Caută</string>
+    <string name="my_gardens">Grădinile mele</string>
+    <string name="assistant_description"> Cauta grădinile pentru care vrei sa devii asistent și vezi grădinile la care esti deja asistent.</string>
+    <string name="waiting_for_approve">Se așteaptă acceptul.</string>
     <string name="cancel">Anulare</string>
-    <string name="remove_account_confirmation"> Contul tau si toate informatiile acestuia vor fi sterse permanent.</string>
+    <string name="remove_account_confirmation"> Contul tau si toate informaţiile acestuia vor fi șterse permanent.</string>
     <string name="send_request">Trimite cerere</string>
-    <string name="empty_assistant_list">Nu exista asistenti</string>
+    <string name="empty_assistant_list">Nu există asistenţi</string>
     <string name="view_plant">Vezi planta</string>
-    <string name="remove_plant_description">Aceasta optiune va sterge permanent planta.</string>
-    <string name="empty_chart">Nicio informatie. Selecteaza masuratorile.</string>
+    <string name="remove_plant_description">Aceasta optiune va șterge permanent planta.</string>
+    <string name="empty_chart">Nicio informatie. Selectează masuratorile.</string>
     <string name="open_window">Deschide geamul.</string>
     <string name="close_window">Inchide geamul</string>
-    <string name="measurement_success">Masuratorile au fost incarcate cu succes.</string>
-    <string name="measurements_error">Masuratorile nu au putut fi incarcate. Incercati mai tarziu.</string>
-    <string name="no_gardens">Nu exista gradini disponibile.</string>
-    <string name="empty_field">Camp gol</string>
+    <string name="measurement_success">Măsuratorile au fost incarcate cu succes.</string>
+    <string name="measurements_error">Măsuratorile nu au putut fi incarcate. Incercaţi mai târziu.</string>
+    <string name="no_gardens">Nu exista grădini disponibile.</string>
+    <string name="empty_field">Câmp gol</string>
 </resources>
