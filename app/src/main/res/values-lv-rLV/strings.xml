@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SEP4-Android</string>
+    <string name="hello_blank_fragment">Sveiki tukšs fragments </string>
+
+
+
+    <!--    Menu -->
+    <string name="logout">Izrakstīties</string>
+    <string name="remove_account">Noņemt kontu</string>
+    <string name="nav_switch">Mainīt režīmu</string>
+    <string name="login">Pieslēgties</string>
+
+
+    <!-- Main app -->
+    <string name="settings">Uzstādījumi</string>
+    <string name="view_garden">Skatīt Dārzu</string>
+    <string name="add_garden">Pievienot Dārzu</string>
+    <string name="remove_garden">Dzēst Dārzu </string>
+    <string name="add_plant">Pievienot Augu</string>
+    <string name="no_garden_added">Nav pievienots dārzs</string>
+    <string name="main_title">DārzaPārvaldnieks</string>
+    <string name="main_sub_title">Pārvaldiet savu dārzu un pārbaudiet savu augu statusu jebkurā laikā</string>
+
+    <!-- Sign up -->
+    <string name="gardener">Dārznieks</string>
+    <string name="assistant">Palīgs</string>
+
+    <!-- Add garden form -->
+    <string name="garden_name">Dārza nosaukums</string>
+    <string name="garden_land_area">Zemes platība</string>
+    <string name="garden_city">Pilsēta</string>
+    <string name="garden_street">Iela</string>
+    <string name="garden_street_number">Ielas numurs</string>
+    <string name="create_garden">Izveidot dārzu</string>
+    <string name="create_garden_description"> Aizpildiet veidlapu un izbaudiet savu dārzu. Tas jums ļaus pārvaldīt visus augus un pievienot palīgus.</string>
+
+    <!-- Add plant form -->
+    <string name="plant_garden_name">Dārza Nosaukums</string>
+    <string name="plant_height">Auga Garums</string>
+    <string name="plant_width">Auga Platums</string>
+    <string name="plant_growth_stage">Auga izaugsmes posms</string>
+    <string name="plant_soil_type">Augsnes tips</string>
+    <string name="plant_soil_volume">Zemes tilpums</string>
+    <string name="plant_common_name">Auga sugas vārds</string>
+    <string name="plant_category_name">Kategorijas vārds</string>
+    <string name="plant_garden_location">Dārza atrašanās vieta</string>
+    <string name="plant_update">Atjaunināt</string>
+    <string name="add_plant_description"> Pēc auga pievienošanas ir iespējams saņemt mērījumus saistībā ar to</string>
+
+    <!--    Measurements-->
+    <string name="light">gaisma</string>
+    <string name="co2">co2</string>
+    <string name="humidity">mitrums</string>
+    <string name="temperature">temperatūra</string>
+
+    <!--    Messages-->
+    <string name="no_garden">Sākumā pievienojiet dārzu!</string>
+    <string name="empty_garden">Nav neviens augs pievienots izvēlētajam dārzam!</string>
+    <string name="success_garden">Jauns dārzs ir veiksmīgi pievienots!</string>
+    <string name="remove_plant">Augs ir veiksmīgi noņemts!</string>
+    <string name="welcome">Laipni lūdzam!</string>
+    <string name="channel_name">Kanāla vārds</string>
+    <string name="channel_description">Kanāla apraksts</string>
+
+    <!-- Data to display in the dialog box-->
+    <string name="measurements">Mērījumi</string>
+    <string name="no_data_text">Tukšs</string>
+    <string name="statistics">Statistikas</string>
+    <string name="photo">Uzņemt fotoattēlu</string>
+
+    <!-- Garden Info-->
+    <string name="area">Platība:</string>
+    <string name="address">Adrese:</string>
+    <string name="assistant_no">Visi palīgi:</string>
+    <string name="assistants">Palīgi</string>
+    <string name="notifications">Paziņojumi </string>
+
+    <!-- Empty field Garden-->
+    <string name="empty_field_garden_name">Tukšs  dārza nosaukuma lauks</string>
+    <string name="empty_field_garden_land">Tukšs dārza zemes lauks</string>
+    <string name="empty_field_garden_street">Tukšs dārza adreses lauks</string>
+    <string name="empty_field_garden_number"> Tukšs dārza numura lauks </string>
+    <string name="empty_field_garden_city"> Tukšs dārza pilsētas lauks </string>
+
+    <!-- Empty field Plant-->
+    <string name="empty_field_plant_height">Tukšs auga garuma lauks</string>
+    <string name="empty_field_stage_growth"> Tukšs auga izaugsmes posma lauks </string>
+    <string name="empty_field_soil_type"> Tukšs auga augsnes tipa lauks </string>
+    <string name="empty_field_soil_volume"> Tukšs augsnes tilpuma lauks </string>
+    <string name="empty_field_common_plant_name">Tukšs auga sugas nosaukuma lauks</string>
+    <string name="empty_field_category_name">Tuksš kategorijas nosaukuma lauks</string>
+    <string name="empty_field_common_garden_location">Tukšs dārza vietas lauks</string>
+
+    <string name="settings_remove">Noņemt kontu</string>
+    <string name="settings_synchronize">Sinhronizēt datus</string>
+    <string name="settings_synchronize_summary"> Šī darbība ielādē serverī saglabātos datus</string>
+
+
+    <string name="are_you_sure">Vai jūs esat pārliecināti? </string>
+    <string name="remove_garden_confirmation">Šī darbība neatgriezeniski dzēsīs dārzu ar visiem augiem.</string>
+    <string name="remove_assistant"> Šī darbība noņems izvēlēto asistentu no dārza.</string>
+    <string name="connection_error"> Tīkla kļūda. Mēģiniet atkārtoti vēlāk.</string>
+    <string name="not_unique_name">Jau pastāv dārzs ar izvēlēto vārdu.</string>
+    <string name="default_role"> Laipni lūdzam DārzaPārvaldnieka aplikācijā. Izvēlaties savu noklusējuma lomu, to ir iespējams mainīt vēlāk.</string>
+    <string name="login_info"> Pieslēdzaties lietojot savu Google kontu vai e-pastu un sāciet savu komfortablo dārza pārvaldīšanas piedzīvojumu</string>
+    <string name="action_success">Darbība veikta veiksmīgi.</string>
+
+    <string name="browse_gardens">Pārlūkot</string>
+    <string name="my_gardens">Mani dārzi</string>
+    <string name="assistant_description"> Pārlūkojiet dārzus kuriem jūs vēlaties pievienoties kā palīgs.</string>
+    <string name="waiting_for_approve">Gaida apstiprinājumu</string>
+    <string name="cancel">Atcelt</string>
+    <string name="remove_account_confirmation"> Šī darbība neatgriezeniski dzēsīs jūsu kontu un saistīto informāciju.</string>
+    <string name="send_request">Sūtīt pieprasījumu</string>
+    <string name="empty_assistant_list">Nav palīgu</string>
+    <string name="view_plant">Skatīt augu </string>
+    <string name="remove_plant_description">Ši darbība neatgriezeniski  </string>
+    <string name="empty_chart">Datu nav. Nav izvēlēti mērījumi.</string>
+    <string name="open_window">Atvērt logu</string>
+    <string name="close_window">Aizvērt logu</string>
+    <string name="measurement_success">Mērījumi veiksmīgi ielādēti.</string>
+    <string name="measurements_error">Mērījumu ielādes kļūda. Mēģiniet vēlāk atkal.</string>
+    <string name="no_gardens"> Nav pieejamu dārzu</string>
 </resources>
