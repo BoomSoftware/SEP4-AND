@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Plant;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
@@ -46,9 +47,8 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         String fileName = currentPlant.getPlantID() + ".jpg";
         FirebaseStorage.getInstance().getReference().child(fileName).getDownloadUrl().addOnSuccessListener(uri -> {
             System.out.println(uri.toString());
-            Glide.with(holder.itemView).load(uri).into(holder.plantImage);
-        });
-
+            Glide.with(holder.plantImage).load(uri).into(holder.plantImage);
+        }).addOnFailureListener(e -> holder.plantImage.setImageResource(R.drawable.plant_item));
 
         holder.plantName.setText(currentPlant.getCommonPlantName());
         holder.viewPlant.setOnClickListener(v -> {

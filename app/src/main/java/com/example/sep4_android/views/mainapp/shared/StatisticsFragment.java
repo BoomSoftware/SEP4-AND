@@ -33,6 +33,7 @@ public class StatisticsFragment extends Fragment {
     private TextView emptyChart;
     private Button light;
     private AnyChartView anyChartView;
+    private Cartesian bar;
     private int plantId;
     private ProgressBar progressBar;
 
@@ -47,6 +48,8 @@ public class StatisticsFragment extends Fragment {
         prepareUI();
         prepareOnClickEvents();
         loadData();
+        bar = AnyChart.column();
+        anyChartView.setChart(bar);
         return view;
     }
 
@@ -64,21 +67,25 @@ public class StatisticsFragment extends Fragment {
     private void prepareOnClickEvents() {
         co2.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
+            viewModel.clearHistoricalMeasurements();
             progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.CO2);
         });
         temp.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
+            viewModel.clearHistoricalMeasurements();
             progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.TEMP);
         });
         hum.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
+            viewModel.clearHistoricalMeasurements();
             progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.HUM);
         });
         light.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
+            viewModel.clearHistoricalMeasurements();
             progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.LIGHT);
         });
@@ -87,8 +94,8 @@ public class StatisticsFragment extends Fragment {
     private void loadData() {
         viewModel.getHistoricalMeasurements().observe(getViewLifecycleOwner(), measurements -> {
             if(measurements != null) {
-                Cartesian bar = AnyChart.column();
                 List<DataEntry> data = new ArrayList<>();
+                bar.removeAllSeries();
                 for (Measurement measurement : measurements) {
                     data.add(new ValueDataEntry(measurement.getDate(), measurement.getMeasurementValue()));
                 }
@@ -96,7 +103,6 @@ public class StatisticsFragment extends Fragment {
                 bar.getSeries(0).normal().fill("#739F62");
                 bar.getSeries(0).normal().stroke("#739F62", 0, "solid", "0", "0");
                 bar.background().fill("#22483E");
-                anyChartView.setChart(bar);
                 anyChartView.setVisibility(View.VISIBLE);
                 emptyChart.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);

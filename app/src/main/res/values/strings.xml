@@ -135,4 +135,5 @@
     <string name="measurement_success">Measurements has been successfully loaded</string>
     <string name="measurements_error">Loading measurements error. Try again later</string>
     <string name="no_gardens">No gardens available</string>
+    <string name="empty_field">Empty field</string>
 </resources>
