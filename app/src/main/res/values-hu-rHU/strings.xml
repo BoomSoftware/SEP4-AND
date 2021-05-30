@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SEP4-Android</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <!--    Menu -->
+    <string name="logout">Kijelentkezés</string>
+    <string name="remove_account">Fiók törlése</string>
+    <string name="nav_switch">Mód váltás</string>
+    <string name="login">Bejelentkezés</string>
+
+
+    <!-- Main app -->
+    <string name="settings">Beállítások</string>
+    <string name="view_garden">Kert megtekintése</string>
+    <string name="add_garden">Kert hozzáadása</string>
+    <string name="remove_garden">Kert törlése</string>
+    <string name="add_plant">Növény hozzáadása</string>
+    <string name="no_garden_added">Nincs kert hozzáadva</string>
+    <string name="main_title">Kert menedzser</string>
+    <string name="main_sub_title">CSekkold le a kerted és változtasd meg a növényeid státuszát bármikor</string>
+
+    <!-- Sign up -->
+    <string name="gardener">Kertész</string>
+    <string name="assistant">Asszisztent</string>
+
+    <!-- Add garden form -->
+    <string name="garden_name">Kert Név</string>
+    <string name="garden_land_area">Föld méret</string>
+    <string name="garden_city">Város</string>
+    <string name="garden_street">Út</string>
+    <string name="garden_street_number">Házszám</string>
+    <string name="create_garden">Kert létrehozása</string>
+    <string name="create_garden_description">Töltsd ki és élvezd a kerted. Ez lehetővé teszi hogy kézben tartsd a kerted és addj hozzá asszisztenseket.</string>
+
+    <!-- Add plant form -->
+    <string name="plant_garden_name">Kert Név</string>
+    <string name="plant_height">Növény magasság</string>
+    <string name="plant_width">Növény szélesség</string>
+    <string name="plant_growth_stage">Fejlődési stádium</string>
+    <string name="plant_soil_type">Föld típus</string>
+    <string name="plant_soil_volume">Térfogat</string>
+    <string name="plant_common_name">Hátköznapi növény név</string>
+    <string name="plant_category_name">Kategória Név</string>
+    <string name="plant_garden_location">Kert helyszín</string>
+    <string name="plant_update">Frissítés</string>
+    <string name="add_plant_description">A növények hozzáadásával lehetőség lesz a mérések követésére</string>
+
+    <!--    Measurements-->
+    <string name="light">fény</string>
+    <string name="co2">co2</string>
+    <string name="humidity">páratartalom</string>
+    <string name="temperature">hőmérséklet</string>
+
+    <!--    Messages-->
+    <string name="no_garden">Először hozz létre egy kertet!</string>
+    <string name="empty_garden">Egy növény sincs hozzáadva a kiválasztott kerthez!</string>
+    <string name="success_garden">Az új kert sikeresen létrehozva!</string>
+    <string name="remove_plant">A növény sikeresen el lett távolítva!</string>
+    <string name="welcome">Üdvözöljük</string>
+    <string name="channel_name">Csatorna név</string>
+    <string name="channel_description">CSatorna leírás</string>
+
+    <!-- Data to display in the dialog box-->
+    <string name="measurements">Mérések</string>
+    <string name="no_data_text">Üres</string>
+    <string name="statistics">Statisztikák</string>
+    <string name="photo">Készíts egy képet</string>
+
+    <!-- Garden Info-->
+    <string name="area">Méret:</string>
+    <string name="address">Cím:</string>
+    <string name="assistant_no">Összes asszisztent:</string>
+    <string name="assistants">Asszisztensek</string>
+    <string name="notifications">Értesítések</string>
+
+    <!-- Empty field Garden-->
+    <string name="empty_field_garden_name">Üres kert név mező</string>
+    <string name="empty_field_garden_land">Üres kert méret mező</string>
+    <string name="empty_field_garden_street">Üres kert út mező</string>
+    <string name="empty_field_garden_number">Üres kert szám mező</string>
+    <string name="empty_field_garden_city">Üres kert város mező</string>
+
+    <!-- Empty field Plant-->
+    <string name="empty_field_plant_height">Üres növény magasság mező</string>
+    <string name="empty_field_stage_growth">Üres növény fejlődési stádium mező</string>
+    <string name="empty_field_soil_type">Üres növény föld típus mező</string>
+    <string name="empty_field_soil_volume">Üres növény föld térfogat mező</string>
+    <string name="empty_field_common_plant_name">Üres növény hétköznapi név mező</string>
+    <string name="empty_field_category_name">Üres Kategória mező</string>
+    <string name="empty_field_common_garden_location">Üres Kert hely mező</string>
+
+    <string name="settings_remove">Felhasználó eltávolítása</string>
+    <string name="settings_synchronize">Adat szinkonizáció</string>
+    <string name="settings_synchronize_summary">Ez betölti az összes adatot ami a szerveren van</string>
+
+
+    <string name="are_you_sure">Biztos benne?</string>
+    <string name="remove_garden_confirmation">Minden adat a kerttel kapcsolatban törlésre kerül a növényekkel együtt.</string>
+    <string name="remove_assistant">Ki fogja törölni a kiválaszott asszisztens a kertből.</string>
+    <string name="connection_error">Kapcsolat hiba. Próbálkozzon újra később.</string>
+    <string name="not_unique_name">Létezik kert a megadott névvel</string>
+    <string name="default_role">Üdvözöljük a KertMenedzsment appban. Válassza ki a szerepét. Ezt a döntést később lehetősége lesz megváltoztatni.</string>
+    <string name="login_info">Jelentkezzen be a Google fiókjával vagy email címével és élvezze a kényelmes kert menedszmentet.</string>
+    <string name="action_success">A folyamat sikeres volt</string>
+
+    <string name="browse_gardens">Keresés</string>
+    <string name="my_gardens">Kertjeim</string>
+    <string name="assistant_description">Keress a kertek között hogy csatlakozz és keress a kertek között ahol asszisztens.</string>
+    <string name="waiting_for_approve">Várakozás jóváhagyásra</string>
+    <string name="cancel">Mégse</string>
+    <string name="remove_account_confirmation">Teljesen ki fogja törölni a felhasználtót és minden hozzá kapcsolódó információt.</string>
+    <string name="send_request">Kérelem küldése</string>
+    <string name="empty_assistant_list">Nincs egy asszisztens sem</string>
+    <string name="view_plant">Növény megtekintése</string>
+    <string name="remove_plant_description">Véglegsen törölni fogja a kiválasztott növényt</string>
+    <string name="empty_chart">Nincs adat. Válasszon ki egy mérést</string>
+    <string name="open_window">Ablak nyitása</string>
+    <string name="close_window">Ablak zárása</string>
+    <string name="measurement_success">A mérés sikeresen be lett töltve</string>
+    <string name="measurements_error">Mérés betöltése sikertelen. Próbálja újra később.</string>
+    <string name="no_gardens">Egy kert sem elérhető</string>
 </resources>

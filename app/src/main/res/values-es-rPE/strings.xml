@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SEP4-Android</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <!--    Menu -->
+    <string name="logout">Cerrar sesión</string>
+    <string name="remove_account">Eliminar cuenta</string>
+    <string name="nav_switch">Cambiar de modo</string>
+    <string name="login">Ingresar</string>
+
+
+    <!-- Main app -->
+    <string name="settings">Settings</string>
+    <string name="view_garden">View Garden</string>
+    <string name="add_garden">Add Garden</string>
+    <string name="remove_garden">Remove Garden</string>
+    <string name="add_plant">Add Plant</string>
+    <string name="no_garden_added">No garden added</string>
+    <string name="main_title">GardenManager</string>
+    <string name="main_sub_title">Manage your garden and check the status of plants anytime</string>
+
+    <!-- Sign up -->
+    <string name="gardener">Jardinero</string>
+    <string name="assistant">Asistente</string>
+
+    <!-- Add garden form -->
+    <string name="garden_name">Jardín inteligente</string>
+    <string name="garden_land_area">Area</string>
+    <string name="garden_city">Ciudad</string>
+    <string name="garden_street">Calle</string>
+    <string name="garden_street_number">Número</string>
+    <string name="create_garden">Crear jardín</string>
+    <string name="create_garden_description">Llene los datos correspondientes y disfrute de su jardín. Con esto podrá manejar todas sus plantas y añadir asistentes</string>
+
+    <!-- Add plant form -->
+    <string name="plant_garden_name">Nombre del Jardín</string>
+    <string name="plant_height">Altura de la planta</string>
+    <string name="plant_width">Grosor de la planta</string>
+    <string name="plant_growth_stage">Etapa de crecimiento</string>
+    <string name="plant_soil_type">Tipo de suelo</string>
+    <string name="plant_soil_volume">Columen</string>
+    <string name="plant_common_name">Nombre de pila de la planta</string>
+    <string name="plant_category_name">Categoría</string>
+    <string name="plant_garden_location">Posisión de la planta</string>
+    <string name="plant_update">Actualizar</string>
+    <string name="add_plant_description">Al añadir una planta al jardín le será posible recibir medidas estandarizadas</string>
+
+    <!--    Measurements-->
+    <string name="light">luz</string>
+    <string name="co2">co2</string>
+    <string name="humidity">humedad</string>
+    <string name="temperature">temperatura</string>
+
+    <!--    Messages-->
+    <string name="no_garden">Para empezar crea un jardín!</string>
+    <string name="empty_garden">Su Jardín está vacío</string>
+    <string name="success_garden">Jardín creado satisfactoriamente!</string>
+    <string name="remove_plant">Planta eliminada!</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="channel_name">Nombre del canal</string>
+    <string name="channel_description">Descripción del canal</string>
+
+    <!-- Data to display in the dialog box-->
+    <string name="measurements">Medidas</string>
+    <string name="no_data_text">Vacío</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="photo">Tome una foto</string>
+
+    <!-- Garden Info-->
+    <string name="area">Area:</string>
+    <string name="address">Dirección:</string>
+    <string name="assistant_no">Todos los asistentes:</string>
+    <string name="assistants">Asistentes</string>
+    <string name="notifications">Notificaciones</string>
+
+    <!-- Empty field Garden-->
+    <string name="empty_field_garden_name">Jardín sin nombre</string>
+    <string name="empty_field_garden_land">Empty Garden Land Field</string>
+    <string name="empty_field_garden_street">Empty Garden Street Field</string>
+    <string name="empty_field_garden_number">Empty Garden Number Field</string>
+    <string name="empty_field_garden_city">Empty Garden City Field</string>
+
+    <!-- Empty field Plant-->
+    <string name="empty_field_plant_height">Campo de la altura de la planta vacía</string>
+    <string name="empty_field_stage_growth">Campo del estado de crecimiento vacío</string>
+    <string name="empty_field_soil_type">Campo del tipo de suelo vacío</string>
+    <string name="empty_field_soil_volume">Campo del volumen del suelo vacío</string>
+    <string name="empty_field_common_plant_name">Campo del nombre de la planta vacío</string>
+    <string name="empty_field_category_name">Campo de categoría vacío</string>
+    <string name="empty_field_common_garden_location">Campo de ubicación de la planta vacío</string>
+
+    <string name="settings_remove">Eliminar cuenta</string>
+    <string name="settings_synchronize">Sincronizar datos</string>
+    <string name="settings_synchronize_summary">Con esto importará los datos del servidor</string>
+
+
+    <string name="are_you_sure">Estás seguro?</string>
+    <string name="remove_garden_confirmation">Esta acción eliminará permanentemente su jardín incluídas sus plantas</string>
+    <string name="remove_assistant">Esta acción eliminará al asistente seleccionado de su jardín</string>
+    <string name="connection_error">Error de conección. Inténtelo más tarde</string>
+    <string name="not_unique_name">Ya existe un jardín con ese nombre</string>
+    <string name="default_role">Bienvenido a GardenManager. Selección su rol por defecto. Podrá cambiarlo luego.</string>
+    <string name="login_info">Ingrese usando su cuenta de google o e-mail y empiece su aventura con este alucinante gestor de jardines</string>
+    <string name="action_success">La acción se llevó acabo con éxito</string>
+
+    <string name="browse_gardens">Navegarr</string>
+    <string name="my_gardens">Mis jardines</string>
+    <string name="assistant_description">Navega por los jardines que quieres ingresar y encuentra los que eres asistente</string>
+    <string name="waiting_for_approve">Esperando aprobación</string>
+    <string name="cancel">Cancelar</string>
+    <string name="remove_account_confirmation">Esta acción eliminará la cuenta y toda su información</string>
+    <string name="send_request">Enviar pedido</string>
+    <string name="empty_assistant_list">No hay asistentes</string>
+    <string name="view_plant">Ver planta</string>
+    <string name="remove_plant_description">Esta acción eliminará permanentemente la planta</string>
+    <string name="empty_chart">Sin datos. Seleccione la medida</string>
+    <string name="open_window">Abrir ventana</string>
+    <string name="close_window">Cerrar ventana</string>
+    <string name="measurement_success">Medidas cargadas satisfactoriamente</string>
+    <string name="measurements_error">Error al cargar las medidas, inténtelo más tarde</string>
+    <string name="no_gardens">Ningún jardín disponible</string>
 </resources>
