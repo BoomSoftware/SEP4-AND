@@ -1,4 +1,4 @@
-package com.example.sep4_android.viewmodels.shared;
+package com.example.sep4_android.viewmodels.gardener;
 
 import android.app.Application;
 

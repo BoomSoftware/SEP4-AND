@@ -49,7 +49,20 @@ public class StatisticsFragment extends Fragment {
         prepareOnClickEvents();
         loadData();
         bar = AnyChart.column();
+        bar.xScroller(true);
+        bar.xScroller().enabled();
+        anyChartView.setZoomEnabled(true);
         anyChartView.setChart(bar);
+        bar.background().fill("#22483E");
+        bar.xScroller().fill("#739F62");
+
+        bar.xScroller().selectedFill("#739F62", 2);
+        bar.xScroller().thumbs().autoHide(true);
+        bar.xScroller().thumbs().fill("#081C15");
+        bar.xScroller().thumbs().stroke("#739F62", 0, "solid", "0", "0");
+        bar.xScroller().autoHide(true);
+        bar.xAxis(false);
+
         return view;
     }
 
@@ -94,15 +107,18 @@ public class StatisticsFragment extends Fragment {
     private void loadData() {
         viewModel.getHistoricalMeasurements().observe(getViewLifecycleOwner(), measurements -> {
             if(measurements != null) {
+                System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVV" + measurements.size());
                 List<DataEntry> data = new ArrayList<>();
                 bar.removeAllSeries();
                 for (Measurement measurement : measurements) {
-                    data.add(new ValueDataEntry(measurement.getDate(), measurement.getMeasurementValue()));
+                    data.add(new ValueDataEntry(measurement.getDate() + " " + measurement.getTime().replace(".0000000", ""), measurement.getMeasurementValue()));
                 }
                 bar.column(data);
                 bar.getSeries(0).normal().fill("#739F62");
                 bar.getSeries(0).normal().stroke("#739F62", 0, "solid", "0", "0");
-                bar.background().fill("#22483E");
+                if(measurements.get(0) != null){
+                    bar.title(measurements.get(0).getMeasurementType());
+                }
                 anyChartView.setVisibility(View.VISIBLE);
                 emptyChart.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);

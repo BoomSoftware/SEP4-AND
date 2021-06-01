@@ -21,7 +21,7 @@ import androidx.preference.PreferenceManager;
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.Plant;
 import com.example.sep4_android.util.AlertReceiver;
-import com.example.sep4_android.viewmodels.shared.SettingsViewModel;
+import com.example.sep4_android.viewmodels.gardener.SettingsViewModel;
 
 import java.util.Calendar;
 
