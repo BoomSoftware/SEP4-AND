@@ -42,8 +42,10 @@ public class AssistantAdapter extends RecyclerView.Adapter<AssistantAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         listener.loadAssistantInfo(assistants.get(position)).observe((LifecycleOwner) holder.itemView.getContext(), assistant -> {
-            Glide.with(holder.itemView).load(assistant.getAvatarUrl()).into(holder.assistantAvatar);
-            holder.assistantEmail.setText(assistant.getEmail());
+            if(assistant != null){
+                Glide.with(holder.itemView).load(assistant.getAvatarUrl()).into(holder.assistantAvatar);
+                holder.assistantEmail.setText(assistant.getEmail());
+            }
         });
 
 
