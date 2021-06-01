@@ -43,17 +43,26 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
     private BadgeDrawable badgeDrawable;
     private MaterialToolbar toolbar;
     private boolean status;
+    private boolean isReopened;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         setContentView(R.layout.activity_main_app);
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         checkIfSignedIn();
-        setNavigationViewListener();
-        createNotificationChannel();
         checkConnectionStatus();
+        createNotificationChannel();
+        setNavigationViewListener();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isReopened = true;
+    }
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -173,8 +182,14 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                         return;
                     }
                     this.status = status.isStatus();
-                    prepareToolbar();
-                    setNavigationHeader();
+                    if(!isReopened){
+                        setNavigationHeader();
+                        prepareToolbar();
+                    }
+                    else{
+                        isReopened = false;
+                    }
+
                 });
 
             } else {
@@ -188,9 +203,10 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         navController = navHostFragment.getNavController();
 
         NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_app_graph);
-        if (status) { navGraph.setStartDestination(R.id.gardenerHomepageFragment); }
-        else { navGraph.setStartDestination(R.id.assistantHomepageFragment); }
-        navController.setGraph(navGraph);
+                if (status) { navGraph.setStartDestination(R.id.gardenerHomepageFragment); }
+                else { navGraph.setStartDestination(R.id.assistantHomepageFragment); }
+                navController.setGraph(navGraph, getIntent().getExtras());
+
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).setOpenableLayout(drawerLayout).build();
 

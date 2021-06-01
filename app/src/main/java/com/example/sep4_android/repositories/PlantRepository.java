@@ -135,7 +135,6 @@ public class PlantRepository {
         call.enqueue(new Callback<List<Measurement>>() {
             @Override
             public void onResponse(Call<List<Measurement>> call, Response<List<Measurement>> response) {
-                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX" + response.body());
                 if(response.isSuccessful() && response.body() != null) {
                     if(frequencyType.equals(FrequencyTypes.HISTORY)){
                         historicalMeasurements.setValue(response.body());
@@ -149,7 +148,6 @@ public class PlantRepository {
             }
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {
-                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX" + t.getMessage());
                 connectionStatus.setValue(ConnectionStatus.ERROR);
                 connectionStatus.setValue(ConnectionStatus.NONE);
             }

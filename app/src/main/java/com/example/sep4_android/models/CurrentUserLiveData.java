@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class CurrentUserLiveData extends LiveData<FirebaseUser> {
-    private final FirebaseAuth.AuthStateListener listener = firebaseAuth -> setValue(firebaseAuth.getCurrentUser());
+    private final FirebaseAuth.AuthStateListener listener = firebaseAuth -> postValue(firebaseAuth.getCurrentUser());
 
     @Override
     protected void onActive() {
