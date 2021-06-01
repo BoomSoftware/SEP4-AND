@@ -107,7 +107,6 @@ public class StatisticsFragment extends Fragment {
     private void loadData() {
         viewModel.getHistoricalMeasurements().observe(getViewLifecycleOwner(), measurements -> {
             if(measurements != null) {
-                System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVV" + measurements.size());
                 List<DataEntry> data = new ArrayList<>();
                 bar.removeAllSeries();
                 for (Measurement measurement : measurements) {
