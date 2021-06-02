@@ -109,7 +109,10 @@ public class GardenRepository {
                 if (response.isSuccessful()) {
                     connectionStatus.setValue(ConnectionStatus.SUCCESS);
                     connectionStatus.setValue(ConnectionStatus.NONE);
+                    return;
                 }
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
             }
 
             @Override

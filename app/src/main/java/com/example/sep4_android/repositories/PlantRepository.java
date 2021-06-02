@@ -141,10 +141,12 @@ public class PlantRepository {
                     }else{
                         measurements.setValue(response.body());
                     }
-
                     connectionStatus.setValue(ConnectionStatus.SUCCESS);
                     connectionStatus.setValue(ConnectionStatus.NONE);
+                    return;
                 }
+                connectionStatus.setValue(ConnectionStatus.ERROR);
+                connectionStatus.setValue(ConnectionStatus.NONE);
             }
             @Override
             public void onFailure(Call<List<Measurement>> call, Throwable t) {

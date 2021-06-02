@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.sep4_android.R;
 import com.example.sep4_android.models.ConnectionStatus;
@@ -30,8 +33,10 @@ import com.example.sep4_android.viewmodels.shared.PlantOverviewViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
+
 import es.dmoral.toasty.Toasty;
 
 public class PlantOverviewFragment extends DialogFragment {
@@ -68,7 +73,7 @@ public class PlantOverviewFragment extends DialogFragment {
         return view;
     }
 
-    private void prepareUI(){
+    private void prepareUI() {
         tempValue = view.findViewById(R.id.text_plant_temp);
         co2Value = view.findViewById(R.id.text_plant_co2);
         lightValue = view.findViewById(R.id.text_plant_light);
@@ -94,7 +99,7 @@ public class PlantOverviewFragment extends DialogFragment {
                 });
     }
 
-    private void savePictureInFirebase(Bitmap imageBitmap){
+    private void savePictureInFirebase(Bitmap imageBitmap) {
         String fileName = plantID + ".jpg";
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(fileName);
 
@@ -113,20 +118,18 @@ public class PlantOverviewFragment extends DialogFragment {
         });
         buttonTakePic.setOnClickListener(v -> {
             Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                pictureActivity.launch(pictureIntent);
+            pictureActivity.launch(pictureIntent);
         });
     }
 
-    private void loadData(){
+    private void loadData() {
         String fileName = plantID + ".jpg";
         FirebaseStorage.getInstance().getReference().child(fileName).getDownloadUrl().addOnSuccessListener(uri -> {
-            System.out.println(uri.toString());
             Glide.with(view).load(uri).into(plantImg);
-        }).addOnFailureListener(exception -> {
         });
 
         viewModel.getUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), status -> {
-            if(status.isStatus()){
+            if (status.isStatus()) {
                 viewModel.loadPlant(plantID).observe(getViewLifecycleOwner(), plant -> {
                     setPlantInfoText(plant);
                     loadMeasurements();
@@ -139,7 +142,7 @@ public class PlantOverviewFragment extends DialogFragment {
         });
     }
 
-    private void setPlantInfoText(Plant plant){
+    private void setPlantInfoText(Plant plant) {
         String plantInfoText =
                 getString(R.string.plant_height) + ": " + plant.getHeight() + "\n\n" +
                         getString(R.string.plant_category_name) + ": " + plant.getCategoryName() + "\n\n" +
@@ -151,25 +154,25 @@ public class PlantOverviewFragment extends DialogFragment {
         plantLocation.setText(plant.getGardenLocation());
     }
 
-    private void loadMeasurements(){
+    private void loadMeasurements() {
         viewModel.loadMeasurements(plantID, FrequencyTypes.LATEST, MeasurementTypes.ALL);
         viewModel.getLoadedMeasurements().observe(getViewLifecycleOwner(), measurements -> {
-            if(measurements != null){
-                for (Measurement measurement : measurements){
-                    if(measurement.getMeasurementType().equals(MeasurementTypes.TEMP.toString())){
-                        String value = formatter.format(measurement.getMeasurementValue()) + " \u00B0C";
+            if (measurements != null) {
+                for (Measurement measurement : measurements) {
+                    if (measurement.getMeasurementType().equals(MeasurementTypes.TEMP.toString())) {
+                        String value = formatter.format(measurement.getMeasurementValue()) + " " + getResources().getStringArray(R.array.units)[0];
                         tempValue.setText(value);
                     }
-                    if(measurement.getMeasurementType().equals(MeasurementTypes.CO2.toString())){
-                        String value = formatter.format(measurement.getMeasurementValue()) + " PPM";
+                    if (measurement.getMeasurementType().equals(MeasurementTypes.CO2.toString())) {
+                        String value = formatter.format(measurement.getMeasurementValue()) + " " + getResources().getStringArray(R.array.units)[1];
                         co2Value.setText(value);
                     }
-                    if(measurement.getMeasurementType().equals(MeasurementTypes.LIGHT.toString())){
-                        String value = formatter.format(measurement.getMeasurementValue()) + " lux";
+                    if (measurement.getMeasurementType().equals(MeasurementTypes.LIGHT.toString())) {
+                        String value = formatter.format(measurement.getMeasurementValue()) + " " + getResources().getStringArray(R.array.units)[3];
                         lightValue.setText(value);
                     }
-                    if(measurement.getMeasurementType().equals(MeasurementTypes.HUM.toString())){
-                        String value = formatter.format(measurement.getMeasurementValue()) + " %";
+                    if (measurement.getMeasurementType().equals(MeasurementTypes.HUM.toString())) {
+                        String value = formatter.format(measurement.getMeasurementValue()) + " " + getResources().getStringArray(R.array.units)[2];
                         humidityValue.setText(value);
                     }
                 }
@@ -178,12 +181,12 @@ public class PlantOverviewFragment extends DialogFragment {
         });
     }
 
-    private void checkConnectionStatus(){
+    private void checkConnectionStatus() {
         viewModel.getConnectionStatus().observe(getViewLifecycleOwner(), status -> {
-            if(status.equals(ConnectionStatus.ERROR)){
+            if (status.equals(ConnectionStatus.ERROR)) {
                 Toasty.error(view.getContext(), view.getContext().getString(R.string.measurements_error), Toast.LENGTH_SHORT, true).show();
             }
-            if(status.equals(ConnectionStatus.SUCCESS)){
+            if (status.equals(ConnectionStatus.SUCCESS)) {
                 Toasty.success(view.getContext(), view.getContext().getString(R.string.measurement_success), Toast.LENGTH_SHORT, true).show();
             }
         });

@@ -29,5 +29,7 @@ public interface PlantApi {
 
 
     @GET("measurements/{plantId}")
-    Call<List<Measurement>> getAllMeasurements(@Path("plantId") int plantId, @Query("type") String type, @Query("measurementType") String measurementType);
+    Call<List<Measurement>> getAllMeasurements(@Path("plantId") int plantId,
+                                               @Query("type") String type,
+                                               @Query("measurementType") String measurementType);
 }

@@ -10,6 +10,7 @@ import androidx.navigation.NavGraph;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.Plant;
@@ -32,7 +34,10 @@ import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import java.util.Map;
+import java.util.Objects;
+
 import es.dmoral.toasty.Toasty;
 
 public class MainAppActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,8 +67,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         isReopened = true;
     }
 
-
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -74,8 +78,7 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                 showConfirmation();
                 break;
             case R.id.nav_switch:
-                viewModel.updateUserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid(), !status);
-                status = !status;
+                viewModel.updateUserStatus(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), !status);
                 break;
             case R.id.nav_open_window:
                 viewModel.windowAction(true);
@@ -182,11 +185,10 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
                         return;
                     }
                     this.status = status.isStatus();
-                    if(!isReopened){
+                    if (!isReopened) {
                         setNavigationHeader();
                         prepareToolbar();
-                    }
-                    else{
+                    } else {
                         isReopened = false;
                     }
 
@@ -203,9 +205,12 @@ public class MainAppActivity extends AppCompatActivity implements NavigationView
         navController = navHostFragment.getNavController();
 
         NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_app_graph);
-                if (status) { navGraph.setStartDestination(R.id.gardenerHomepageFragment); }
-                else { navGraph.setStartDestination(R.id.assistantHomepageFragment); }
-                navController.setGraph(navGraph, getIntent().getExtras());
+        if (status) {
+            navGraph.setStartDestination(R.id.gardenerHomepageFragment);
+        } else {
+            navGraph.setStartDestination(R.id.assistantHomepageFragment);
+        }
+        navController.setGraph(navGraph, getIntent().getExtras());
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).setOpenableLayout(drawerLayout).build();

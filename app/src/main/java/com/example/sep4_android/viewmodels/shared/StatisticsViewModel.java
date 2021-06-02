@@ -4,8 +4,10 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.sep4_android.models.ConnectionStatus;
 import com.example.sep4_android.models.FrequencyTypes;
 import com.example.sep4_android.models.Measurement;
 import com.example.sep4_android.models.MeasurementTypes;
@@ -20,6 +22,10 @@ public class StatisticsViewModel extends AndroidViewModel {
     public StatisticsViewModel(@NonNull Application application) {
         super(application);
         plantRepository = PlantRepository.getInstance(application);
+    }
+
+    public LiveData<ConnectionStatus> getConnectionStatus() {
+        return plantRepository.getConnectionStatus();
     }
 
     public MutableLiveData<List<Measurement>> getHistoricalMeasurements() {
