@@ -19,7 +19,6 @@
   <string-array name="stage_of_growth">
       <item>Sprout</item>
       <item>Seedling</item>
-      <item>Seedling</item>
       <item>Vegetative</item>
       <item>Budding</item>
       <item>Flowering</item>
