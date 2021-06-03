@@ -88,17 +88,17 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void prepareOnClickEvents() {
-        co2.setOnClickListener(v -> {
-            emptyChart.setVisibility(View.GONE);
-            viewModel.clearHistoricalMeasurements();
-            progressBar.setVisibility(View.VISIBLE);
-            viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.CO2);
-        });
         temp.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
             viewModel.clearHistoricalMeasurements();
             progressBar.setVisibility(View.VISIBLE);
             viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.TEMP);
+        });
+        co2.setOnClickListener(v -> {
+            emptyChart.setVisibility(View.GONE);
+            viewModel.clearHistoricalMeasurements();
+            progressBar.setVisibility(View.VISIBLE);
+            viewModel.loadMeasurements(plantId, FrequencyTypes.HISTORY, MeasurementTypes.CO2);
         });
         hum.setOnClickListener(v -> {
             emptyChart.setVisibility(View.GONE);
